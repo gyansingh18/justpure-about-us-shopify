@@ -1,5 +1,5 @@
 {% comment %}
-  JustPure About Us Section - Premium Design
+  JustPure About Us Section - Premium Heritage Design
   Paste this in: Shopify Admin → Online Store → Themes → Edit code → Sections
   Create new section: about-us.liquid
   Add section to your About Us page template
@@ -10,60 +10,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 
 <section class="about-us-section" id="about-us-{{ section.id }}">
-  {%- comment -%} Hero / Intro {%- endcomment -%}
+  {%- comment -%} Hero Section {%- endcomment -%}
   <div class="about-us-hero">
-    <div class="about-us-hero__inner page-width">
+    <div class="about-us-hero__inner">
       <h1 class="about-us-hero__title">{{ section.settings.hero_title | default: 'Who We Are' }}</h1>
-      <p class="about-us-hero__subtitle">{{ section.settings.hero_subtitle | default: 'Healthy Choice, Wealthy Life' }}</p>
-      <div class="about-us-hero__content rte">
+      <p class="about-us-hero__subtitle">{{ section.settings.hero_subtitle | default: 'Healthy Choice. Wealthy Life.' }}</p>
+      <div class="about-us-hero__content">
         {{ section.settings.hero_description | default: "JUST PURE, backed by Shakti Vardhak Milk Producer Co. Ltd, brings farm-fresh dairy and natural products to the world while uplifting small farmers through better market access and sustainable practices." }}
       </div>
     </div>
   </div>
 
-  {%- comment -%} Who We Are - Main Story {%- endcomment -%}
+  {%- comment -%} Our Story {%- endcomment -%}
   <div class="about-us-story">
-    <div class="page-width">
+    <div class="about-us-story__container">
       <div class="about-us-story__grid">
         <div class="about-us-story__content">
           <h2 class="about-us__heading">{{ section.settings.story_heading | default: 'Our Story' }}</h2>
-          <div class="rte about-us__text">
-            {{ section.settings.story_content | default: "JUST PURE is the brand name owned by Shakti Vardhak Milk Producer Company Ltd, set up in 2016 under the aegis of NABARD. Shakti Vardhak is one of the established FPCs in Haryana with more than 1500 dairy farmers as active members.<br><br>M/s Shakti Vardhak Milk Producer Co. Ltd and M/s Krishak Support Pvt Ltd are owned by our FPO Members and bring their new product line for export and ecommerce under the name Just Pure. Our products range from milk and dairy products to dehydrated vegetables and much more.<br><br>The Company was incorporated to address the challenges of small milk farmers with a vision to support them in securing better market linkage and uplifting their livelihoods. We focus on educating our farmers about Good Animal Husbandry Practices, advanced animal health, and nutrition management—key elements of animal productivity." }}
+          <div class="about-us-story__text">
+            <p>JUST PURE is the brand name owned by Shakti Vardhak Milk Producer Company Ltd, set up in <strong>2016</strong> under the aegis of <strong>NABARD</strong>. Shakti Vardhak is one of the established FPCs in Haryana with more than <strong>1500 dairy farmers</strong> as active members.</p>
+            <p>M/s Shakti Vardhak Milk Producer Co. Ltd and M/s Krishak Support Pvt Ltd are owned by our FPO Members and bring their new product line for export and ecommerce under the name Just Pure. Our products range from milk and dairy products to dehydrated vegetables and much more.</p>
+            <p>The Company was incorporated to address the challenges of small milk farmers with a vision to support them in securing better market linkage and uplifting their livelihoods. We focus on educating our farmers about Good Animal Husbandry Practices, advanced animal health, and nutrition management—key elements of animal productivity.</p>
+            <p>We have been awarded thrice as <strong>"The BEST FPO"</strong> in Haryana under the guidance of <strong>NABARD</strong>. Our team is also part of the regional advisory group of NABARD.</p>
           </div>
         </div>
         {% if section.settings.story_image != blank %}
           <div class="about-us-story__image-wrapper">
             <img
-              src="{{ section.settings.story_image | image_url: width: 800 }}"
+              src="{{ section.settings.story_image | image_url: width: 1000 }}"
               alt="{{ section.settings.story_image.alt | escape }}"
-              width="800"
-              height="600"
+              width="1000"
+              height="1200"
               loading="lazy"
               class="about-us-story__image"
             >
           </div>
+        {% else %}
+          <div class="about-us-story__spacer"></div>
         {% endif %}
       </div>
     </div>
   </div>
 
-  {%- comment -%} Why Just Pure - Value Props {%- endcomment -%}
+  {%- comment -%} Why Just Pure {%- endcomment -%}
   <div class="about-us-values">
-    <div class="page-width">
+    <div class="about-us-values__container">
       <h2 class="about-us__heading about-us__heading--center">{{ section.settings.values_heading | default: 'Why Just Pure?' }}</h2>
       <div class="about-us-values__grid">
         <div class="about-us-value-card">
-          <div class="about-us-value-card__icon">◆</div>
-          <h3 class="about-us-value-card__title">{{ section.settings.value1_title | default: 'Authentic' }}</h3>
+          <h3 class="about-us-value-card__title">{{ section.settings.value1_title | default: 'Authentic & Traditional' }}</h3>
           <p class="about-us-value-card__desc">{{ section.settings.value1_desc | default: 'Fresh, natural and totally safe products.' }}</p>
         </div>
         <div class="about-us-value-card">
-          <div class="about-us-value-card__icon">◆</div>
           <h3 class="about-us-value-card__title">{{ section.settings.value2_title | default: '100% Quality' }}</h3>
           <p class="about-us-value-card__desc">{{ section.settings.value2_desc | default: 'Top-grade natural and hygienic products.' }}</p>
         </div>
         <div class="about-us-value-card">
-          <div class="about-us-value-card__icon">◆</div>
           <h3 class="about-us-value-card__title">{{ section.settings.value3_title | default: 'Pocket Friendly' }}</h3>
           <p class="about-us-value-card__desc">{{ section.settings.value3_desc | default: 'Extensive range at economical prices.' }}</p>
         </div>
@@ -73,7 +75,7 @@
 
   {%- comment -%} Business Model {%- endcomment -%}
   <div class="about-us-business">
-    <div class="page-width">
+    <div class="about-us-business__container">
       <h2 class="about-us__heading about-us__heading--center">{{ section.settings.business_heading | default: 'Our Business Model' }}</h2>
       <div class="about-us-business__grid">
         <div class="about-us-business-card">
@@ -81,7 +83,7 @@
           <p class="about-us-business-card__text">{{ section.settings.bm1_text | default: "Our FPO has developed a robust 'Package of Practices' for management of cattle breeds reared in the local region, in partnership with the State Animal Husbandry Department. We deliver information on animal health, nutrition, and hygiene management in the most understandable language." }}</p>
         </div>
         <div class="about-us-business-card">
-          <h3 class="about-us-business-card__title">{{ section.settings.bm2_title | default: 'Milk Collections' }}</h3>
+          <h3 class="about-us-business-card__title">{{ section.settings.bm2_title | default: 'Milk Collection' }}</h3>
           <p class="about-us-business-card__text">{{ section.settings.bm2_text | default: "We follow an aggregator-based collection model. Milk is collected from farmers' doorsteps by the aggregator, payment is made in exchange, and the milk is brought to our collection centre where quality is thoroughly ensured for further processing." }}</p>
         </div>
         <div class="about-us-business-card">
@@ -94,7 +96,7 @@
 
   {%- comment -%} Vision & Promise {%- endcomment -%}
   <div class="about-us-vision-promise">
-    <div class="page-width">
+    <div class="about-us-vision-promise__container">
       <div class="about-us-vision-promise__grid">
         <div class="about-us-vision-block">
           <h2 class="about-us__heading">{{ section.settings.vision_heading | default: 'Our Vision' }}</h2>
@@ -116,9 +118,9 @@
     </div>
   </div>
 
-  {%- comment -%} Milestones / Achievements {%- endcomment -%}
+  {%- comment -%} Achievements & Strengths {%- endcomment -%}
   <div class="about-us-milestones">
-    <div class="page-width">
+    <div class="about-us-milestones__container">
       <h2 class="about-us__heading about-us__heading--center">{{ section.settings.milestones_heading | default: 'Our Achievements & Strengths' }}</h2>
       <div class="about-us-milestones__grid">
         <div class="about-us-milestone-card">
@@ -149,17 +151,17 @@
     </div>
   </div>
 
-  {%- comment -%} CTA {%- endcomment -%}
+  {%- comment -%} Closing CTA {%- endcomment -%}
   <div class="about-us-cta">
-    <div class="page-width">
-      <h2 class="about-us-cta__title">{{ section.settings.cta_heading | default: 'Experience Purity, Taste the Difference' }}</h2>
+    <div class="about-us-cta__inner">
+      <h2 class="about-us-cta__title">{{ section.settings.cta_heading | default: 'Experience Purity. Taste the Difference.' }}</h2>
       <p class="about-us-cta__text">{{ section.settings.cta_text | default: 'Discover farm-fresh dairy and natural products crafted with care. Support sustainable farming and enjoy the purest quality with JUST PURE.' }}</p>
       {% if section.settings.cta_button_label != blank and section.settings.cta_button_link != blank %}
-        <a href="{{ section.settings.cta_button_link }}" class="about-us-cta__button button">
+        <a href="{{ section.settings.cta_button_link }}" class="about-us-cta__button">
           {{ section.settings.cta_button_label }}
         </a>
       {% else %}
-        <a href="{{ routes.root_url }}collections/all" class="about-us-cta__button button">Shop Now</a>
+        <a href="{{ routes.root_url }}collections/all" class="about-us-cta__button">Shop Now</a>
       {% endif %}
     </div>
   </div>
@@ -167,310 +169,440 @@
 
 <style>
   #about-us-{{ section.id }} {
-    font-family: 'DM Sans', var(--font-body-family), system-ui, sans-serif;
+    font-family: 'DM Sans', var(--font-body-family), system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    color: #2c2c2c;
   }
-  #about-us-{{ section.id }} .page-width {
-    max-width: 1520px;
+
+  /* ——— Hero Section ——— */
+  #about-us-{{ section.id }} .about-us-hero {
+    background: linear-gradient(160deg, #1a2e0a 0%, #2d5016 35%, #3d6b1a 70%, #4a7c23 100%);
+    color: #ffffff;
+    padding: 140px 48px 120px;
+    text-align: center;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-hero {
+      padding: 100px 24px 80px;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-hero__inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  #about-us-{{ section.id }} .about-us-hero__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    margin: 0 0 20px;
+    color: #ffffff;
+  }
+  #about-us-{{ section.id }} .about-us-hero__subtitle {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0.02em;
+    margin: 0 0 40px;
+    color: rgba(255, 255, 255, 0.92);
+  }
+  #about-us-{{ section.id }} .about-us-hero__content {
+    font-size: clamp(1.15rem, 1.8vw, 1.3rem);
+    line-height: 1.85;
+    max-width: 720px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  /* ——— Our Story ——— */
+  #about-us-{{ section.id }} .about-us-story {
+    padding: 140px 0;
+    background: #faf8f5;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-story {
+      padding: 100px 0;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-story__container {
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 48px;
   }
   @media (max-width: 768px) {
-    #about-us-{{ section.id }} .page-width { padding: 0 24px; }
-  }
-
-  /* ——— Hero ——— */
-  #about-us-{{ section.id }} .about-us-hero {
-    background: linear-gradient(145deg, #1e3a0f 0%, #2d5016 25%, #4a7c23 55%, #5a9e2e 100%);
-    color: #fff;
-    padding: 120px 48px 100px;
-    text-align: center;
-  }
-  @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-hero { padding: 80px 24px 72px; }
-  }
-  #about-us-{{ section.id }} .about-us-hero__title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(3rem, 7vw, 4.5rem);
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin: 0 0 16px;
-  }
-  #about-us-{{ section.id }} .about-us-hero__subtitle {
-    font-size: clamp(1.15rem, 2vw, 1.35rem);
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.92;
-    margin: 0 0 32px;
-  }
-  #about-us-{{ section.id }} .about-us-hero__content {
-    max-width: 820px;
-    margin: 0 auto;
-    font-size: clamp(1.1rem, 1.5vw, 1.2rem);
-    line-height: 1.75;
-    opacity: 0.95;
-  }
-
-  /* ——— Story ——— */
-  #about-us-{{ section.id }} .about-us-story {
-    padding: 100px 48px;
-    background: #f8f6f3;
-  }
-  @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-story { padding: 72px 24px; }
+    #about-us-{{ section.id }} .about-us-story__container {
+      padding: 0 24px;
+    }
   }
   #about-us-{{ section.id }} .about-us-story__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
+    gap: 100px;
+    align-items: start;
   }
-  @media (max-width: 992px) {
-    #about-us-{{ section.id }} .about-us-story__grid { gap: 56px; }
+  @media (max-width: 1024px) {
+    #about-us-{{ section.id }} .about-us-story__grid {
+      gap: 60px;
+    }
   }
   @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-story__grid { grid-template-columns: 1fr; gap: 48px; }
-    #about-us-{{ section.id }} .about-us-story__image-wrapper { order: -1; }
+    #about-us-{{ section.id }} .about-us-story__grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    #about-us-{{ section.id }} .about-us-story__image-wrapper {
+      order: -1;
+    }
   }
-  #about-us-{{ section.id }} .about-us__heading {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(2.25rem, 4vw, 3rem);
+  #about-us-{{ section.id }} .about-us-story__content {
+    max-width: 65ch;
+  }
+  #about-us-{{ section.id }} .about-us-story__text {
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: #3a3a3a;
+  }
+  #about-us-{{ section.id }} .about-us-story__text p {
+    margin: 0 0 24px;
+  }
+  #about-us-{{ section.id }} .about-us-story__text p:last-child {
+    margin-bottom: 0;
+  }
+  #about-us-{{ section.id }} .about-us-story__text strong {
+    color: #2d5016;
     font-weight: 600;
-    letter-spacing: -0.02em;
-    margin: 0 0 28px;
-    color: #1a1a1a;
   }
-  #about-us-{{ section.id }} .about-us__heading--center {
-    text-align: center;
-    margin-bottom: 56px;
-  }
-  @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us__heading--center { margin-bottom: 40px; }
-  }
-  #about-us-{{ section.id }} .about-us__text {
-    font-size: 1.1rem;
-    line-height: 1.85;
-    color: #3d3d3d;
+  #about-us-{{ section.id }} .about-us-story__image-wrapper {
+    position: relative;
   }
   #about-us-{{ section.id }} .about-us-story__image {
     width: 100%;
     height: auto;
-    border-radius: 16px;
+    border-radius: 4px;
     object-fit: cover;
-    box-shadow: 0 24px 48px rgba(0,0,0,0.08);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  }
+  #about-us-{{ section.id }} .about-us-story__spacer {
+    min-height: 400px;
   }
 
-  /* ——— Values ——— */
-  #about-us-{{ section.id }} .about-us-values {
-    padding: 100px 48px;
-    background: #fff;
+  /* ——— Headings ——— */
+  #about-us-{{ section.id }} .about-us__heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0 0 40px;
+    color: #1a1a1a;
+  }
+  #about-us-{{ section.id }} .about-us__heading--center {
+    text-align: center;
+    margin-bottom: 64px;
   }
   @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-values { padding: 72px 24px; }
+    #about-us-{{ section.id }} .about-us__heading--center {
+      margin-bottom: 48px;
+    }
+  }
+
+  /* ——— Why Just Pure ——— */
+  #about-us-{{ section.id }} .about-us-values {
+    padding: 140px 0;
+    background: #ffffff;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-values {
+      padding: 100px 0;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-values__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-values__container {
+      padding: 0 24px;
+    }
   }
   #about-us-{{ section.id }} .about-us-values__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    gap: 48px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-values__grid { grid-template-columns: 1fr; gap: 28px; }
+    #about-us-{{ section.id }} .about-us-values__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
   }
   #about-us-{{ section.id }} .about-us-value-card {
     text-align: center;
-    padding: 48px 36px;
-    background: #faf9f7;
-    border-radius: 16px;
-    border: 1px solid #eae8e4;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    padding: 56px 40px;
+    border-top: 2px solid #2d5016;
+    transition: transform 0.3s ease;
   }
   #about-us-{{ section.id }} .about-us-value-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-    border-color: #ddd9d2;
-  }
-  #about-us-{{ section.id }} .about-us-value-card__icon {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    color: #3d6b1a;
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 16px;
-    letter-spacing: 0.02em;
+    transform: translateY(-4px);
   }
   #about-us-{{ section.id }} .about-us-value-card__title {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(1.5rem, 2vw, 1.75rem);
-    font-weight: 600;
-    margin: 0 0 12px;
-    color: #1a1a1a;
-  }
-  #about-us-{{ section.id }} .about-us-value-card__desc {
-    margin: 0;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: #555;
-  }
-
-  /* ——— Business ——— */
-  #about-us-{{ section.id }} .about-us-business {
-    padding: 100px 48px;
-    background: #f8f6f3;
-  }
-  @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-business { padding: 72px 24px; }
-  }
-  #about-us-{{ section.id }} .about-us-business__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-  }
-  @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-business__grid { grid-template-columns: 1fr; gap: 28px; }
-  }
-  #about-us-{{ section.id }} .about-us-business-card {
-    padding: 48px 40px;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.05);
-    border-left: 5px solid #3d6b1a;
-    transition: box-shadow 0.25s ease;
-  }
-  #about-us-{{ section.id }} .about-us-business-card:hover {
-    box-shadow: 0 16px 48px rgba(0,0,0,0.08);
-  }
-  #about-us-{{ section.id }} .about-us-business-card__title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(1.35rem, 1.8vw, 1.5rem);
+    font-size: clamp(1.75rem, 2.5vw, 2.25rem);
     font-weight: 600;
     margin: 0 0 16px;
     color: #2d5016;
   }
-  #about-us-{{ section.id }} .about-us-business-card__text {
+  #about-us-{{ section.id }} .about-us-value-card__desc {
+    font-size: 1.1rem;
+    line-height: 1.7;
     margin: 0;
-    font-size: 1.05rem;
-    line-height: 1.75;
-    color: #444;
+    color: #555555;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ——— Business Model ——— */
+  #about-us-{{ section.id }} .about-us-business {
+    padding: 140px 0;
+    background: #f5f2ed;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-business {
+      padding: 100px 0;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-business__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-business__container {
+      padding: 0 24px;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-business__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 56px;
+  }
+  @media (max-width: 1024px) {
+    #about-us-{{ section.id }} .about-us-business__grid {
+      gap: 40px;
+    }
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-business__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-business-card {
+    padding: 0;
+    background: transparent;
+    border-left: 3px solid #2d5016;
+    padding-left: 32px;
+  }
+  #about-us-{{ section.id }} .about-us-business-card__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.6rem, 2vw, 2rem);
+    font-weight: 600;
+    margin: 0 0 20px;
+    color: #2d5016;
+  }
+  #about-us-{{ section.id }} .about-us-business-card__text {
+    font-size: 1.1rem;
+    line-height: 1.85;
+    margin: 0;
+    color: #3a3a3a;
+    max-width: 90%;
   }
 
   /* ——— Vision & Promise ——— */
   #about-us-{{ section.id }} .about-us-vision-promise {
-    padding: 100px 48px;
-    background: #fff;
+    padding: 140px 0;
+    background: #ffffff;
   }
   @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-vision-promise { padding: 72px 24px; }
+    #about-us-{{ section.id }} .about-us-vision-promise {
+      padding: 100px 0;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-vision-promise__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-vision-promise__container {
+      padding: 0 24px;
+    }
   }
   #about-us-{{ section.id }} .about-us-vision-promise__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 80px;
+    gap: 100px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-vision-promise__grid { grid-template-columns: 1fr; gap: 56px; }
+    #about-us-{{ section.id }} .about-us-vision-promise__grid {
+      grid-template-columns: 1fr;
+      gap: 64px;
+    }
   }
   #about-us-{{ section.id }} .about-us-vision-list,
   #about-us-{{ section.id }} .about-us-promise-list {
     margin: 0;
-    padding-left: 1.5rem;
-    font-size: 1.1rem;
-    line-height: 1.9;
-    color: #444;
+    padding: 0;
+    list-style: none;
+    font-size: 1.15rem;
+    line-height: 2.1;
+    color: #3a3a3a;
   }
   #about-us-{{ section.id }} .about-us-vision-list li,
   #about-us-{{ section.id }} .about-us-promise-list li {
-    margin-bottom: 12px;
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 16px;
+  }
+  #about-us-{{ section.id }} .about-us-vision-list li::before,
+  #about-us-{{ section.id }} .about-us-promise-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.85em;
+    width: 8px;
+    height: 8px;
+    background: #2d5016;
+    border-radius: 50%;
   }
 
-  /* ——— Milestones ——— */
+  /* ——— Achievements & Strengths ——— */
   #about-us-{{ section.id }} .about-us-milestones {
-    padding: 100px 48px;
-    background: #f8f6f3;
+    padding: 140px 0;
+    background: #faf8f5;
   }
   @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-milestones { padding: 72px 24px; }
+    #about-us-{{ section.id }} .about-us-milestones {
+      padding: 100px 0;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-milestones__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-milestones__container {
+      padding: 0 24px;
+    }
   }
   #about-us-{{ section.id }} .about-us-milestones__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   @media (max-width: 992px) {
-    #about-us-{{ section.id }} .about-us-milestones__grid { grid-template-columns: repeat(2, 1fr); }
+    #about-us-{{ section.id }} .about-us-milestones__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
   @media (max-width: 600px) {
-    #about-us-{{ section.id }} .about-us-milestones__grid { grid-template-columns: 1fr; gap: 24px; }
+    #about-us-{{ section.id }} .about-us-milestones__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
   }
   #about-us-{{ section.id }} .about-us-milestone-card {
-    padding: 36px 32px;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.05);
-    transition: box-shadow 0.25s ease;
+    padding: 40px 36px;
+    background: #ffffff;
+    border-top: 2px solid #2d5016;
+    transition: box-shadow 0.3s ease;
   }
   #about-us-{{ section.id }} .about-us-milestone-card:hover {
-    box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
   }
   #about-us-{{ section.id }} .about-us-milestone-card__year {
     display: block;
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    color: #3d6b1a;
-    letter-spacing: 0.04em;
-    margin-bottom: 12px;
+    color: #2d5016;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
   }
   #about-us-{{ section.id }} .about-us-milestone-card p {
     margin: 0;
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: #444;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #3a3a3a;
+  }
+  #about-us-{{ section.id }} .about-us-milestone-card strong {
+    color: #2d5016;
+    font-weight: 600;
   }
 
-  /* ——— CTA ——— */
+  /* ——— Closing CTA ——— */
   #about-us-{{ section.id }} .about-us-cta {
-    background: linear-gradient(145deg, #1e3a0f 0%, #2d5016 40%, #4a7c23 100%);
-    color: #fff;
-    padding: 120px 48px 100px;
+    background: linear-gradient(160deg, #1a2e0a 0%, #2d5016 40%, #3d6b1a 100%);
+    color: #ffffff;
+    padding: 140px 48px 120px;
     text-align: center;
   }
   @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-cta { padding: 80px 24px 72px; }
+    #about-us-{{ section.id }} .about-us-cta {
+      padding: 100px 24px 80px;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-cta__inner {
+    max-width: 800px;
+    margin: 0 auto;
   }
   #about-us-{{ section.id }} .about-us-cta__title {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    font-size: clamp(2.5rem, 6vw, 3.75rem);
     font-weight: 600;
-    letter-spacing: -0.02em;
-    margin: 0 0 24px;
-    line-height: 1.2;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0 0 28px;
+    color: #ffffff;
   }
   #about-us-{{ section.id }} .about-us-cta__text {
-    max-width: 720px;
-    margin: 0 auto 36px;
-    font-size: clamp(1.1rem, 1.5vw, 1.2rem);
-    line-height: 1.8;
-    opacity: 0.94;
+    font-size: clamp(1.15rem, 1.8vw, 1.3rem);
+    line-height: 1.85;
+    margin: 0 0 40px;
+    color: rgba(255, 255, 255, 0.92);
   }
   #about-us-{{ section.id }} .about-us-cta__button {
     display: inline-block;
-    padding: 18px 44px;
+    padding: 16px 48px;
     font-family: 'DM Sans', system-ui, sans-serif;
     font-size: 1rem;
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     text-decoration: none;
-    background: #fff;
+    background: #ffffff;
     color: #2d5016;
-    border-radius: 8px;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border: 2px solid #ffffff;
+    border-radius: 0;
+    transition: all 0.3s ease;
   }
   #about-us-{{ section.id }} .about-us-cta__button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+    background: transparent;
+    color: #ffffff;
+    transform: translateY(-2px);
   }
 </style>
 
@@ -485,21 +617,20 @@
       "content": "Hero"
     },
     { "type": "text", "id": "hero_title", "label": "Hero title", "default": "Who We Are" },
-    { "type": "text", "id": "hero_subtitle", "label": "Hero subtitle", "default": "Healthy Choice, Wealthy Life" },
+    { "type": "text", "id": "hero_subtitle", "label": "Hero subtitle", "default": "Healthy Choice. Wealthy Life." },
     { "type": "textarea", "id": "hero_description", "label": "Hero description" },
     {
       "type": "header",
       "content": "Our Story"
     },
     { "type": "text", "id": "story_heading", "label": "Story heading", "default": "Our Story" },
-    { "type": "richtext", "id": "story_content", "label": "Story content" },
     { "type": "image_picker", "id": "story_image", "label": "Story image" },
     {
       "type": "header",
       "content": "Why Just Pure"
     },
     { "type": "text", "id": "values_heading", "label": "Values heading", "default": "Why Just Pure?" },
-    { "type": "text", "id": "value1_title", "label": "Value 1 title", "default": "Authentic" },
+    { "type": "text", "id": "value1_title", "label": "Value 1 title", "default": "Authentic & Traditional" },
     { "type": "text", "id": "value1_desc", "label": "Value 1 description", "default": "Fresh, natural and totally safe products." },
     { "type": "text", "id": "value2_title", "label": "Value 2 title", "default": "100% Quality" },
     { "type": "text", "id": "value2_desc", "label": "Value 2 description", "default": "Top-grade natural and hygienic products." },
@@ -512,7 +643,7 @@
     { "type": "text", "id": "business_heading", "label": "Business heading", "default": "Our Business Model" },
     { "type": "text", "id": "bm1_title", "label": "BM 1 title", "default": "Production Side" },
     { "type": "textarea", "id": "bm1_text", "label": "BM 1 text" },
-    { "type": "text", "id": "bm2_title", "label": "BM 2 title", "default": "Milk Collections" },
+    { "type": "text", "id": "bm2_title", "label": "BM 2 title", "default": "Milk Collection" },
     { "type": "textarea", "id": "bm2_text", "label": "BM 2 text" },
     { "type": "text", "id": "bm3_title", "label": "BM 3 title", "default": "Processing Side" },
     { "type": "textarea", "id": "bm3_text", "label": "BM 3 text" },
@@ -531,7 +662,7 @@
       "type": "header",
       "content": "CTA"
     },
-    { "type": "text", "id": "cta_heading", "label": "CTA heading", "default": "Experience Purity, Taste the Difference" },
+    { "type": "text", "id": "cta_heading", "label": "CTA heading", "default": "Experience Purity. Taste the Difference." },
     { "type": "textarea", "id": "cta_text", "label": "CTA text", "default": "Discover farm-fresh dairy and natural products crafted with care. Support sustainable farming and enjoy the purest quality with JUST PURE." },
     { "type": "text", "id": "cta_button_label", "label": "CTA button label", "default": "Shop Now" },
     { "type": "url", "id": "cta_button_link", "label": "CTA button link" }

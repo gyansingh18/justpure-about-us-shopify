@@ -38,12 +38,16 @@ Default content matches the [JustPure About Us](https://justpureindia.com/about-
 
 ## Design Notes
 
-- **Premium typography**: Cormorant Garamond (serif) for headings, DM Sans for body. Google Fonts loaded in-section.
-- **Larger, more spacious layout**: 1520px max-width, 100–120px section padding, bigger type throughout.
-- Green gradient hero and CTA; warm off-whites (`#f8f6f3`) for alternating sections.
-- Responsive: stacks nicely on mobile (values, business model, milestones, vision/promise).
-- Section-specific CSS scoped to `#about-us-{{ section.id }}` to avoid clashes with your theme.
-- Optional **Story image** in **Our Story**; if none is set, that block is hidden and the layout still works.
+- **Premium heritage design**: Minimal, elegant, editorial layout suitable for a trusted NABARD-backed FPO.
+- **Typography**: Cormorant Garamond (serif) for headings, DM Sans for body. Google Fonts loaded in-section.
+- **Spacious layout**: 1400px max-width containers, 140px vertical section padding (100px on mobile), generous spacing throughout.
+- **Soft neutral backgrounds**: Off-white (`#faf8f5`) and light beige (`#f5f2ed`) alternating with white.
+- **Deep green accents**: `#2d5016` for headings, dividers, and highlights—trustworthy and heritage-appropriate.
+- **Text readability**: Paragraphs constrained to 65ch max-width, line-height 1.85–1.9 for comfortable reading.
+- **Minimal design**: No heavy boxes, subtle borders (top borders on cards), clean editorial aesthetic.
+- **Responsive**: Stacks cleanly on mobile with ample spacing maintained.
+- **Section-specific CSS**: Scoped to `#about-us-{{ section.id }}` to avoid theme conflicts.
+- **Story section**: Two-column layout with breathing space; image optional (spacer shown if no image).
 
 ## Fallbacks
 
