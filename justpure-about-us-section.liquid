@@ -1,9 +1,13 @@
 {% comment %}
-  JustPure About Us Section - Modern Design
+  JustPure About Us Section - Premium Design
   Paste this in: Shopify Admin → Online Store → Themes → Edit code → Sections
   Create new section: about-us.liquid
   Add section to your About Us page template
 {% endcomment %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 
 <section class="about-us-section" id="about-us-{{ section.id }}">
   {%- comment -%} Hero / Intro {%- endcomment -%}
@@ -162,129 +166,312 @@
 </section>
 
 <style>
-  #about-us-{{ section.id }} { font-family: var(--font-body-family), sans-serif; }
-  #about-us-{{ section.id }} .page-width { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  #about-us-{{ section.id }} {
+    font-family: 'DM Sans', var(--font-body-family), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  #about-us-{{ section.id }} .page-width {
+    max-width: 1520px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .page-width { padding: 0 24px; }
+  }
 
+  /* ——— Hero ——— */
   #about-us-{{ section.id }} .about-us-hero {
-    background: linear-gradient(135deg, #2d5016 0%, #4a7c23 50%, #5a9e2e 100%);
+    background: linear-gradient(145deg, #1e3a0f 0%, #2d5016 25%, #4a7c23 55%, #5a9e2e 100%);
     color: #fff;
-    padding: 60px 20px;
+    padding: 120px 48px 100px;
     text-align: center;
   }
-  #about-us-{{ section.id }} .about-us-hero__title { font-size: clamp(2rem, 5vw, 3rem); margin: 0 0 8px; font-weight: 700; letter-spacing: -0.02em; }
-  #about-us-{{ section.id }} .about-us-hero__subtitle { font-size: 1.1rem; opacity: 0.95; margin: 0 0 24px; }
-  #about-us-{{ section.id }} .about-us-hero__content { max-width: 720px; margin: 0 auto; line-height: 1.65; font-size: 1.05rem; }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-hero { padding: 80px 24px 72px; }
+  }
+  #about-us-{{ section.id }} .about-us-hero__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(3rem, 7vw, 4.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin: 0 0 16px;
+  }
+  #about-us-{{ section.id }} .about-us-hero__subtitle {
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.92;
+    margin: 0 0 32px;
+  }
+  #about-us-{{ section.id }} .about-us-hero__content {
+    max-width: 820px;
+    margin: 0 auto;
+    font-size: clamp(1.1rem, 1.5vw, 1.2rem);
+    line-height: 1.75;
+    opacity: 0.95;
+  }
 
-  #about-us-{{ section.id }} .about-us-story { padding: 60px 20px; background: #faf9f7; }
+  /* ——— Story ——— */
+  #about-us-{{ section.id }} .about-us-story {
+    padding: 100px 48px;
+    background: #f8f6f3;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-story { padding: 72px 24px; }
+  }
   #about-us-{{ section.id }} .about-us-story__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 48px;
+    gap: 80px;
     align-items: center;
   }
+  @media (max-width: 992px) {
+    #about-us-{{ section.id }} .about-us-story__grid { gap: 56px; }
+  }
   @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-story__grid { grid-template-columns: 1fr; }
+    #about-us-{{ section.id }} .about-us-story__grid { grid-template-columns: 1fr; gap: 48px; }
     #about-us-{{ section.id }} .about-us-story__image-wrapper { order: -1; }
   }
-  #about-us-{{ section.id }} .about-us__heading { font-size: 1.75rem; margin: 0 0 20px; color: #1a1a1a; }
-  #about-us-{{ section.id }} .about-us__heading--center { text-align: center; margin-bottom: 36px; }
-  #about-us-{{ section.id }} .about-us__text { line-height: 1.7; color: #444; }
-  #about-us-{{ section.id }} .about-us-story__image { width: 100%; height: auto; border-radius: 12px; object-fit: cover; }
+  #about-us-{{ section.id }} .about-us__heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.25rem, 4vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px;
+    color: #1a1a1a;
+  }
+  #about-us-{{ section.id }} .about-us__heading--center {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us__heading--center { margin-bottom: 40px; }
+  }
+  #about-us-{{ section.id }} .about-us__text {
+    font-size: 1.1rem;
+    line-height: 1.85;
+    color: #3d3d3d;
+  }
+  #about-us-{{ section.id }} .about-us-story__image {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.08);
+  }
 
-  #about-us-{{ section.id }} .about-us-values { padding: 60px 20px; background: #fff; }
+  /* ——— Values ——— */
+  #about-us-{{ section.id }} .about-us-values {
+    padding: 100px 48px;
+    background: #fff;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-values { padding: 72px 24px; }
+  }
   #about-us-{{ section.id }} .about-us-values__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
+    gap: 40px;
   }
-  @media (max-width: 768px) { #about-us-{{ section.id }} .about-us-values__grid { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-values__grid { grid-template-columns: 1fr; gap: 28px; }
+  }
   #about-us-{{ section.id }} .about-us-value-card {
     text-align: center;
-    padding: 32px 24px;
+    padding: 48px 36px;
     background: #faf9f7;
-    border-radius: 12px;
-    border: 1px solid #e8e6e3;
-    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 16px;
+    border: 1px solid #eae8e4;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
-  #about-us-{{ section.id }} .about-us-value-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
-  #about-us-{{ section.id }} .about-us-value-card__icon { color: #4a7c23; font-size: 1.5rem; margin-bottom: 12px; }
-  #about-us-{{ section.id }} .about-us-value-card__title { font-size: 1.25rem; margin: 0 0 8px; color: #1a1a1a; }
-  #about-us-{{ section.id }} .about-us-value-card__desc { margin: 0; color: #666; font-size: 0.95rem; line-height: 1.5; }
+  #about-us-{{ section.id }} .about-us-value-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+    border-color: #ddd9d2;
+  }
+  #about-us-{{ section.id }} .about-us-value-card__icon {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    color: #3d6b1a;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+  #about-us-{{ section.id }} .about-us-value-card__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.5rem, 2vw, 1.75rem);
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: #1a1a1a;
+  }
+  #about-us-{{ section.id }} .about-us-value-card__desc {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #555;
+  }
 
-  #about-us-{{ section.id }} .about-us-business { padding: 60px 20px; background: #faf9f7; }
+  /* ——— Business ——— */
+  #about-us-{{ section.id }} .about-us-business {
+    padding: 100px 48px;
+    background: #f8f6f3;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-business { padding: 72px 24px; }
+  }
   #about-us-{{ section.id }} .about-us-business__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
+    gap: 40px;
   }
-  @media (max-width: 768px) { #about-us-{{ section.id }} .about-us-business__grid { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-business__grid { grid-template-columns: 1fr; gap: 28px; }
+  }
   #about-us-{{ section.id }} .about-us-business-card {
-    padding: 32px 24px;
+    padding: 48px 40px;
     background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-    border-left: 4px solid #4a7c23;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+    border-left: 5px solid #3d6b1a;
+    transition: box-shadow 0.25s ease;
   }
-  #about-us-{{ section.id }} .about-us-business-card__title { font-size: 1.15rem; margin: 0 0 12px; color: #2d5016; }
-  #about-us-{{ section.id }} .about-us-business-card__text { margin: 0; color: #444; line-height: 1.65; font-size: 0.95rem; }
-
-  #about-us-{{ section.id }} .about-us-vision-promise { padding: 60px 20px; background: #fff; }
-  #about-us-{{ section.id }} .about-us-vision-promise__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
+  #about-us-{{ section.id }} .about-us-business-card:hover {
+    box-shadow: 0 16px 48px rgba(0,0,0,0.08);
   }
-  @media (max-width: 768px) { #about-us-{{ section.id }} .about-us-vision-promise__grid { grid-template-columns: 1fr; } }
-  #about-us-{{ section.id }} .about-us-vision-list,
-  #about-us-{{ section.id }} .about-us-promise-list {
+  #about-us-{{ section.id }} .about-us-business-card__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.35rem, 1.8vw, 1.5rem);
+    font-weight: 600;
+    margin: 0 0 16px;
+    color: #2d5016;
+  }
+  #about-us-{{ section.id }} .about-us-business-card__text {
     margin: 0;
-    padding-left: 1.25rem;
-    line-height: 1.8;
+    font-size: 1.05rem;
+    line-height: 1.75;
     color: #444;
   }
 
-  #about-us-{{ section.id }} .about-us-milestones { padding: 60px 20px; background: #faf9f7; }
+  /* ——— Vision & Promise ——— */
+  #about-us-{{ section.id }} .about-us-vision-promise {
+    padding: 100px 48px;
+    background: #fff;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-vision-promise { padding: 72px 24px; }
+  }
+  #about-us-{{ section.id }} .about-us-vision-promise__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-vision-promise__grid { grid-template-columns: 1fr; gap: 56px; }
+  }
+  #about-us-{{ section.id }} .about-us-vision-list,
+  #about-us-{{ section.id }} .about-us-promise-list {
+    margin: 0;
+    padding-left: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #444;
+  }
+  #about-us-{{ section.id }} .about-us-vision-list li,
+  #about-us-{{ section.id }} .about-us-promise-list li {
+    margin-bottom: 12px;
+  }
+
+  /* ——— Milestones ——— */
+  #about-us-{{ section.id }} .about-us-milestones {
+    padding: 100px 48px;
+    background: #f8f6f3;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-milestones { padding: 72px 24px; }
+  }
   #about-us-{{ section.id }} .about-us-milestones__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 32px;
   }
-  @media (max-width: 900px) { #about-us-{{ section.id }} .about-us-milestones__grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) { #about-us-{{ section.id }} .about-us-milestones__grid { grid-template-columns: 1fr; } }
+  @media (max-width: 992px) {
+    #about-us-{{ section.id }} .about-us-milestones__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    #about-us-{{ section.id }} .about-us-milestones__grid { grid-template-columns: 1fr; gap: 24px; }
+  }
   #about-us-{{ section.id }} .about-us-milestone-card {
-    padding: 24px;
+    padding: 36px 32px;
     background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-radius: 16px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+    transition: box-shadow 0.25s ease;
+  }
+  #about-us-{{ section.id }} .about-us-milestone-card:hover {
+    box-shadow: 0 12px 36px rgba(0,0,0,0.08);
   }
   #about-us-{{ section.id }} .about-us-milestone-card__year {
     display: block;
-    font-size: 0.85rem;
-    color: #4a7c23;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 8px;
+    color: #3d6b1a;
+    letter-spacing: 0.04em;
+    margin-bottom: 12px;
   }
-  #about-us-{{ section.id }} .about-us-milestone-card p { margin: 0; color: #444; font-size: 0.95rem; line-height: 1.6; }
+  #about-us-{{ section.id }} .about-us-milestone-card p {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #444;
+  }
 
+  /* ——— CTA ——— */
   #about-us-{{ section.id }} .about-us-cta {
-    background: linear-gradient(135deg, #2d5016 0%, #4a7c23 100%);
+    background: linear-gradient(145deg, #1e3a0f 0%, #2d5016 40%, #4a7c23 100%);
     color: #fff;
-    padding: 60px 20px;
+    padding: 120px 48px 100px;
     text-align: center;
   }
-  #about-us-{{ section.id }} .about-us-cta__title { font-size: clamp(1.5rem, 4vw, 2.25rem); margin: 0 0 16px; }
-  #about-us-{{ section.id }} .about-us-cta__text { max-width: 640px; margin: 0 auto 24px; line-height: 1.65; opacity: 0.95; }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-cta { padding: 80px 24px 72px; }
+  }
+  #about-us-{{ section.id }} .about-us-cta__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0 0 24px;
+    line-height: 1.2;
+  }
+  #about-us-{{ section.id }} .about-us-cta__text {
+    max-width: 720px;
+    margin: 0 auto 36px;
+    font-size: clamp(1.1rem, 1.5vw, 1.2rem);
+    line-height: 1.8;
+    opacity: 0.94;
+  }
   #about-us-{{ section.id }} .about-us-cta__button {
     display: inline-block;
-    padding: 14px 32px;
+    padding: 18px 44px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
     background: #fff;
     color: #2d5016;
-    font-weight: 600;
-    text-decoration: none;
     border-radius: 8px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
-  #about-us-{{ section.id }} .about-us-cta__button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+  #about-us-{{ section.id }} .about-us-cta__button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+  }
 </style>
 
 {% schema %}

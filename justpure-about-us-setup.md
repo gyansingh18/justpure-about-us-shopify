@@ -38,7 +38,9 @@ Default content matches the [JustPure About Us](https://justpureindia.com/about-
 
 ## Design Notes
 
-- Green gradient hero and CTA aligned with a natural/organic look.
+- **Premium typography**: Cormorant Garamond (serif) for headings, DM Sans for body. Google Fonts loaded in-section.
+- **Larger, more spacious layout**: 1520px max-width, 100–120px section padding, bigger type throughout.
+- Green gradient hero and CTA; warm off-whites (`#f8f6f3`) for alternating sections.
 - Responsive: stacks nicely on mobile (values, business model, milestones, vision/promise).
 - Section-specific CSS scoped to `#about-us-{{ section.id }}` to avoid clashes with your theme.
 - Optional **Story image** in **Our Story**; if none is set, that block is hidden and the layout still works.
