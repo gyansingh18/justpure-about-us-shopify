@@ -1,50 +1,137 @@
 {% comment %}
-  JustPure About Us Section - Exact Match to justpureindia.com/about-us/
+  JustPure About Us Section - World-Class Premium Design
   Paste this in: Shopify Admin → Online Store → Themes → Edit code → Sections
   Create new section: about-us.liquid
-  Add section to your About Us page template
   All CSS is inside this file—no extra stylesheets.
 {% endcomment %}
 
 <section class="about-us-section" id="about-us-{{ section.id }}">
-  {%- comment -%} Who We Are - Hero {%- endcomment -%}
+  {%- comment -%} Hero Section {%- endcomment -%}
   <div class="about-us-hero">
+    <div class="about-us-hero__bg"></div>
     <div class="about-us-hero__inner">
+      <div class="about-us-hero__badge">Since 2016</div>
       <h1 class="about-us-hero__title">{{ section.settings.hero_title | default: 'Who We Are' }}</h1>
+      <p class="about-us-hero__subtitle">Healthy Choice. Wealthy Life.</p>
       <div class="about-us-hero__content">
         {{ section.settings.hero_description | default: "JUST PURE, backed by Shakti Vardhak Milk Producer Co. Ltd, brings farm-fresh dairy and natural products to the world while uplifting small farmers through better market access and sustainable practices." }}
       </div>
     </div>
   </div>
 
-  {%- comment -%} Main Story Content {%- endcomment -%}
-  <div class="about-us-story">
-    <div class="about-us-story__container">
-      <div class="about-us-story__content">
-        <p>JUST PURE is brand name owned by Shakti Vardhak Milk Producer Company Ltd set up in <strong>2016</strong> under aegis of <strong>NABARD</strong>. Shakti Vardhak is one of the established FPCs in Haryana with more than <strong>1500 dairy farmers</strong> being its active members.</p>
-        <p>M/s Shakti Vardhak Milk Producer Co. Ltd and M/s Krishak Support Pvt Ltd are owned by our FPO Members and are coming in with their new product line for export and ecommerce under the name Just Pure. JUST PURE products will range from milk and dairy products to dehydrated veges and many more.</p>
-        <p>The Company was incorporated in order to deal with the challenges of small milk farmers with a vision to dedicatedly support them to get better market linkage and uplift their livelihoods. We give special attention in educating our farmers about Good Animal Husbandry Practices and advanced animal health requirements and aware them about nutrition management practices, which are the key elements of animal productivity.</p>
-        <p>We have been awarded thrice as <strong>"The BEST FPO"</strong> in Haryana under the guidance of <strong>NABARD</strong>. Our team is also part of the regional advisory group of NABARD.</p>
-        <p>We have assisted our farmer members in availing Pashupalan Kisan Credit Card (PKCC) and until now more than 265 applications have been submitted to different banks.</p>
-        <p>Our major strength lies in ever-increasing membership and share capital.</p>
+  {%- comment -%} Stats Section {%- endcomment -%}
+  <div class="about-us-stats">
+    <div class="about-us-stats__container">
+      <div class="about-us-stats__grid">
+        <div class="about-us-stat-card">
+          <div class="about-us-stat-card__number">1500+</div>
+          <div class="about-us-stat-card__label">Dairy Farmers</div>
+        </div>
+        <div class="about-us-stat-card">
+          <div class="about-us-stat-card__number">2016</div>
+          <div class="about-us-stat-card__label">Established</div>
+        </div>
+        <div class="about-us-stat-card">
+          <div class="about-us-stat-card__number">3x</div>
+          <div class="about-us-stat-card__label">Best FPO Award</div>
+        </div>
+        <div class="about-us-stat-card">
+          <div class="about-us-stat-card__number">20K</div>
+          <div class="about-us-stat-card__label">Litres Daily</div>
+        </div>
       </div>
     </div>
   </div>
 
-  {%- comment -%} Our Business Model {%- endcomment -%}
+  {%- comment -%} Story Section {%- endcomment -%}
+  <div class="about-us-story">
+    <div class="about-us-story__container">
+      <div class="about-us-story__grid">
+        <div class="about-us-story__content">
+          <div class="about-us-story__label">Our Story</div>
+          <h2 class="about-us-story__title">Rooted in Tradition, Growing with Innovation</h2>
+          <div class="about-us-story__text">
+            <p>JUST PURE is brand name owned by Shakti Vardhak Milk Producer Company Ltd set up in <strong>2016</strong> under aegis of <strong>NABARD</strong>. Shakti Vardhak is one of the established FPCs in Haryana with more than <strong>1500 dairy farmers</strong> being its active members.</p>
+            <p>M/s Shakti Vardhak Milk Producer Co. Ltd and M/s Krishak Support Pvt Ltd are owned by our FPO Members and are coming in with their new product line for export and ecommerce under the name Just Pure. JUST PURE products will range from milk and dairy products to dehydrated vegetables and much more.</p>
+            <p>The Company was incorporated in order to deal with the challenges of small milk farmers with a vision to dedicatedly support them to get better market linkage and uplift their livelihoods. We give special attention in educating our farmers about Good Animal Husbandry Practices and advanced animal health requirements and aware them about nutrition management practices, which are the key elements of animal productivity.</p>
+            <p>We have been awarded thrice as <strong>"The BEST FPO"</strong> in Haryana under the guidance of <strong>NABARD</strong>. Our team is also part of the regional advisory group of NABARD.</p>
+          </div>
+        </div>
+        {% if section.settings.story_image != blank %}
+          <div class="about-us-story__image-wrapper">
+            <img
+              src="{{ section.settings.story_image | image_url: width: 1200 }}"
+              alt="{{ section.settings.story_image.alt | escape }}"
+              width="1200"
+              height="1500"
+              loading="lazy"
+              class="about-us-story__image"
+            >
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Why Just Pure {%- endcomment -%}
+  <div class="about-us-values">
+    <div class="about-us-values__container">
+      <div class="about-us-values__header">
+        <div class="about-us-values__label">Why Choose Us</div>
+        <h2 class="about-us-values__title">{{ section.settings.values_heading | default: 'Why Just Pure?' }}</h2>
+      </div>
+      <div class="about-us-values__grid">
+        <div class="about-us-value-card">
+          <div class="about-us-value-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3 class="about-us-value-card__title">{{ section.settings.value1_title | default: 'Authentic' }}</h3>
+          <p class="about-us-value-card__desc">{{ section.settings.value1_desc | default: 'Fresh, natural and totally safe products' }}</p>
+        </div>
+        <div class="about-us-value-card">
+          <div class="about-us-value-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+            </svg>
+          </div>
+          <h3 class="about-us-value-card__title">{{ section.settings.value2_title | default: '100% Quality' }}</h3>
+          <p class="about-us-value-card__desc">{{ section.settings.value2_desc | default: 'Top-grade natural and hygienic products' }}</p>
+        </div>
+        <div class="about-us-value-card">
+          <div class="about-us-value-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+            </svg>
+          </div>
+          <h3 class="about-us-value-card__title">{{ section.settings.value3_title | default: 'Pocket Friendly' }}</h3>
+          <p class="about-us-value-card__desc">{{ section.settings.value3_desc | default: 'Extensive range at economical prices selling.' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Business Model {%- endcomment -%}
   <div class="about-us-business">
     <div class="about-us-business__container">
-      <h2 class="about-us__heading about-us__heading--center">{{ section.settings.business_heading | default: 'Our Business Model' }}</h2>
+      <div class="about-us-business__header">
+        <div class="about-us-business__label">How We Work</div>
+        <h2 class="about-us-business__title">{{ section.settings.business_heading | default: 'Our Business Model' }}</h2>
+      </div>
       <div class="about-us-business__grid">
         <div class="about-us-business-card">
+          <div class="about-us-business-card__number">01</div>
           <h3 class="about-us-business-card__title">{{ section.settings.bm1_title | default: 'Production Side' }}</h3>
           <p class="about-us-business-card__text">{{ section.settings.bm1_text | default: "Our FPO has developed a robust 'Package of Practices' for management of cattle breeds that are mainly reared in the local region in partnership with the State Animal Husbandry Department. Our prime focus is on delivering the necessary information on animal health, nutrition, and hygiene management practices to our farmers in the most understandable language." }}</p>
         </div>
         <div class="about-us-business-card">
+          <div class="about-us-business-card__number">02</div>
           <h3 class="about-us-business-card__title">{{ section.settings.bm2_title | default: 'Milk Collections' }}</h3>
           <p class="about-us-business-card__text">{{ section.settings.bm2_text | default: "We follow an aggregator-based collection model, in which milk is collected from farmer's doorstep by the aggregator and payment is made in exchange of milk. The collected milk is then brought to our collection centre where its quality is thoroughly ensured for the further processes." }}</p>
         </div>
         <div class="about-us-business-card">
+          <div class="about-us-business-card__number">03</div>
           <h3 class="about-us-business-card__title">{{ section.settings.bm3_title | default: 'Processing Side' }}</h3>
           <p class="about-us-business-card__text">{{ section.settings.bm3_text | default: "This area of our business model deals with the processing of the milk and milk products. The collected milk comes to our company's plant where it is pasteurized and packaged under our brand 'Shakti Vardhak'. We have our own plant which handles up to 20,000 litres of milk everyday for processing milk and milk products such as paneer, curd and ghee." }}</p>
         </div>
@@ -52,25 +139,10 @@
     </div>
   </div>
 
-  {%- comment -%} Why Just Pure? {%- endcomment -%}
-  <div class="about-us-values">
-    <div class="about-us-values__container">
-      <h2 class="about-us__heading about-us__heading--center">{{ section.settings.values_heading | default: 'Why Just Pure?' }}</h2>
-      <div class="about-us-values__grid">
-        <div class="about-us-value-card">
-          <h3 class="about-us-value-card__title">{{ section.settings.value1_title | default: 'Authentic' }}</h3>
-          <p class="about-us-value-card__desc">{{ section.settings.value1_desc | default: 'Fresh, natural and totally safe products' }}</p>
-        </div>
-        <div class="about-us-value-card">
-          <h3 class="about-us-value-card__title">{{ section.settings.value2_title | default: '100% Quality' }}</h3>
-          <p class="about-us-value-card__desc">{{ section.settings.value2_desc | default: 'Top-grade natural and hygienic products' }}</p>
-        </div>
-        <div class="about-us-value-card">
-          <h3 class="about-us-value-card__title">{{ section.settings.value3_title | default: 'Pocket Friendly' }}</h3>
-          <p class="about-us-value-card__desc">{{ section.settings.value3_desc | default: 'Extensive range at economical prices selling.' }}</p>
-        </div>
-      </div>
-      <div class="about-us-values__additional">
+  {%- comment -%} Additional Info {%- endcomment -%}
+  <div class="about-us-additional">
+    <div class="about-us-additional__container">
+      <div class="about-us-additional__content">
         <p>JUST PURE a brand name of Shakti Vardhak Milk Producer Co. Ltd is a Farmer Producer Organization set up in 2016 duly promoted by NABARD. Our FPO has been awarded as "The BEST FPO" in Haryana for three times within the short period of time. Our organization associates with more than 1500 farmer members who have their own cattle.</p>
         <p>We collect fresh milk from Kankrej cows and buffaloes through our aggregator system, partnering with farmers for door-to-door pickup. Each batch undergoes a rigorous quality check by our team to ensure purity and freshness before processing. This ensures that only the best-quality milk is used for making our desi ghee and other dairy products.</p>
         <p>Our farmer members actively participate and support each other as a family, and all farmers are within our reach. Our farmers give a great deal of care while producing fresh, healthy, hygienic as well as good quality of A2 Cow Milk and responsibly supplying it to the FPO.</p>
@@ -79,61 +151,66 @@
     </div>
   </div>
 
-  {%- comment -%} Our Vision & Promise {%- endcomment -%}
+  {%- comment -%} Vision & Promise {%- endcomment -%}
   <div class="about-us-vision-promise">
     <div class="about-us-vision-promise__container">
       <div class="about-us-vision-promise__grid">
         <div class="about-us-vision-block">
-          <h2 class="about-us__heading">{{ section.settings.vision_heading | default: 'Our Vision?' }}</h2>
+          <div class="about-us-vision-block__icon">👁️</div>
+          <h2 class="about-us-vision-block__title">{{ section.settings.vision_heading | default: 'Our Vision' }}</h2>
           <ul class="about-us-vision-list">
-            <li>To empower and uplift livelihoods of small farmers.</li>
-            <li>To conserve native cattle breeds.</li>
-            <li>To serve the society and generate employment as far as the rural areas.</li>
-            <li>To re-establish the awareness about our rich Ayurvedic heritage</li>
+            <li><span>To empower and uplift livelihoods of small farmers.</span></li>
+            <li><span>To conserve native cattle breeds.</span></li>
+            <li><span>To serve the society and generate employment as far as the rural areas.</span></li>
+            <li><span>To re-establish the awareness about our rich Ayurvedic heritage</span></li>
           </ul>
         </div>
         <div class="about-us-promise-block">
-          <h2 class="about-us__heading">{{ section.settings.promise_heading | default: 'Our Promise?' }}</h2>
+          <div class="about-us-promise-block__icon">🤝</div>
+          <h2 class="about-us-promise-block__title">{{ section.settings.promise_heading | default: 'Our Promise' }}</h2>
           <ul class="about-us-promise-list">
-            <li>Fresh, hygienic and chemical-free products.</li>
-            <li>Extensive variety.</li>
+            <li><span>Fresh, hygienic and chemical-free products.</span></li>
+            <li><span>Extensive variety.</span></li>
           </ul>
         </div>
       </div>
     </div>
   </div>
 
-  {%- comment -%} Milestones / Achievements {%- endcomment -%}
+  {%- comment -%} Achievements {%- endcomment -%}
   <div class="about-us-milestones">
     <div class="about-us-milestones__container">
-      <h2 class="about-us__heading about-us__heading--center">{{ section.settings.milestones_heading | default: 'Our Achievements and Strengths' }}</h2>
+      <div class="about-us-milestones__header">
+        <div class="about-us-milestones__label">Recognition</div>
+        <h2 class="about-us-milestones__title">{{ section.settings.milestones_heading | default: 'Our Achievements & Strengths' }}</h2>
+      </div>
       <div class="about-us-milestones__grid">
         <div class="about-us-milestone-card">
-          <span class="about-us-milestone-card__year">2017-18, 2018-19</span>
+          <div class="about-us-milestone-card__year">2017–18, 2018–19</div>
           <p>We were awarded with "Sarvoch Sahbhagita Puruskar" by NABARD consecutively in 2017-18 and 2018-19.</p>
         </div>
         <div class="about-us-milestone-card">
-          <span class="about-us-milestone-card__year">2017-18</span>
+          <div class="about-us-milestone-card__year">2017–18</div>
           <p>In 2017-18, we became the first FPO to sign a Memorandum of Understanding (MoU) with Lala Lajpat Rai University of Veterinary and Animal Sciences for farmers training and capability building of company's workforce in their state-of-the-art laboratory.</p>
         </div>
         <div class="about-us-milestone-card">
-          <span class="about-us-milestone-card__year">2017-18</span>
+          <div class="about-us-milestone-card__year">2017–18</div>
           <p>Awarded as <strong>The BEST FPO</strong> in Agriculture Leadership Summit in 2017-18.</p>
         </div>
         <div class="about-us-milestone-card">
-          <span class="about-us-milestone-card__year">—</span>
+          <div class="about-us-milestone-card__year">—</div>
           <p>We were selected to be a member of Regional Advisory Committee of NABARD in MCID and FSDD.</p>
         </div>
         <div class="about-us-milestone-card">
-          <span class="about-us-milestone-card__year">—</span>
+          <div class="about-us-milestone-card__year">—</div>
           <p>We were appointed as CBBO (Cluster Based Business Organization) by SFAC India (An Organization of Ministry of Agriculture India) and SFAC India has assigned to form 25 New FPO in Haryana and Punjab under the scheme of 10000 New FPO of Govt of India.</p>
         </div>
         <div class="about-us-milestone-card">
-          <span class="about-us-milestone-card__year">—</span>
+          <div class="about-us-milestone-card__year">—</div>
           <p>Our USP includes modern technology and old traditional methods to keep the highest quality and purity</p>
         </div>
         <div class="about-us-milestone-card">
-          <span class="about-us-milestone-card__year">—</span>
+          <div class="about-us-milestone-card__year">—</div>
           <p>We are actively involved in Krishi Mela which is organized regularly for direct outreach to consumers.</p>
         </div>
       </div>
@@ -142,15 +219,24 @@
 
   {%- comment -%} CTA {%- endcomment -%}
   <div class="about-us-cta">
+    <div class="about-us-cta__bg"></div>
     <div class="about-us-cta__inner">
       <h2 class="about-us-cta__title">{{ section.settings.cta_heading | default: 'Experience Purity, Taste the Difference' }}</h2>
       <p class="about-us-cta__text">{{ section.settings.cta_text | default: 'Discover farm-fresh dairy and natural products crafted with care. Support sustainable farming and enjoy the purest quality with JUST PURE.' }}</p>
       {% if section.settings.cta_button_label != blank and section.settings.cta_button_link != blank %}
         <a href="{{ section.settings.cta_button_link }}" class="about-us-cta__button">
-          {{ section.settings.cta_button_label }}
+          <span>{{ section.settings.cta_button_label }}</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </a>
       {% else %}
-        <a href="{{ routes.root_url }}collections/all" class="about-us-cta__button">Shop Now</a>
+        <a href="{{ routes.root_url }}collections/all" class="about-us-cta__button">
+          <span>Shop Now</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       {% endif %}
     </div>
   </div>
@@ -163,54 +249,179 @@
     font-family: 'DM Sans', var(--font-body-family), system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #2c2c2c;
+    color: #1a1a1a;
+    overflow-x: hidden;
   }
 
   /* ——— Hero Section ——— */
   #about-us-{{ section.id }} .about-us-hero {
-    background: linear-gradient(160deg, #1a2e0a 0%, #2d5016 35%, #3d6b1a 70%, #4a7c23 100%);
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f2410 0%, #1a3a1c 25%, #2d5016 50%, #3d6b1a 75%, #4a7c23 100%);
     color: #ffffff;
-    padding: 80px 48px 60px;
-    text-align: center;
+    padding: 120px 48px;
+    overflow: hidden;
   }
   @media (max-width: 768px) {
     #about-us-{{ section.id }} .about-us-hero {
-      padding: 60px 24px 40px;
+      min-height: 80vh;
+      padding: 80px 24px;
     }
   }
+  #about-us-{{ section.id }} .about-us-hero__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255,255,255,0.03) 0%, transparent 50%);
+    animation: pulse 8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
   #about-us-{{ section.id }} .about-us-hero__inner {
-    max-width: 900px;
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
     margin: 0 auto;
+    text-align: center;
+  }
+  #about-us-{{ section.id }} .about-us-hero__badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    animation: fadeInUp 0.8s ease-out;
   }
   #about-us-{{ section.id }} .about-us-hero__title {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-size: clamp(3.5rem, 9vw, 6.5rem);
     font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin: 0 0 24px;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    margin: 0 0 20px;
     color: #ffffff;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+  #about-us-{{ section.id }} .about-us-hero__subtitle {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    margin: 0 0 40px;
+    color: rgba(255, 255, 255, 0.9);
+    animation: fadeInUp 0.8s ease-out 0.4s both;
   }
   #about-us-{{ section.id }} .about-us-hero__content {
-    font-size: clamp(1rem, 1.5vw, 1.15rem);
-    line-height: 1.75;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    line-height: 1.85;
     max-width: 800px;
     margin: 0 auto;
     color: rgba(255, 255, 255, 0.95);
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ——— Stats Section ——— */
+  #about-us-{{ section.id }} .about-us-stats {
+    padding: 80px 0;
+    background: #ffffff;
+    margin-top: -60px;
+    position: relative;
+    z-index: 2;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-stats {
+      padding: 60px 0;
+      margin-top: -40px;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-stats__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-stats__container {
+      padding: 0 24px;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-stats__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-stat-card {
+    text-align: center;
+    padding: 48px 32px;
+    background: linear-gradient(135deg, #f8f9f5 0%, #ffffff 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(45, 80, 22, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #about-us-{{ section.id }} .about-us-stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    border-color: rgba(45, 80, 22, 0.2);
+  }
+  #about-us-{{ section.id }} .about-us-stat-card__number {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 700;
+    color: #2d5016;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+  #about-us-{{ section.id }} .about-us-stat-card__label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 
   /* ——— Story Section ——— */
   #about-us-{{ section.id }} .about-us-story {
-    padding: 80px 0;
-    background: #ffffff;
+    padding: 120px 0;
+    background: #faf9f6;
   }
   @media (max-width: 768px) {
     #about-us-{{ section.id }} .about-us-story {
-      padding: 60px 0;
+      padding: 80px 0;
     }
   }
   #about-us-{{ section.id }} .about-us-story__container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 48px;
   }
@@ -219,110 +430,85 @@
       padding: 0 24px;
     }
   }
-  #about-us-{{ section.id }} .about-us-story__content {
-    max-width: 900px;
-    margin: 0 auto;
+  #about-us-{{ section.id }} .about-us-story__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
   }
-  #about-us-{{ section.id }} .about-us-story__content p {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: #3a3a3a;
-    margin: 0 0 20px;
+  @media (max-width: 1024px) {
+    #about-us-{{ section.id }} .about-us-story__grid {
+      gap: 60px;
+    }
   }
-  #about-us-{{ section.id }} .about-us-story__content p:last-child {
-    margin-bottom: 0;
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-story__grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    #about-us-{{ section.id }} .about-us-story__image-wrapper {
+      order: -1;
+    }
   }
-  #about-us-{{ section.id }} .about-us-story__content strong {
+  #about-us-{{ section.id }} .about-us-story__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
     color: #2d5016;
-    font-weight: 600;
+    margin-bottom: 16px;
   }
-
-  /* ——— Headings ——— */
-  #about-us-{{ section.id }} .about-us__heading {
+  #about-us-{{ section.id }} .about-us-story__title {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
     margin: 0 0 32px;
     color: #1a1a1a;
   }
-  #about-us-{{ section.id }} .about-us__heading--center {
-    text-align: center;
-    margin-bottom: 48px;
-  }
-  @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us__heading--center {
-      margin-bottom: 36px;
-    }
-  }
-
-  /* ——— Business Model ——— */
-  #about-us-{{ section.id }} .about-us-business {
-    padding: 80px 0;
-    background: #faf8f5;
-  }
-  @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-business {
-      padding: 60px 0;
-    }
-  }
-  #about-us-{{ section.id }} .about-us-business__container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 48px;
-  }
-  @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-business__container {
-      padding: 0 24px;
-    }
-  }
-  #about-us-{{ section.id }} .about-us-business__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-  }
-  @media (max-width: 1024px) {
-    #about-us-{{ section.id }} .about-us-business__grid {
-      gap: 32px;
-    }
-  }
-  @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-business__grid {
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
-  }
-  #about-us-{{ section.id }} .about-us-business-card {
-    padding: 0;
-    background: transparent;
-  }
-  #about-us-{{ section.id }} .about-us-business-card__title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(1.5rem, 2vw, 1.75rem);
-    font-weight: 600;
-    margin: 0 0 16px;
-    color: #2d5016;
-  }
-  #about-us-{{ section.id }} .about-us-business-card__text {
-    font-size: 1.05rem;
-    line-height: 1.75;
-    margin: 0;
+  #about-us-{{ section.id }} .about-us-story__text {
+    font-size: 1.15rem;
+    line-height: 1.9;
     color: #3a3a3a;
   }
+  #about-us-{{ section.id }} .about-us-story__text p {
+    margin: 0 0 24px;
+  }
+  #about-us-{{ section.id }} .about-us-story__text p:last-child {
+    margin-bottom: 0;
+  }
+  #about-us-{{ section.id }} .about-us-story__text strong {
+    color: #2d5016;
+    font-weight: 600;
+  }
+  #about-us-{{ section.id }} .about-us-story__image-wrapper {
+    position: relative;
+  }
+  #about-us-{{ section.id }} .about-us-story__image {
+    width: 100%;
+    height: auto;
+    border-radius: 24px;
+    object-fit: cover;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #about-us-{{ section.id }} .about-us-story__image-wrapper:hover .about-us-story__image {
+    transform: scale(1.02);
+  }
 
-  /* ——— Why Just Pure ——— */
+  /* ——— Values Section ——— */
   #about-us-{{ section.id }} .about-us-values {
-    padding: 80px 0;
+    padding: 120px 0;
     background: #ffffff;
   }
   @media (max-width: 768px) {
     #about-us-{{ section.id }} .about-us-values {
-      padding: 60px 0;
+      padding: 80px 0;
     }
   }
   #about-us-{{ section.id }} .about-us-values__container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 48px;
   }
@@ -331,62 +517,254 @@
       padding: 0 24px;
     }
   }
+  #about-us-{{ section.id }} .about-us-values__header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  #about-us-{{ section.id }} .about-us-values__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #2d5016;
+    margin-bottom: 16px;
+  }
+  #about-us-{{ section.id }} .about-us-values__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0;
+    color: #1a1a1a;
+  }
   #about-us-{{ section.id }} .about-us-values__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
-    margin-bottom: 48px;
+    margin-bottom: 80px;
   }
   @media (max-width: 768px) {
     #about-us-{{ section.id }} .about-us-values__grid {
       grid-template-columns: 1fr;
       gap: 32px;
-      margin-bottom: 40px;
+      margin-bottom: 60px;
     }
   }
   #about-us-{{ section.id }} .about-us-value-card {
     text-align: center;
-    padding: 40px 24px;
+    padding: 56px 40px;
+    background: linear-gradient(135deg, #ffffff 0%, #faf9f6 100%);
+    border-radius: 24px;
+    border: 2px solid transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  #about-us-{{ section.id }} .about-us-value-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2d5016, #4a7c23);
+    transform: scaleX(0);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #about-us-{{ section.id }} .about-us-value-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.1);
+    border-color: rgba(45, 80, 22, 0.2);
+  }
+  #about-us-{{ section.id }} .about-us-value-card:hover::before {
+    transform: scaleX(1);
+  }
+  #about-us-{{ section.id }} .about-us-value-card__icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 24px;
+    color: #2d5016;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(45, 80, 22, 0.08);
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #about-us-{{ section.id }} .about-us-value-card__icon svg {
+    width: 32px;
+    height: 32px;
+  }
+  #about-us-{{ section.id }} .about-us-value-card:hover .about-us-value-card__icon {
+    background: #2d5016;
+    color: #ffffff;
+    transform: scale(1.1) rotate(5deg);
   }
   #about-us-{{ section.id }} .about-us-value-card__title {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(1.5rem, 2vw, 1.75rem);
+    font-size: clamp(1.75rem, 2.5vw, 2.25rem);
     font-weight: 600;
-    margin: 0 0 12px;
-    color: #2d5016;
+    margin: 0 0 16px;
+    color: #1a1a1a;
   }
   #about-us-{{ section.id }} .about-us-value-card__desc {
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 1.1rem;
+    line-height: 1.7;
     margin: 0;
-    color: #555555;
+    color: #555;
   }
   #about-us-{{ section.id }} .about-us-values__additional {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
   }
   #about-us-{{ section.id }} .about-us-values__additional p {
-    font-size: 1.05rem;
-    line-height: 1.8;
+    font-size: 1.15rem;
+    line-height: 1.9;
     color: #3a3a3a;
-    margin: 0 0 20px;
+    margin: 0 0 24px;
   }
   #about-us-{{ section.id }} .about-us-values__additional p:last-child {
     margin-bottom: 0;
   }
 
-  /* ——— Vision & Promise ——— */
-  #about-us-{{ section.id }} .about-us-vision-promise {
-    padding: 80px 0;
-    background: #faf8f5;
+  /* ——— Business Model ——— */
+  #about-us-{{ section.id }} .about-us-business {
+    padding: 120px 0;
+    background: linear-gradient(180deg, #faf9f6 0%, #ffffff 100%);
   }
   @media (max-width: 768px) {
-    #about-us-{{ section.id }} .about-us-vision-promise {
+    #about-us-{{ section.id }} .about-us-business {
+      padding: 80px 0;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-business__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-business__container {
+      padding: 0 24px;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-business__header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  #about-us-{{ section.id }} .about-us-business__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #2d5016;
+    margin-bottom: 16px;
+  }
+  #about-us-{{ section.id }} .about-us-business__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0;
+    color: #1a1a1a;
+  }
+  #about-us-{{ section.id }} .about-us-business__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  @media (max-width: 1024px) {
+    #about-us-{{ section.id }} .about-us-business__grid {
+      gap: 40px;
+    }
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-business__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-business-card {
+    padding: 48px 40px;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid rgba(45, 80, 22, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  #about-us-{{ section.id }} .about-us-business-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.12);
+    border-color: rgba(45, 80, 22, 0.2);
+  }
+  #about-us-{{ section.id }} .about-us-business-card__number {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 4rem;
+    font-weight: 700;
+    color: rgba(45, 80, 22, 0.15);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  #about-us-{{ section.id }} .about-us-business-card__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.75rem, 2vw, 2rem);
+    font-weight: 600;
+    margin: 0 0 20px;
+    color: #2d5016;
+  }
+  #about-us-{{ section.id }} .about-us-business-card__text {
+    font-size: 1.1rem;
+    line-height: 1.85;
+    margin: 0;
+    color: #3a3a3a;
+  }
+
+  /* ——— Additional Info ——— */
+  #about-us-{{ section.id }} .about-us-additional {
+    padding: 80px 0;
+    background: #ffffff;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-additional {
       padding: 60px 0;
     }
   }
+  #about-us-{{ section.id }} .about-us-additional__container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-additional__container {
+      padding: 0 24px;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-additional__content {
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: #3a3a3a;
+  }
+  #about-us-{{ section.id }} .about-us-additional__content p {
+    margin: 0 0 24px;
+  }
+  #about-us-{{ section.id }} .about-us-additional__content p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ——— Vision & Promise ——— */
+  #about-us-{{ section.id }} .about-us-vision-promise {
+    padding: 120px 0;
+    background: linear-gradient(180deg, #ffffff 0%, #faf9f6 100%);
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-vision-promise {
+      padding: 80px 0;
+    }
+  }
   #about-us-{{ section.id }} .about-us-vision-promise__container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 48px;
   }
@@ -398,52 +776,80 @@
   #about-us-{{ section.id }} .about-us-vision-promise__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    max-width: 1000px;
+    gap: 80px;
+    max-width: 1200px;
     margin: 0 auto;
   }
   @media (max-width: 768px) {
     #about-us-{{ section.id }} .about-us-vision-promise__grid {
       grid-template-columns: 1fr;
-      gap: 48px;
+      gap: 64px;
     }
+  }
+  #about-us-{{ section.id }} .about-us-vision-block,
+  #about-us-{{ section.id }} .about-us-promise-block {
+    padding: 56px 48px;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
+    border-top: 4px solid #2d5016;
+  }
+  #about-us-{{ section.id }} .about-us-vision-block__icon,
+  #about-us-{{ section.id }} .about-us-promise-block__icon {
+    font-size: 3rem;
+    margin-bottom: 24px;
+    display: block;
+  }
+  #about-us-{{ section.id }} .about-us-vision-block__title,
+  #about-us-{{ section.id }} .about-us-promise-block__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2rem, 3vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0 0 32px;
+    color: #1a1a1a;
   }
   #about-us-{{ section.id }} .about-us-vision-list,
   #about-us-{{ section.id }} .about-us-promise-list {
     margin: 0;
     padding: 0;
     list-style: none;
-    font-size: 1.05rem;
-    line-height: 1.9;
-    color: #3a3a3a;
   }
   #about-us-{{ section.id }} .about-us-vision-list li,
   #about-us-{{ section.id }} .about-us-promise-list li {
     position: relative;
-    padding-left: 24px;
-    margin-bottom: 12px;
+    padding-left: 32px;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #3a3a3a;
   }
   #about-us-{{ section.id }} .about-us-vision-list li::before,
   #about-us-{{ section.id }} .about-us-promise-list li::before {
-    content: '•';
+    content: '';
     position: absolute;
     left: 0;
-    color: #2d5016;
-    font-weight: bold;
+    top: 0.65em;
+    width: 12px;
+    height: 12px;
+    background: #2d5016;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(45, 80, 22, 0.1);
   }
 
-  /* ——— Achievements & Strengths ——— */
+  /* ——— Achievements ——— */
   #about-us-{{ section.id }} .about-us-milestones {
-    padding: 80px 0;
+    padding: 120px 0;
     background: #ffffff;
   }
   @media (max-width: 768px) {
     #about-us-{{ section.id }} .about-us-milestones {
-      padding: 60px 0;
+      padding: 80px 0;
     }
   }
   #about-us-{{ section.id }} .about-us-milestones__container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 48px;
   }
@@ -451,6 +857,27 @@
     #about-us-{{ section.id }} .about-us-milestones__container {
       padding: 0 24px;
     }
+  }
+  #about-us-{{ section.id }} .about-us-milestones__header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  #about-us-{{ section.id }} .about-us-milestones__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #2d5016;
+    margin-bottom: 16px;
+  }
+  #about-us-{{ section.id }} .about-us-milestones__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0;
+    color: #1a1a1a;
   }
   #about-us-{{ section.id }} .about-us-milestones__grid {
     display: grid;
@@ -469,22 +896,33 @@
     }
   }
   #about-us-{{ section.id }} .about-us-milestone-card {
-    padding: 32px 28px;
-    background: #faf8f5;
-    border-radius: 8px;
+    padding: 40px 36px;
+    background: linear-gradient(135deg, #ffffff 0%, #faf9f6 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(45, 80, 22, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #about-us-{{ section.id }} .about-us-milestone-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    border-color: rgba(45, 80, 22, 0.2);
   }
   #about-us-{{ section.id }} .about-us-milestone-card__year {
-    display: block;
+    display: inline-block;
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: #2d5016;
-    margin-bottom: 12px;
+    padding: 6px 16px;
+    background: rgba(45, 80, 22, 0.1);
+    border-radius: 8px;
+    margin-bottom: 16px;
   }
   #about-us-{{ section.id }} .about-us-milestone-card p {
     margin: 0;
     font-size: 1.05rem;
-    line-height: 1.75;
+    line-height: 1.8;
     color: #3a3a3a;
   }
   #about-us-{{ section.id }} .about-us-milestone-card strong {
@@ -494,38 +932,53 @@
 
   /* ——— CTA ——— */
   #about-us-{{ section.id }} .about-us-cta {
-    background: linear-gradient(160deg, #1a2e0a 0%, #2d5016 40%, #3d6b1a 100%);
+    position: relative;
+    padding: 140px 48px;
+    background: linear-gradient(135deg, #0f2410 0%, #1a3a1c 25%, #2d5016 50%, #3d6b1a 75%, #4a7c23 100%);
     color: #ffffff;
-    padding: 80px 48px 60px;
     text-align: center;
+    overflow: hidden;
   }
   @media (max-width: 768px) {
     #about-us-{{ section.id }} .about-us-cta {
-      padding: 60px 24px 40px;
+      padding: 100px 24px;
     }
   }
+  #about-us-{{ section.id }} .about-us-cta__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%);
+    animation: pulse 8s ease-in-out infinite;
+  }
   #about-us-{{ section.id }} .about-us-cta__inner {
-    max-width: 800px;
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
     margin: 0 auto;
   }
   #about-us-{{ section.id }} .about-us-cta__title {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
     font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    margin: 0 0 24px;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0 0 28px;
     color: #ffffff;
   }
   #about-us-{{ section.id }} .about-us-cta__text {
-    font-size: clamp(1rem, 1.5vw, 1.15rem);
-    line-height: 1.75;
-    margin: 0 0 32px;
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    line-height: 1.85;
+    margin: 0 0 48px;
     color: rgba(255, 255, 255, 0.92);
   }
   #about-us-{{ section.id }} .about-us-cta__button {
-    display: inline-block;
-    padding: 14px 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 48px;
     font-family: 'DM Sans', system-ui, sans-serif;
     font-size: 1rem;
     font-weight: 600;
@@ -534,12 +987,20 @@
     text-decoration: none;
     background: #ffffff;
     color: #2d5016;
-    border-radius: 4px;
-    transition: all 0.3s ease;
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   }
   #about-us-{{ section.id }} .about-us-cta__button:hover {
-    background: rgba(255, 255, 255, 0.9);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    background: rgba(255, 255, 255, 0.95);
+  }
+  #about-us-{{ section.id }} .about-us-cta__button svg {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #about-us-{{ section.id }} .about-us-cta__button:hover svg {
+    transform: translateX(4px);
   }
 </style>
 
@@ -557,15 +1018,9 @@
     { "type": "textarea", "id": "hero_description", "label": "Hero description" },
     {
       "type": "header",
-      "content": "Business Model"
+      "content": "Story"
     },
-    { "type": "text", "id": "business_heading", "label": "Business heading", "default": "Our Business Model" },
-    { "type": "text", "id": "bm1_title", "label": "BM 1 title", "default": "Production Side" },
-    { "type": "textarea", "id": "bm1_text", "label": "BM 1 text" },
-    { "type": "text", "id": "bm2_title", "label": "BM 2 title", "default": "Milk Collections" },
-    { "type": "textarea", "id": "bm2_text", "label": "BM 2 text" },
-    { "type": "text", "id": "bm3_title", "label": "BM 3 title", "default": "Processing Side" },
-    { "type": "textarea", "id": "bm3_text", "label": "BM 3 text" },
+    { "type": "image_picker", "id": "story_image", "label": "Story image" },
     {
       "type": "header",
       "content": "Why Just Pure"
@@ -579,15 +1034,26 @@
     { "type": "text", "id": "value3_desc", "label": "Value 3 description", "default": "Extensive range at economical prices selling." },
     {
       "type": "header",
+      "content": "Business Model"
+    },
+    { "type": "text", "id": "business_heading", "label": "Business heading", "default": "Our Business Model" },
+    { "type": "text", "id": "bm1_title", "label": "BM 1 title", "default": "Production Side" },
+    { "type": "textarea", "id": "bm1_text", "label": "BM 1 text" },
+    { "type": "text", "id": "bm2_title", "label": "BM 2 title", "default": "Milk Collections" },
+    { "type": "textarea", "id": "bm2_text", "label": "BM 2 text" },
+    { "type": "text", "id": "bm3_title", "label": "BM 3 title", "default": "Processing Side" },
+    { "type": "textarea", "id": "bm3_text", "label": "BM 3 text" },
+    {
+      "type": "header",
       "content": "Vision & Promise"
     },
-    { "type": "text", "id": "vision_heading", "label": "Vision heading", "default": "Our Vision?" },
-    { "type": "text", "id": "promise_heading", "label": "Promise heading", "default": "Our Promise?" },
+    { "type": "text", "id": "vision_heading", "label": "Vision heading", "default": "Our Vision" },
+    { "type": "text", "id": "promise_heading", "label": "Promise heading", "default": "Our Promise" },
     {
       "type": "header",
       "content": "Milestones"
     },
-    { "type": "text", "id": "milestones_heading", "label": "Milestones heading", "default": "Our Achievements and Strengths" },
+    { "type": "text", "id": "milestones_heading", "label": "Milestones heading", "default": "Our Achievements & Strengths" },
     {
       "type": "header",
       "content": "CTA"
