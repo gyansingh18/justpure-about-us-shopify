@@ -196,19 +196,22 @@
             <a href="{{ section.settings.process_cta_link }}" class="homepage-process__link">{{ section.settings.process_cta_text | default: 'Learn More' }} →</a>
           {% endif %}
         </div>
-        {% if section.settings.process_image != blank %}
-          <div class="homepage-process__image-wrapper">
-            <img
-              src="{{ section.settings.process_image | image_url: width: 1200 }}"
-              alt="{{ section.settings.process_image.alt | escape }}"
-              width="1200"
-              height="1500"
-              loading="lazy"
-              class="homepage-process__image"
+        {% if section.settings.process_video != blank %}
+          <div class="homepage-process__video-wrapper">
+            <video
+              class="homepage-process__video"
+              controls
+              playsinline
+              preload="metadata"
+              {% if section.settings.process_video_poster != blank %}poster="{{ section.settings.process_video_poster | image_url: width: 1200 }}"{% endif %}
             >
+              <source src="{{ section.settings.process_video }}" type="video/mp4">
+              <source src="{{ section.settings.process_video }}" type="video/webm">
+              Your browser does not support the video tag.
+            </video>
           </div>
         {% else %}
-          <div class="homepage-process__image-placeholder"></div>
+          <div class="homepage-process__video-placeholder"></div>
         {% endif %}
       </div>
     </div>
@@ -804,25 +807,31 @@
   #homepage-{{ section.id }} .homepage-process__link:hover {
     color: #3d6b1a;
   }
-  #homepage-{{ section.id }} .homepage-process__image-wrapper {
+  #homepage-{{ section.id }} .homepage-process__video-wrapper {
     position: relative;
     width: 100%;
-    padding-top: 125%;
+    padding-top: 56.25%;
     overflow: hidden;
     border-radius: 12px;
     background: #f5f2ed;
   }
-  #homepage-{{ section.id }} .homepage-process__image {
+  #homepage-{{ section.id }} .homepage-process__video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    border: none;
+    border-radius: 12px;
+    object-fit: contain;
+    background: #000;
   }
-  #homepage-{{ section.id }} .homepage-process__image-placeholder {
+  #homepage-{{ section.id }} .homepage-process__video::-webkit-media-controls-panel {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  #homepage-{{ section.id }} .homepage-process__video-placeholder {
     width: 100%;
-    padding-top: 125%;
+    padding-top: 56.25%;
     background: #f5f2ed;
     border-radius: 12px;
   }
@@ -1259,9 +1268,16 @@
       "content": "Process Section"
     },
     {
+      "type": "text",
+      "id": "process_video",
+      "label": "Process Video URL",
+      "info": "Enter direct video file URL (MP4, WebM, etc.). Upload video to Shopify Files and paste the URL here, or use external hosting."
+    },
+    {
       "type": "image_picker",
-      "id": "process_image",
-      "label": "Process Image"
+      "id": "process_video_poster",
+      "label": "Video Poster Image (Optional)",
+      "info": "Thumbnail image shown before video plays"
     },
     {
       "type": "text",
