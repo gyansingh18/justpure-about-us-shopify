@@ -79,7 +79,7 @@
           </div>
           <div class="contact-method-card__content">
             <div class="contact-method-card__label">{{ section.settings.whatsapp_label | default: "Chat with us on WhatsApp!" }}</div>
-            {% assign whatsapp_url = section.settings.whatsapp_link | default: "https://wa.me/918569849499" %}
+            {% assign whatsapp_url = section.settings.whatsapp_link | default: "https://wa.me/919968241196" %}
             {% if whatsapp_url != blank %}
               <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="contact-method-card__link">
                 {{ section.settings.whatsapp_button_text | default: "Chat Now" }}
@@ -238,7 +238,7 @@
             </a>
           {% endif %}
 
-          {% assign whatsapp_social_url = section.settings.whatsapp_social_url | default: "https://wa.me/918569849499" %}
+          {% assign whatsapp_social_url = section.settings.whatsapp_social_url | default: "https://wa.me/919968241196" %}
           {% if whatsapp_social_url != blank %}
             <a href="{{ whatsapp_social_url }}" target="_blank" rel="noopener" class="contact-social__link">
               {% if section.settings.whatsapp_social_icon != blank %}
@@ -596,7 +596,7 @@
     margin-bottom: 12px;
   }
   #contact-{{ section.id }} .contact-method-card__link {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'DM Sans', var(--font-body-family), system-ui, -apple-system, sans-serif;
     font-size: 1.5rem;
     font-weight: 600;
     color: #2d5016;
@@ -1034,7 +1034,7 @@
       "type": "text",
       "id": "call_number",
       "label": "Phone Number",
-      "default": "+91 97794 91304"
+      "default": "+91 9968241196"
     },
     {
       "type": "text",
@@ -1058,7 +1058,7 @@
       "type": "text",
       "id": "whatsapp_link",
       "label": "WhatsApp Link",
-      "default": "https://wa.me/918569849499"
+      "default": "https://wa.me/919968241196"
     },
     {
       "type": "text",
@@ -1087,7 +1087,7 @@
       "type": "text",
       "id": "email_address",
       "label": "Email Address",
-      "default": "sales@justpureindia.com"
+      "default": "team@justpureindia.com"
     },
     {
       "type": "text",
@@ -1150,7 +1150,7 @@
       "type": "text",
       "id": "office1_email",
       "label": "Office 1 Email",
-      "default": "info@justpureindia.com"
+      "default": "team@justpureindia.com"
     },
     {
       "type": "text",
@@ -1186,7 +1186,7 @@
       "type": "text",
       "id": "office2_email",
       "label": "Office 2 Email",
-      "default": "info@justpureindia.com"
+      "default": "team@justpureindia.com"
     },
     {
       "type": "text",
@@ -1216,13 +1216,13 @@
       "type": "text",
       "id": "corporate_phone2",
       "label": "Corporate Phone 2",
-      "default": "+91 97794 91304"
+      "default": "+91 9968241196"
     },
     {
       "type": "text",
       "id": "corporate_email",
       "label": "Corporate Email",
-      "default": "info@justpureindia.com"
+      "default": "team@justpureindia.com"
     },
     {
       "type": "header",
@@ -1266,7 +1266,7 @@
       "type": "text",
       "id": "whatsapp_social_url",
       "label": "WhatsApp Social URL",
-      "default": "https://wa.me/918569849499"
+      "default": "https://wa.me/919968241196"
     },
     {
       "type": "image_picker",
