@@ -1,0 +1,1188 @@
+{% comment %}
+  JustPure Homepage - Premium Redesign
+  Paste this in: Shopify Admin → Online Store → Themes → Edit code → Sections
+  Create new section: custom-home.liquid
+  All CSS is inside this file—no extra stylesheets.
+{% endcomment %}
+
+<section class="homepage-section" id="homepage-{{ section.id }}">
+
+  {%- comment -%} Hero Section {%- endcomment -%}
+  <div class="homepage-hero">
+    {% if section.settings.hero_image != blank %}
+      <div class="homepage-hero__bg-image">
+        <img
+          src="{{ section.settings.hero_image | image_url: width: 2000 }}"
+          alt="{{ section.settings.hero_image.alt | escape }}"
+          width="2000"
+          height="1200"
+          loading="eager"
+          class="homepage-hero__bg-img"
+        >
+      </div>
+    {% endif %}
+    <div class="homepage-hero__bg"></div>
+    <div class="homepage-hero__inner">
+      <div class="homepage-hero__badge">{{ section.settings.hero_badge | default: 'Authentic A2 Bilona Ghee & Pure Indian Foods' }}</div>
+      <h1 class="homepage-hero__title">{{ section.settings.hero_title | default: 'Traditionally prepared from desi cow milk' }}</h1>
+      <p class="homepage-hero__subtitle">{{ section.settings.hero_subtitle | default: 'Sourced directly from Indian farms, and delivered fresh to your home.' }}</p>
+      <div class="homepage-hero__cta">
+        <a href="{{ section.settings.hero_cta_link | default: routes.collections_url }}" class="homepage-hero__button">
+          {{ section.settings.hero_cta_text | default: 'Shop Now' }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Product Categories Section {%- endcomment -%}
+  <div class="homepage-categories">
+    <div class="homepage-categories__container">
+      <div class="homepage-categories__header">
+        <div class="homepage-categories__label">Our Products</div>
+        <h2 class="homepage-categories__title">{{ section.settings.categories_heading | default: 'From Indian Farms to Your Kitchen' }}</h2>
+        <p class="homepage-categories__subtitle">{{ section.settings.categories_subtitle | default: 'Carefully sourced ingredients and small-batch preparation to preserve purity, nutrition, and taste.' }}</p>
+      </div>
+      <div class="homepage-categories__grid">
+        {%- comment -%} Ghee Category {%- endcomment -%}
+        <div class="homepage-category-card">
+          {% if section.settings.ghee_image != blank %}
+            <div class="homepage-category-card__image-wrapper">
+              <img
+                src="{{ section.settings.ghee_image | image_url: width: 800 }}"
+                alt="{{ section.settings.ghee_image.alt | escape }}"
+                width="800"
+                height="600"
+                loading="lazy"
+                class="homepage-category-card__image"
+              >
+            </div>
+          {% endif %}
+          <div class="homepage-category-card__content">
+            <h3 class="homepage-category-card__title">{{ section.settings.ghee_title | default: 'A2 Desi Cow Ghee' }}</h3>
+            <p class="homepage-category-card__description">{{ section.settings.ghee_description | default: 'Experience the rich, traditional flavor of our A2 Desi Ghee. Crafted with care, for your health and culinary delight.' }}</p>
+            <a href="{{ section.settings.ghee_link | default: routes.collections_url }}" class="homepage-category-card__link">Shop A2 Ghee →</a>
+          </div>
+        </div>
+
+        {%- comment -%} Oils Category {%- endcomment -%}
+        <div class="homepage-category-card">
+          {% if section.settings.oils_image != blank %}
+            <div class="homepage-category-card__image-wrapper">
+              <img
+                src="{{ section.settings.oils_image | image_url: width: 800 }}"
+                alt="{{ section.settings.oils_image.alt | escape }}"
+                width="800"
+                height="600"
+                loading="lazy"
+                class="homepage-category-card__image"
+              >
+            </div>
+          {% endif %}
+          <div class="homepage-category-card__content">
+            <h3 class="homepage-category-card__title">{{ section.settings.oils_title | default: 'Premium Cold-Pressed Oils' }}</h3>
+            <p class="homepage-category-card__description">{{ section.settings.oils_description | default: 'Naturally extracted oils made for purity, nutrition, and long-term wellness. Virgin coconut and pure mustard, perfect for health, beauty, and cooking.' }}</p>
+            <a href="{{ section.settings.oils_link | default: routes.collections_url }}" class="homepage-category-card__link">Shop Oils →</a>
+          </div>
+        </div>
+
+        {%- comment -%} Spices Category {%- endcomment -%}
+        <div class="homepage-category-card">
+          {% if section.settings.spices_image != blank %}
+            <div class="homepage-category-card__image-wrapper">
+              <img
+                src="{{ section.settings.spices_image | image_url: width: 800 }}"
+                alt="{{ section.settings.spices_image.alt | escape }}"
+                width="800"
+                height="600"
+                loading="lazy"
+                class="homepage-category-card__image"
+              >
+            </div>
+          {% endif %}
+          <div class="homepage-category-card__content">
+            <h3 class="homepage-category-card__title">{{ section.settings.spices_title | default: 'Authentic Flavors' }}</h3>
+            <p class="homepage-category-card__description">{{ section.settings.spices_description | default: 'Discover our range of 100% pure, natural spices. From vibrant turmeric to aromatic cumin, elevate every meal.' }}</p>
+            <a href="{{ section.settings.spices_link | default: routes.collections_url }}" class="homepage-category-card__link">Shop Spices →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Why Just Pure Section {%- endcomment -%}
+  <div class="homepage-why">
+    <div class="homepage-why__container">
+      <div class="homepage-why__header">
+        <div class="homepage-why__label">Our Promise to You</div>
+        <h2 class="homepage-why__title">{{ section.settings.why_heading | default: 'Why Just Pure India?' }}</h2>
+      </div>
+      <div class="homepage-why__grid">
+        <div class="homepage-why-card">
+          <div class="homepage-why-card__icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 4L6 14V24C6 33.941 12.824 42.824 24 44C35.176 42.824 42 33.941 42 24V14L24 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M18 24L22 28L30 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="homepage-why-card__title">{{ section.settings.why1_title | default: 'Premium Quality' }}</h3>
+          <p class="homepage-why-card__description">{{ section.settings.why1_description | default: 'At Just Pure India, we focus on one thing — delivering genuinely pure food without shortcuts.' }}</p>
+        </div>
+        <div class="homepage-why-card">
+          <div class="homepage-why-card__icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 20L24 8L40 20V36C40 38.2091 38.2091 40 36 40H12C9.79086 40 8 38.2091 8 36V20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M18 40V24H30V40" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="homepage-why-card__title">{{ section.settings.why2_title | default: 'Trusted Source' }}</h3>
+          <p class="homepage-why-card__description">{{ section.settings.why2_description | default: 'Our A2 Bilona Ghee is made using the traditional hand-churned method from desi cow milk. Our spices and oils are sourced from trusted farms and processed without artificial additives.' }}</p>
+        </div>
+        <div class="homepage-why-card">
+          <div class="homepage-why-card__icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 44C35.046 44 44 35.046 44 24C44 12.954 35.046 4 24 4C12.954 4 4 12.954 4 24C4 35.046 12.954 44 24 44Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 24L22 30L32 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="homepage-why-card__title">{{ section.settings.why3_title | default: 'Healthy Living' }}</h3>
+          <p class="homepage-why-card__description">{{ section.settings.why3_description | default: 'We believe in nourishing your body with the goodness of nature, promoting a healthier and happier you.' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Process / Farm-to-Home Story Section {%- endcomment -%}
+  <div class="homepage-process">
+    <div class="homepage-process__container">
+      <div class="homepage-process__grid">
+        <div class="homepage-process__content">
+          <div class="homepage-process__label">From Farm to Home</div>
+          <h2 class="homepage-process__title">{{ section.settings.process_heading | default: 'A quick look at how we craft our products' }}</h2>
+          <p class="homepage-process__subtitle">{{ section.settings.process_subtitle | default: 'From desi cow milk to traditionally prepared A2 Bilona ghee' }}</p>
+          <div class="homepage-process__text">
+            {{ section.settings.process_content | default: '<p>Our ghee is made using the traditional bilona method, where curd is hand-churned and slow-heated to preserve natural nutrition and aroma. We use milk from desi cows sourced from trusted Indian farms.</p><p>Every step of our process respects traditional methods while ensuring the highest standards of purity and quality.</p>' }}
+          </div>
+          {% if section.settings.process_cta_link != blank %}
+            <a href="{{ section.settings.process_cta_link }}" class="homepage-process__link">{{ section.settings.process_cta_text | default: 'Learn More' }} →</a>
+          {% endif %}
+        </div>
+        {% if section.settings.process_image != blank %}
+          <div class="homepage-process__image-wrapper">
+            <img
+              src="{{ section.settings.process_image | image_url: width: 1200 }}"
+              alt="{{ section.settings.process_image.alt | escape }}"
+              width="1200"
+              height="1500"
+              loading="lazy"
+              class="homepage-process__image"
+            >
+          </div>
+        {% else %}
+          <div class="homepage-process__image-placeholder"></div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Trust Signals Section {%- endcomment -%}
+  <div class="homepage-trust">
+    <div class="homepage-trust__container">
+      <div class="homepage-trust__header">
+        <div class="homepage-trust__label">The Goodness You Can Trust</div>
+        <h2 class="homepage-trust__title">{{ section.settings.trust_heading | default: 'Nourishing You, Naturally' }}</h2>
+        <p class="homepage-trust__subtitle">{{ section.settings.trust_subtitle | default: 'Just Pure India is committed to bringing you the purest, most wholesome products, naturally.' }}</p>
+      </div>
+      <div class="homepage-trust__grid">
+        <div class="homepage-trust-item">
+          <div class="homepage-trust-item__icon">✓</div>
+          <h3 class="homepage-trust-item__title">100% Natural & Preservative Free</h3>
+        </div>
+        <div class="homepage-trust-item">
+          <div class="homepage-trust-item__icon">✓</div>
+          <h3 class="homepage-trust-item__title">Sustainably Sourced</h3>
+        </div>
+        <div class="homepage-trust-item">
+          <div class="homepage-trust-item__icon">✓</div>
+          <h3 class="homepage-trust-item__title">No Artificial Additives</h3>
+        </div>
+        <div class="homepage-trust-item">
+          <div class="homepage-trust-item__icon">✓</div>
+          <h3 class="homepage-trust-item__title">Delivered Fresh to Your Doorstep</h3>
+        </div>
+      </div>
+      <div class="homepage-trust__badges">
+        <div class="homepage-trust-badge">
+          <div class="homepage-trust-badge__label">NABARD Backed</div>
+          <div class="homepage-trust-badge__description">FPO since 2016</div>
+        </div>
+        <div class="homepage-trust-badge">
+          <div class="homepage-trust-badge__label">1500+</div>
+          <div class="homepage-trust-badge__description">Dairy Farmers</div>
+        </div>
+        <div class="homepage-trust-badge">
+          <div class="homepage-trust-badge__label">3x</div>
+          <div class="homepage-trust-badge__description">Best FPO Award</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Final CTA Section {%- endcomment -%}
+  <div class="homepage-cta">
+    <div class="homepage-cta__container">
+      <div class="homepage-cta__inner">
+        <h2 class="homepage-cta__title">{{ section.settings.cta_heading | default: 'Ready to Experience the Difference?' }}</h2>
+        <p class="homepage-cta__subtitle">{{ section.settings.cta_subtitle | default: 'Explore our range of natural products. Discover the taste of purity and goodness. Start your healthy living journey today.' }}</p>
+        <div class="homepage-cta__buttons">
+          <a href="{{ section.settings.cta_primary_link | default: routes.collections_url }}" class="homepage-cta__button homepage-cta__button--primary">
+            {{ section.settings.cta_primary_text | default: 'Shop Now' }}
+          </a>
+          {% if section.settings.cta_secondary_link != blank %}
+            <a href="{{ section.settings.cta_secondary_link }}" class="homepage-cta__button homepage-cta__button--secondary">
+              {{ section.settings.cta_secondary_text | default: 'Learn More' }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+  #homepage-{{ section.id }} {
+    font-family: 'DM Sans', var(--font-body-family), system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #1a1a1a;
+    overflow-x: hidden;
+  }
+
+  /* ——— Hero Section ——— */
+  #homepage-{{ section.id }} .homepage-hero {
+    position: relative;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f2410 0%, #1a3a1c 25%, #2d5016 50%, #3d6b1a 75%, #4a7c23 100%);
+    color: #ffffff;
+    padding: 120px 48px;
+    overflow: hidden;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-hero {
+      min-height: 75vh;
+      padding: 80px 24px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-hero__bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+  }
+  #homepage-{{ section.id }} .homepage-hero__bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+  }
+  #homepage-{{ section.id }} .homepage-hero__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255,255,255,0.03) 0%, transparent 50%);
+    z-index: 1;
+  }
+  #homepage-{{ section.id }} .homepage-hero__inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  #homepage-{{ section.id }} .homepage-hero__badge {
+    display: inline-block;
+    padding: 10px 24px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-bottom: 32px;
+    color: rgba(255, 255, 255, 0.95);
+  }
+  #homepage-{{ section.id }} .homepage-hero__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0 0 24px;
+    color: #ffffff;
+  }
+  #homepage-{{ section.id }} .homepage-hero__subtitle {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto 48px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+  }
+  #homepage-{{ section.id }} .homepage-hero__cta {
+    margin-top: 40px;
+  }
+  #homepage-{{ section.id }} .homepage-hero__button {
+    display: inline-block;
+    padding: 18px 48px;
+    background: #ffffff;
+    color: #2d5016;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+  }
+  #homepage-{{ section.id }} .homepage-hero__button:hover {
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  /* ——— Product Categories Section ——— */
+  #homepage-{{ section.id }} .homepage-categories {
+    padding: 140px 0;
+    background: #ffffff;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-categories {
+      padding: 100px 0;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-categories__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-categories__container {
+      padding: 0 24px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-categories__header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 80px;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-categories__header {
+      margin-bottom: 60px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-categories__label {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2d5016;
+    margin-bottom: 16px;
+  }
+  #homepage-{{ section.id }} .homepage-categories__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    color: #1a1a1a;
+  }
+  #homepage-{{ section.id }} .homepage-categories__subtitle {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #4a4a4a;
+    margin: 0;
+  }
+  #homepage-{{ section.id }} .homepage-categories__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  @media (max-width: 1024px) {
+    #homepage-{{ section.id }} .homepage-categories__grid {
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-category-card {
+    display: flex;
+    flex-direction: column;
+    background: #faf8f5;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  #homepage-{{ section.id }} .homepage-category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  }
+  #homepage-{{ section.id }} .homepage-category-card__image-wrapper {
+    width: 100%;
+    padding-top: 75%;
+    position: relative;
+    overflow: hidden;
+    background: #f5f2ed;
+  }
+  #homepage-{{ section.id }} .homepage-category-card__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  #homepage-{{ section.id }} .homepage-category-card__content {
+    padding: 40px 32px;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-category-card__content {
+      padding: 32px 24px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-category-card__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0 0 16px;
+    color: #1a1a1a;
+  }
+  #homepage-{{ section.id }} .homepage-category-card__description {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #4a4a4a;
+    margin: 0 0 24px;
+  }
+  #homepage-{{ section.id }} .homepage-category-card__link {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2d5016;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  #homepage-{{ section.id }} .homepage-category-card__link:hover {
+    color: #3d6b1a;
+  }
+
+  /* ——— Why Just Pure Section ——— */
+  #homepage-{{ section.id }} .homepage-why {
+    padding: 140px 0;
+    background: #faf8f5;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-why {
+      padding: 100px 0;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-why__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-why__container {
+      padding: 0 24px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-why__header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 80px;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-why__header {
+      margin-bottom: 60px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-why__label {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2d5016;
+    margin-bottom: 16px;
+  }
+  #homepage-{{ section.id }} .homepage-why__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+    color: #1a1a1a;
+  }
+  #homepage-{{ section.id }} .homepage-why__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  @media (max-width: 1024px) {
+    #homepage-{{ section.id }} .homepage-why__grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-why-card {
+    text-align: center;
+    padding: 48px 32px;
+    background: #ffffff;
+    border-radius: 12px;
+    border-top: 3px solid #2d5016;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-why-card {
+      padding: 40px 24px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-why-card__icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 24px;
+    color: #2d5016;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #homepage-{{ section.id }} .homepage-why-card__icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  #homepage-{{ section.id }} .homepage-why-card__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0 0 16px;
+    color: #1a1a1a;
+  }
+  #homepage-{{ section.id }} .homepage-why-card__description {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #4a4a4a;
+    margin: 0;
+    max-width: 65ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ——— Process Section ——— */
+  #homepage-{{ section.id }} .homepage-process {
+    padding: 140px 0;
+    background: #ffffff;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-process {
+      padding: 100px 0;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-process__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-process__container {
+      padding: 0 24px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-process__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  @media (max-width: 1024px) {
+    #homepage-{{ section.id }} .homepage-process__grid {
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-process__content {
+    max-width: 600px;
+  }
+  #homepage-{{ section.id }} .homepage-process__label {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2d5016;
+    margin-bottom: 16px;
+  }
+  #homepage-{{ section.id }} .homepage-process__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    color: #1a1a1a;
+  }
+  #homepage-{{ section.id }} .homepage-process__subtitle {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #4a4a4a;
+    margin: 0 0 32px;
+    font-weight: 500;
+  }
+  #homepage-{{ section.id }} .homepage-process__text {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: #4a4a4a;
+    margin: 0 0 32px;
+  }
+  #homepage-{{ section.id }} .homepage-process__text p {
+    margin: 0 0 20px;
+  }
+  #homepage-{{ section.id }} .homepage-process__text p:last-child {
+    margin-bottom: 0;
+  }
+  #homepage-{{ section.id }} .homepage-process__link {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2d5016;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  #homepage-{{ section.id }} .homepage-process__link:hover {
+    color: #3d6b1a;
+  }
+  #homepage-{{ section.id }} .homepage-process__image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 125%;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #f5f2ed;
+  }
+  #homepage-{{ section.id }} .homepage-process__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  #homepage-{{ section.id }} .homepage-process__image-placeholder {
+    width: 100%;
+    padding-top: 125%;
+    background: #f5f2ed;
+    border-radius: 12px;
+  }
+
+  /* ——— Trust Signals Section ——— */
+  #homepage-{{ section.id }} .homepage-trust {
+    padding: 140px 0;
+    background: #faf8f5;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-trust {
+      padding: 100px 0;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-trust__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-trust__container {
+      padding: 0 24px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-trust__header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 80px;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-trust__header {
+      margin-bottom: 60px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-trust__label {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2d5016;
+    margin-bottom: 16px;
+  }
+  #homepage-{{ section.id }} .homepage-trust__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    color: #1a1a1a;
+  }
+  #homepage-{{ section.id }} .homepage-trust__subtitle {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #4a4a4a;
+    margin: 0;
+  }
+  #homepage-{{ section.id }} .homepage-trust__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-bottom: 80px;
+  }
+  @media (max-width: 1024px) {
+    #homepage-{{ section.id }} .homepage-trust__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-trust__grid {
+      grid-template-columns: 1fr;
+      margin-bottom: 60px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-trust-item {
+    text-align: center;
+    padding: 32px 24px;
+    background: #ffffff;
+    border-radius: 12px;
+  }
+  #homepage-{{ section.id }} .homepage-trust-item__icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 16px;
+    background: #2d5016;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  #homepage-{{ section.id }} .homepage-trust-item__title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 0;
+    color: #1a1a1a;
+  }
+  #homepage-{{ section.id }} .homepage-trust__badges {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-trust__badges {
+      gap: 32px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-trust-badge {
+    text-align: center;
+    padding: 32px 40px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 2px solid #2d5016;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-trust-badge {
+      padding: 24px 32px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-trust-badge__label {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1;
+    margin: 0 0 8px;
+    color: #2d5016;
+  }
+  #homepage-{{ section.id }} .homepage-trust-badge__description {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #4a4a4a;
+    margin: 0;
+  }
+
+  /* ——— Final CTA Section ——— */
+  #homepage-{{ section.id }} .homepage-cta {
+    padding: 140px 0;
+    background: linear-gradient(135deg, #0f2410 0%, #1a3a1c 25%, #2d5016 50%, #3d6b1a 75%, #4a7c23 100%);
+    color: #ffffff;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-cta {
+      padding: 100px 0;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-cta__container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-cta__container {
+      padding: 0 24px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-cta__inner {
+    text-align: center;
+  }
+  #homepage-{{ section.id }} .homepage-cta__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 24px;
+    color: #ffffff;
+  }
+  #homepage-{{ section.id }} .homepage-cta__subtitle {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 48px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #homepage-{{ section.id }} .homepage-cta__buttons {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  #homepage-{{ section.id }} .homepage-cta__button {
+    display: inline-block;
+    padding: 18px 48px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+  }
+  #homepage-{{ section.id }} .homepage-cta__button--primary {
+    background: #ffffff;
+    color: #2d5016;
+  }
+  #homepage-{{ section.id }} .homepage-cta__button--primary:hover {
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+  #homepage-{{ section.id }} .homepage-cta__button--secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+  #homepage-{{ section.id }} .homepage-cta__button--secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "JustPure Homepage",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "text",
+      "id": "hero_badge",
+      "label": "Hero Badge",
+      "default": "Authentic A2 Bilona Ghee & Pure Indian Foods"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "Traditionally prepared from desi cow milk"
+    },
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": "Hero Subtitle",
+      "default": "Sourced directly from Indian farms, and delivered fresh to your home."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image"
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_text",
+      "label": "Hero Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_link",
+      "label": "Hero Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Product Categories"
+    },
+    {
+      "type": "text",
+      "id": "categories_heading",
+      "label": "Categories Heading",
+      "default": "From Indian Farms to Your Kitchen"
+    },
+    {
+      "type": "text",
+      "id": "categories_subtitle",
+      "label": "Categories Subtitle",
+      "default": "Carefully sourced ingredients and small-batch preparation to preserve purity, nutrition, and taste."
+    },
+    {
+      "type": "header",
+      "content": "Ghee Category"
+    },
+    {
+      "type": "image_picker",
+      "id": "ghee_image",
+      "label": "Ghee Image"
+    },
+    {
+      "type": "text",
+      "id": "ghee_title",
+      "label": "Ghee Title",
+      "default": "A2 Desi Cow Ghee"
+    },
+    {
+      "type": "textarea",
+      "id": "ghee_description",
+      "label": "Ghee Description",
+      "default": "Experience the rich, traditional flavor of our A2 Desi Ghee. Crafted with care, for your health and culinary delight."
+    },
+    {
+      "type": "url",
+      "id": "ghee_link",
+      "label": "Ghee Link"
+    },
+    {
+      "type": "header",
+      "content": "Oils Category"
+    },
+    {
+      "type": "image_picker",
+      "id": "oils_image",
+      "label": "Oils Image"
+    },
+    {
+      "type": "text",
+      "id": "oils_title",
+      "label": "Oils Title",
+      "default": "Premium Cold-Pressed Oils"
+    },
+    {
+      "type": "textarea",
+      "id": "oils_description",
+      "label": "Oils Description",
+      "default": "Naturally extracted oils made for purity, nutrition, and long-term wellness. Virgin coconut and pure mustard, perfect for health, beauty, and cooking."
+    },
+    {
+      "type": "url",
+      "id": "oils_link",
+      "label": "Oils Link"
+    },
+    {
+      "type": "header",
+      "content": "Spices Category"
+    },
+    {
+      "type": "image_picker",
+      "id": "spices_image",
+      "label": "Spices Image"
+    },
+    {
+      "type": "text",
+      "id": "spices_title",
+      "label": "Spices Title",
+      "default": "Authentic Flavors"
+    },
+    {
+      "type": "textarea",
+      "id": "spices_description",
+      "label": "Spices Description",
+      "default": "Discover our range of 100% pure, natural spices. From vibrant turmeric to aromatic cumin, elevate every meal."
+    },
+    {
+      "type": "url",
+      "id": "spices_link",
+      "label": "Spices Link"
+    },
+    {
+      "type": "header",
+      "content": "Why Just Pure"
+    },
+    {
+      "type": "text",
+      "id": "why_heading",
+      "label": "Why Heading",
+      "default": "Why Just Pure India?"
+    },
+    {
+      "type": "text",
+      "id": "why1_title",
+      "label": "Why 1 Title",
+      "default": "Premium Quality"
+    },
+    {
+      "type": "textarea",
+      "id": "why1_description",
+      "label": "Why 1 Description",
+      "default": "At Just Pure India, we focus on one thing — delivering genuinely pure food without shortcuts."
+    },
+    {
+      "type": "text",
+      "id": "why2_title",
+      "label": "Why 2 Title",
+      "default": "Trusted Source"
+    },
+    {
+      "type": "textarea",
+      "id": "why2_description",
+      "label": "Why 2 Description",
+      "default": "Our A2 Bilona Ghee is made using the traditional hand-churned method from desi cow milk. Our spices and oils are sourced from trusted farms and processed without artificial additives."
+    },
+    {
+      "type": "text",
+      "id": "why3_title",
+      "label": "Why 3 Title",
+      "default": "Healthy Living"
+    },
+    {
+      "type": "textarea",
+      "id": "why3_description",
+      "label": "Why 3 Description",
+      "default": "We believe in nourishing your body with the goodness of nature, promoting a healthier and happier you."
+    },
+    {
+      "type": "header",
+      "content": "Process Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "process_image",
+      "label": "Process Image"
+    },
+    {
+      "type": "text",
+      "id": "process_heading",
+      "label": "Process Heading",
+      "default": "A quick look at how we craft our products"
+    },
+    {
+      "type": "text",
+      "id": "process_subtitle",
+      "label": "Process Subtitle",
+      "default": "From desi cow milk to traditionally prepared A2 Bilona ghee"
+    },
+    {
+      "type": "richtext",
+      "id": "process_content",
+      "label": "Process Content",
+      "default": "<p>Our ghee is made using the traditional bilona method, where curd is hand-churned and slow-heated to preserve natural nutrition and aroma. We use milk from desi cows sourced from trusted Indian farms.</p><p>Every step of our process respects traditional methods while ensuring the highest standards of purity and quality.</p>"
+    },
+    {
+      "type": "text",
+      "id": "process_cta_text",
+      "label": "Process CTA Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "process_cta_link",
+      "label": "Process CTA Link"
+    },
+    {
+      "type": "header",
+      "content": "Trust Section"
+    },
+    {
+      "type": "text",
+      "id": "trust_heading",
+      "label": "Trust Heading",
+      "default": "Nourishing You, Naturally"
+    },
+    {
+      "type": "text",
+      "id": "trust_subtitle",
+      "label": "Trust Subtitle",
+      "default": "Just Pure India is committed to bringing you the purest, most wholesome products, naturally."
+    },
+    {
+      "type": "header",
+      "content": "Final CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA Heading",
+      "default": "Ready to Experience the Difference?"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_subtitle",
+      "label": "CTA Subtitle",
+      "default": "Explore our range of natural products. Discover the taste of purity and goodness. Start your healthy living journey today."
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_text",
+      "label": "CTA Primary Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_link",
+      "label": "CTA Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_text",
+      "label": "CTA Secondary Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_link",
+      "label": "CTA Secondary Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "JustPure Homepage"
+    }
+  ]
+}
+{% endschema %}
