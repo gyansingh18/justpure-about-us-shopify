@@ -1,0 +1,1272 @@
+{% comment %}
+  JustPure Custom Product Page - Premium Design
+  Paste this in: Shopify Admin → Online Store → Themes → Edit code → Templates
+  Create new template: custom-product.liquid
+  All CSS is inside this file—no extra stylesheets.
+{% endcomment %}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+
+<div class="custom-product-page" id="product-{{ product.id }}">
+  
+  {%- comment -%} Product Main Section {%- endcomment -%}
+  <div class="custom-product-main">
+    <div class="custom-product-main__container">
+      
+      {%- comment -%} Product Images {%- endcomment -%}
+      <div class="custom-product-images">
+        <div class="custom-product-images__main">
+          <div class="custom-product-images__main-wrapper">
+            {% if featured_image != blank %}
+              <img
+                src="{{ featured_image | image_url: width: 1200 }}"
+                alt="{{ featured_image.alt | escape }}"
+                width="1200"
+                height="1200"
+                loading="eager"
+                class="custom-product-images__main-img"
+                id="ProductImage-{{ section.id }}"
+              >
+            {% else %}
+              <div class="custom-product-images__placeholder">
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {% endif %}
+            <button class="custom-product-images__zoom" aria-label="Zoom image">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        {% if product.images.size > 1 %}
+          <div class="custom-product-images__thumbnails">
+            {% for image in product.images limit: 5 %}
+              <button
+                class="custom-product-images__thumbnail{% if image == featured_image %} active{% endif %}"
+                data-image-id="{{ image.id }}"
+                aria-label="View product image {{ forloop.index }}"
+              >
+                <img
+                  src="{{ image | image_url: width: 200 }}"
+                  alt="{{ image.alt | escape }}"
+                  width="200"
+                  height="200"
+                  loading="lazy"
+                  class="custom-product-images__thumbnail-img"
+                >
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Product Info {%- endcomment -%}
+      <div class="custom-product-info">
+        <div class="custom-product-info__inner">
+          
+          {%- comment -%} Product Title & Price {%- endcomment -%}
+          <div class="custom-product-info__header">
+            <h1 class="custom-product-info__title">{{ product.title }}</h1>
+            <div class="custom-product-info__price-wrapper">
+              <span class="custom-product-info__price" id="ProductPrice-{{ section.id }}">
+                {{ current_variant.price | money }}
+              </span>
+              {% if current_variant.compare_at_price > current_variant.price %}
+                <span class="custom-product-info__compare-price" id="ComparePrice-{{ section.id }}">
+                  {{ current_variant.compare_at_price | money }}
+                </span>
+                <span class="custom-product-info__badge">Save {{ current_variant.compare_at_price | minus: current_variant.price | money }}</span>
+              {% endif %}
+            </div>
+          </div>
+
+          {%- comment -%} Product Description {%- endcomment -%}
+          {% if product.description != blank %}
+            <div class="custom-product-info__description">
+              {{ product.description | truncatewords: 50 }}
+            </div>
+          {% endif %}
+
+          {%- comment -%} Product Form {%- endcomment -%}
+          <form action="/cart/add" method="post" enctype="multipart/form-data" id="ProductForm-{{ section.id }}" class="custom-product-form">
+            
+            {%- comment -%} Variant Selector {%- endcomment -%}
+            {% unless product.has_only_default_variant %}
+              <div class="custom-product-form__variant">
+                <label class="custom-product-form__label" for="ProductSelect-{{ section.id }}">
+                  {{ product.options_with_values.first.name }}
+                </label>
+                <div class="custom-product-form__variant-options">
+                  {% for variant in product.variants %}
+                    {% if variant.available %}
+                      <button
+                        type="button"
+                        class="custom-product-form__variant-option{% if variant == current_variant %} active{% endif %}"
+                        data-variant-id="{{ variant.id }}"
+                        data-variant-price="{{ variant.price | money }}"
+                        data-variant-compare-price="{{ variant.compare_at_price | money }}"
+                        data-variant-image-id="{{ variant.featured_image.id }}"
+                      >
+                        {{ variant.title }}
+                      </button>
+                    {% else %}
+                      <button
+                        type="button"
+                        class="custom-product-form__variant-option disabled"
+                        disabled
+                      >
+                        {{ variant.title }} - Sold Out
+                      </button>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                <select name="id" id="ProductSelect-{{ section.id }}" class="custom-product-form__select" style="display: none;">
+                  {% for variant in product.variants %}
+                    <option value="{{ variant.id }}"{% if variant == current_variant %} selected="selected"{% endif %}>
+                      {{ variant.title }} - {{ variant.price | money }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% else %}
+              <input type="hidden" name="id" value="{{ current_variant.id }}" id="ProductSelect-{{ section.id }}">
+            {% endunless %}
+
+            {%- comment -%} Quantity Selector {%- endcomment -%}
+            <div class="custom-product-form__quantity">
+              <label class="custom-product-form__label" for="Quantity-{{ section.id }}">Quantity</label>
+              <div class="custom-product-form__quantity-controls">
+                <button type="button" class="custom-product-form__quantity-btn" data-action="decrease" aria-label="Decrease quantity">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+                <input
+                  type="number"
+                  id="Quantity-{{ section.id }}"
+                  name="quantity"
+                  value="1"
+                  min="1"
+                  class="custom-product-form__quantity-input"
+                >
+                <button type="button" class="custom-product-form__quantity-btn" data-action="increase" aria-label="Increase quantity">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {%- comment -%} Add to Cart Button {%- endcomment -%}
+            <button
+              type="submit"
+              name="add"
+              id="AddToCart-{{ section.id }}"
+              class="custom-product-form__submit{% unless current_variant.available %} disabled{% endunless %}"
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              <span class="custom-product-form__submit-text">
+                {% if current_variant.available %}
+                  Add to Cart
+                {% else %}
+                  Sold Out
+                {% endif %}
+              </span>
+              <span class="custom-product-form__submit-loader" style="display: none;">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="spinner">
+                  <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="50.27" stroke-dashoffset="50.27">
+                    <animate attributeName="stroke-dasharray" dur="2s" values="0 50.27;25.13 25.13;0 50.27;0 50.27" repeatCount="indefinite"/>
+                    <animate attributeName="stroke-dashoffset" dur="2s" values="0;-25.13;-50.27;-50.27" repeatCount="indefinite"/>
+                  </circle>
+                </svg>
+              </span>
+            </button>
+
+            {%- comment -%} Trust Badges {%- endcomment -%}
+            <div class="custom-product-form__trust">
+              <div class="custom-product-form__trust-item">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 18.3333C14.6024 18.3333 18.3333 14.6024 18.3333 10C18.3333 5.39763 14.6024 1.66667 10 1.66667C5.39763 1.66667 1.66667 5.39763 1.66667 10C1.66667 14.6024 5.39763 18.3333 10 18.3333Z" stroke="#2d5016" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M7.5 10L9.16667 11.6667L12.5 8.33333" stroke="#2d5016" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>100% Pure & Natural</span>
+              </div>
+              <div class="custom-product-form__trust-item">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 18.3333C14.6024 18.3333 18.3333 14.6024 18.3333 10C18.3333 5.39763 14.6024 1.66667 10 1.66667C5.39763 1.66667 1.66667 5.39763 1.66667 10C1.66667 14.6024 5.39763 18.3333 10 18.3333Z" stroke="#2d5016" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M7.5 10L9.16667 11.6667L12.5 8.33333" stroke="#2d5016" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Free Shipping</span>
+              </div>
+              <div class="custom-product-form__trust-item">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 18.3333C14.6024 18.3333 18.3333 14.6024 18.3333 10C18.3333 5.39763 14.6024 1.66667 10 1.66667C5.39763 1.66667 1.66667 5.39763 1.66667 10C1.66667 14.6024 5.39763 18.3333 10 18.3333Z" stroke="#2d5016" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M7.5 10L9.16667 11.6667L12.5 8.33333" stroke="#2d5016" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Easy Returns</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Product Details Tabs {%- endcomment -%}
+  <div class="custom-product-details">
+    <div class="custom-product-details__container">
+      <div class="custom-product-details__tabs">
+        <button class="custom-product-details__tab active" data-tab="description">Product Description</button>
+        <button class="custom-product-details__tab" data-tab="benefits">Key Benefits</button>
+        <button class="custom-product-details__tab" data-tab="nutrition">Nutritional Info</button>
+        <button class="custom-product-details__tab" data-tab="reviews">Reviews</button>
+      </div>
+
+      <div class="custom-product-details__content">
+        {%- comment -%} Description Tab {%- endcomment -%}
+        <div class="custom-product-details__panel active" id="tab-description">
+          <div class="custom-product-details__panel-content">
+            {{ product.description }}
+          </div>
+        </div>
+
+        {%- comment -%} Benefits Tab {%- endcomment -%}
+        <div class="custom-product-details__panel" id="tab-benefits">
+          <div class="custom-product-details__panel-content">
+            <div class="custom-product-benefits">
+              <div class="custom-product-benefits__grid">
+                <div class="custom-product-benefits__item">
+                  <div class="custom-product-benefits__icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <h3 class="custom-product-benefits__title">Rich in A2 Protein</h3>
+                  <p class="custom-product-benefits__description">Supports digestion and enhances metabolism naturally.</p>
+                </div>
+                <div class="custom-product-benefits__item">
+                  <div class="custom-product-benefits__icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <h3 class="custom-product-benefits__title">Omega-3 & Omega-6</h3>
+                  <p class="custom-product-benefits__description">Improves heart health and brain function.</p>
+                </div>
+                <div class="custom-product-benefits__item">
+                  <div class="custom-product-benefits__icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <h3 class="custom-product-benefits__title">Essential Vitamins</h3>
+                  <p class="custom-product-benefits__description">High in Vitamins A, D, E, K for overall wellness.</p>
+                </div>
+                <div class="custom-product-benefits__item">
+                  <div class="custom-product-benefits__icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <h3 class="custom-product-benefits__title">Gut Health</h3>
+                  <p class="custom-product-benefits__description">Acts as a natural probiotic, aiding digestion.</p>
+                </div>
+                <div class="custom-product-benefits__item">
+                  <div class="custom-product-benefits__icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <h3 class="custom-product-benefits__title">Skin & Hair</h3>
+                  <p class="custom-product-benefits__description">Nourishes skin and promotes healthy hair growth.</p>
+                </div>
+                <div class="custom-product-benefits__item">
+                  <div class="custom-product-benefits__icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <h3 class="custom-product-benefits__title">Boosts Immunity</h3>
+                  <p class="custom-product-benefits__description">Helps in detoxification and provides sustained energy.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {%- comment -%} Nutrition Tab {%- endcomment -%}
+        <div class="custom-product-details__panel" id="tab-nutrition">
+          <div class="custom-product-details__panel-content">
+            <div class="custom-product-nutrition">
+              <div class="custom-product-nutrition__table">
+                <div class="custom-product-nutrition__row">
+                  <div class="custom-product-nutrition__label">Milk Fat</div>
+                  <div class="custom-product-nutrition__value">99.5%</div>
+                </div>
+                <div class="custom-product-nutrition__row">
+                  <div class="custom-product-nutrition__label">A2 Beta-Casein</div>
+                  <div class="custom-product-nutrition__value">Present</div>
+                </div>
+                <div class="custom-product-nutrition__row">
+                  <div class="custom-product-nutrition__label">Omega-3</div>
+                  <div class="custom-product-nutrition__value">High</div>
+                </div>
+                <div class="custom-product-nutrition__row">
+                  <div class="custom-product-nutrition__label">Omega-6</div>
+                  <div class="custom-product-nutrition__value">High</div>
+                </div>
+                <div class="custom-product-nutrition__row">
+                  <div class="custom-product-nutrition__label">Vitamins</div>
+                  <div class="custom-product-nutrition__value">A, D, E, K</div>
+                </div>
+                <div class="custom-product-nutrition__row">
+                  <div class="custom-product-nutrition__label">Processing Method</div>
+                  <div class="custom-product-nutrition__value">Traditional Bilona</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {%- comment -%} Reviews Tab {%- endcomment -%}
+        <div class="custom-product-details__panel" id="tab-reviews">
+          <div class="custom-product-details__panel-content">
+            <div class="custom-product-reviews">
+              {%- comment -%} Shopify Reviews App Integration {%- endcomment -%}
+              <div id="shopify-product-reviews" data-id="{{ product.id }}">
+                {{ product.metafields.spr.reviews }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Related Products {%- endcomment -%}
+  {% if collection.products.size > 1 %}
+    <div class="custom-product-related">
+      <div class="custom-product-related__container">
+        <h2 class="custom-product-related__title">You may also like</h2>
+        <div class="custom-product-related__grid">
+          {% for related_product in collection.products limit: 4 %}
+            {% unless related_product.id == product.id %}
+              <div class="custom-product-related__item">
+                <a href="{{ related_product.url }}" class="custom-product-related__link">
+                  {% if related_product.featured_image != blank %}
+                    <div class="custom-product-related__image-wrapper">
+                      <img
+                        src="{{ related_product.featured_image | image_url: width: 600 }}"
+                        alt="{{ related_product.featured_image.alt | escape }}"
+                        width="600"
+                        height="600"
+                        loading="lazy"
+                        class="custom-product-related__image"
+                      >
+                    </div>
+                  {% endif %}
+                  <h3 class="custom-product-related__name">{{ related_product.title }}</h3>
+                  <div class="custom-product-related__price">
+                    {{ related_product.price | money }}
+                  </div>
+                </a>
+              </div>
+            {% endunless %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{%- comment -%} Image Zoom Modal {%- endcomment -%}
+<div class="custom-product-zoom" id="product-zoom-modal" style="display: none;">
+  <button class="custom-product-zoom__close" aria-label="Close zoom">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <div class="custom-product-zoom__image-wrapper">
+    <img src="" alt="" class="custom-product-zoom__image" id="zoom-image">
+  </div>
+</div>
+
+<style>
+  /* ============================================
+     CUSTOM PRODUCT PAGE STYLES
+     ============================================ */
+  
+  .custom-product-page {
+    padding: 0;
+    background: #ffffff;
+  }
+
+  /* ——— Product Main Section ——— */
+  .custom-product-main {
+    padding: 60px 0 100px;
+    background: #ffffff;
+  }
+  @media (max-width: 768px) {
+    .custom-product-main {
+      padding: 40px 0 60px;
+    }
+  }
+  .custom-product-main__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  @media (max-width: 1024px) {
+    .custom-product-main__container {
+      gap: 60px;
+    }
+  }
+  @media (max-width: 768px) {
+    .custom-product-main__container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 0 24px;
+    }
+  }
+
+  /* ——— Product Images ——— */
+  .custom-product-images {
+    position: sticky;
+    top: 100px;
+  }
+  @media (max-width: 768px) {
+    .custom-product-images {
+      position: static;
+    }
+  }
+  .custom-product-images__main {
+    margin-bottom: 20px;
+  }
+  .custom-product-images__main-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    background: #faf8f5;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .custom-product-images__main-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+  }
+  .custom-product-images__main-img:hover {
+    transform: scale(1.05);
+  }
+  .custom-product-images__placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .custom-product-images__zoom {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #2d5016;
+    transition: all 0.3s ease;
+    z-index: 2;
+  }
+  .custom-product-images__zoom:hover {
+    background: #ffffff;
+    transform: scale(1.1);
+  }
+  .custom-product-images__thumbnails {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: #2d5016 #f5f2ed;
+  }
+  .custom-product-images__thumbnails::-webkit-scrollbar {
+    height: 4px;
+  }
+  .custom-product-images__thumbnails::-webkit-scrollbar-track {
+    background: #f5f2ed;
+    border-radius: 2px;
+  }
+  .custom-product-images__thumbnails::-webkit-scrollbar-thumb {
+    background: #2d5016;
+    border-radius: 2px;
+  }
+  .custom-product-images__thumbnail {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #faf8f5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .custom-product-images__thumbnail:hover {
+    border-color: #2d5016;
+    transform: translateY(-2px);
+  }
+  .custom-product-images__thumbnail.active {
+    border-color: #2d5016;
+    box-shadow: 0 4px 12px rgba(45, 80, 22, 0.2);
+  }
+  .custom-product-images__thumbnail-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ——— Product Info ——— */
+  .custom-product-info {
+    padding-top: 20px;
+  }
+  .custom-product-info__header {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e8e5e0;
+  }
+  .custom-product-info__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    color: #1a1a1a;
+  }
+  .custom-product-info__price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .custom-product-info__price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2d5016;
+  }
+  .custom-product-info__compare-price {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #8a8a8a;
+    text-decoration: line-through;
+  }
+  .custom-product-info__badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #f0f7eb;
+    color: #2d5016;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 6px;
+  }
+  .custom-product-info__description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4a4a4a;
+    margin-bottom: 32px;
+  }
+
+  /* ——— Product Form ——— */
+  .custom-product-form {
+    margin-top: 32px;
+  }
+  .custom-product-form__variant {
+    margin-bottom: 24px;
+  }
+  .custom-product-form__label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+  .custom-product-form__variant-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .custom-product-form__variant-option {
+    padding: 12px 24px;
+    background: #ffffff;
+    border: 2px solid #e8e5e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .custom-product-form__variant-option:hover:not(.disabled) {
+    border-color: #2d5016;
+    background: #faf8f5;
+  }
+  .custom-product-form__variant-option.active {
+    background: #2d5016;
+    border-color: #2d5016;
+    color: #ffffff;
+  }
+  .custom-product-form__variant-option.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .custom-product-form__select {
+    display: none;
+  }
+  .custom-product-form__quantity {
+    margin-bottom: 32px;
+  }
+  .custom-product-form__quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: fit-content;
+    border: 2px solid #e8e5e0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .custom-product-form__quantity-btn {
+    width: 48px;
+    height: 48px;
+    background: #ffffff;
+    border: none;
+    color: #2d5016;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  .custom-product-form__quantity-btn:hover {
+    background: #faf8f5;
+  }
+  .custom-product-form__quantity-input {
+    width: 80px;
+    height: 48px;
+    border: none;
+    border-left: 1px solid #e8e5e0;
+    border-right: 1px solid #e8e5e0;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    -moz-appearance: textfield;
+  }
+  .custom-product-form__quantity-input::-webkit-outer-spin-button,
+  .custom-product-form__quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .custom-product-form__submit {
+    width: 100%;
+    padding: 18px 32px;
+    background: #2d5016;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .custom-product-form__submit:hover:not(.disabled) {
+    background: #3d6b1a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(45, 80, 22, 0.3);
+  }
+  .custom-product-form__submit.disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .custom-product-form__submit-loader {
+    display: none;
+  }
+  .custom-product-form__submit.loading .custom-product-form__submit-text {
+    display: none;
+  }
+  .custom-product-form__submit.loading .custom-product-form__submit-loader {
+    display: block;
+  }
+  .custom-product-form__submit-loader .spinner {
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .custom-product-form__trust {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .custom-product-form__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: #4a4a4a;
+  }
+  .custom-product-form__trust-item svg {
+    flex-shrink: 0;
+  }
+
+  /* ——— Product Details Tabs ——— */
+  .custom-product-details {
+    padding: 100px 0;
+    background: #faf8f5;
+  }
+  @media (max-width: 768px) {
+    .custom-product-details {
+      padding: 60px 0;
+    }
+  }
+  .custom-product-details__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    .custom-product-details__container {
+      padding: 0 24px;
+    }
+  }
+  .custom-product-details__tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #e8e5e0;
+    margin-bottom: 48px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .custom-product-details__tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .custom-product-details__tab {
+    padding: 16px 32px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #8a8a8a;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+  @media (max-width: 768px) {
+    .custom-product-details__tab {
+      padding: 14px 20px;
+      font-size: 0.95rem;
+    }
+  }
+  .custom-product-details__tab:hover {
+    color: #2d5016;
+  }
+  .custom-product-details__tab.active {
+    color: #2d5016;
+    border-bottom-color: #2d5016;
+  }
+  .custom-product-details__content {
+    position: relative;
+  }
+  .custom-product-details__panel {
+    display: none;
+  }
+  .custom-product-details__panel.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .custom-product-details__panel-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4a4a4a;
+  }
+
+  /* ——— Benefits Grid ——— */
+  .custom-product-benefits {
+    margin-top: 24px;
+  }
+  .custom-product-benefits__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  @media (max-width: 1024px) {
+    .custom-product-benefits__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 768px) {
+    .custom-product-benefits__grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+  .custom-product-benefits__item {
+    padding: 32px;
+    background: #ffffff;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  .custom-product-benefits__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(45, 80, 22, 0.1);
+  }
+  .custom-product-benefits__icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    background: #f0f7eb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .custom-product-benefits__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 12px;
+  }
+  .custom-product-benefits__description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4a4a4a;
+    margin: 0;
+  }
+
+  /* ——— Nutrition Table ——— */
+  .custom-product-nutrition {
+    margin-top: 24px;
+  }
+  .custom-product-nutrition__table {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .custom-product-nutrition__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
+    border-bottom: 1px solid #e8e5e0;
+  }
+  .custom-product-nutrition__row:last-child {
+    border-bottom: none;
+  }
+  @media (max-width: 768px) {
+    .custom-product-nutrition__row {
+      padding: 16px 24px;
+    }
+  }
+  .custom-product-nutrition__label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  .custom-product-nutrition__value {
+    font-size: 1.1rem;
+    color: #2d5016;
+    font-weight: 500;
+  }
+
+  /* ——— Reviews ——— */
+  .custom-product-reviews {
+    margin-top: 24px;
+  }
+
+  /* ——— Related Products ——— */
+  .custom-product-related {
+    padding: 100px 0;
+    background: #ffffff;
+  }
+  @media (max-width: 768px) {
+    .custom-product-related {
+      padding: 60px 0;
+    }
+  }
+  .custom-product-related__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    .custom-product-related__container {
+      padding: 0 24px;
+    }
+  }
+  .custom-product-related__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 600;
+    text-align: center;
+    margin: 0 0 60px;
+    color: #1a1a1a;
+  }
+  .custom-product-related__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  @media (max-width: 1024px) {
+    .custom-product-related__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 768px) {
+    .custom-product-related__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .custom-product-related__item {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .custom-product-related__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(45, 80, 22, 0.1);
+  }
+  .custom-product-related__link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .custom-product-related__image-wrapper {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    background: #faf8f5;
+    overflow: hidden;
+  }
+  .custom-product-related__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .custom-product-related__item:hover .custom-product-related__image {
+    transform: scale(1.1);
+  }
+  .custom-product-related__name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 20px 24px 8px;
+  }
+  .custom-product-related__price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #2d5016;
+    margin: 0 24px 24px;
+  }
+
+  /* ——— Zoom Modal ——— */
+  .custom-product-zoom {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+  }
+  .custom-product-zoom__close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10000;
+  }
+  .custom-product-zoom__close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+  }
+  .custom-product-zoom__image-wrapper {
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .custom-product-zoom__image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+</style>
+
+<script>
+  (function() {
+    const productPage = document.getElementById('product-{{ product.id }}');
+    if (!productPage) return;
+
+    // Image thumbnail switching
+    const thumbnails = productPage.querySelectorAll('.custom-product-images__thumbnail');
+    const mainImage = productPage.querySelector('.custom-product-images__main-img');
+    const mainImageWrapper = productPage.querySelector('.custom-product-images__main-wrapper');
+    
+    thumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener('click', function() {
+        const imageId = this.dataset.imageId;
+        const thumbnailImg = this.querySelector('img');
+        
+        // Update active state
+        thumbnails.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Update main image
+        if (mainImage) {
+          mainImage.src = thumbnailImg.src.replace('width=200', 'width=1200');
+          mainImage.alt = thumbnailImg.alt;
+        }
+      });
+    });
+
+    // Variant selection
+    const variantOptions = productPage.querySelectorAll('.custom-product-form__variant-option:not(.disabled)');
+    const variantSelect = productPage.querySelector('#ProductSelect-{{ section.id }}');
+    const priceElement = productPage.querySelector('#ProductPrice-{{ section.id }}');
+    const comparePriceElement = productPage.querySelector('#ComparePrice-{{ section.id }}');
+    
+    variantOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        const variantId = this.dataset.variantId;
+        const variantPrice = this.dataset.variantPrice;
+        const variantComparePrice = this.dataset.variantComparePrice;
+        const variantImageId = this.dataset.variantImageId;
+        
+        // Update active state
+        variantOptions.forEach(o => o.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Update select
+        if (variantSelect) {
+          variantSelect.value = variantId;
+        }
+        
+        // Update price
+        if (priceElement) {
+          priceElement.textContent = variantPrice;
+        }
+        
+        // Update compare price
+        if (comparePriceElement && variantComparePrice) {
+          comparePriceElement.textContent = variantComparePrice;
+          comparePriceElement.parentElement.style.display = 'flex';
+        } else if (comparePriceElement) {
+          comparePriceElement.parentElement.style.display = 'none';
+        }
+        
+        // Update image if variant has different image
+        if (variantImageId && mainImage) {
+          const variantImage = Array.from(productPage.querySelectorAll('.custom-product-images__thumbnail-img')).find(img => {
+            return img.closest('.custom-product-images__thumbnail').dataset.imageId === variantImageId;
+          });
+          if (variantImage) {
+            mainImage.src = variantImage.src.replace('width=200', 'width=1200');
+            thumbnails.forEach(t => {
+              if (t.dataset.imageId === variantImageId) {
+                t.classList.add('active');
+              } else {
+                t.classList.remove('active');
+              }
+            });
+          }
+        }
+      });
+    });
+
+    // Quantity controls
+    const quantityInput = productPage.querySelector('.custom-product-form__quantity-input');
+    const quantityDecrease = productPage.querySelector('[data-action="decrease"]');
+    const quantityIncrease = productPage.querySelector('[data-action="increase"]');
+    
+    if (quantityDecrease) {
+      quantityDecrease.addEventListener('click', function() {
+        if (quantityInput && parseInt(quantityInput.value) > 1) {
+          quantityInput.value = parseInt(quantityInput.value) - 1;
+        }
+      });
+    }
+    
+    if (quantityIncrease) {
+      quantityIncrease.addEventListener('click', function() {
+        if (quantityInput) {
+          quantityInput.value = parseInt(quantityInput.value) + 1;
+        }
+      });
+    }
+
+    // Image zoom
+    const zoomButton = productPage.querySelector('.custom-product-images__zoom');
+    const zoomModal = document.getElementById('product-zoom-modal');
+    const zoomImage = document.getElementById('zoom-image');
+    const zoomClose = zoomModal?.querySelector('.custom-product-zoom__close');
+    
+    if (zoomButton && zoomModal && zoomImage) {
+      zoomButton.addEventListener('click', function() {
+        if (mainImage) {
+          zoomImage.src = mainImage.src.replace('width=1200', 'width=2000');
+          zoomImage.alt = mainImage.alt;
+          zoomModal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    }
+    
+    if (mainImageWrapper) {
+      mainImageWrapper.addEventListener('click', function(e) {
+        if (e.target === mainImage && zoomModal) {
+          zoomImage.src = mainImage.src.replace('width=1200', 'width=2000');
+          zoomImage.alt = mainImage.alt;
+          zoomModal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    }
+    
+    if (zoomClose) {
+      zoomClose.addEventListener('click', function() {
+        zoomModal.style.display = 'none';
+        document.body.style.overflow = '';
+      });
+    }
+    
+    if (zoomModal) {
+      zoomModal.addEventListener('click', function(e) {
+        if (e.target === zoomModal) {
+          zoomModal.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      });
+    }
+
+    // Tab switching
+    const tabs = productPage.querySelectorAll('.custom-product-details__tab');
+    const panels = productPage.querySelectorAll('.custom-product-details__panel');
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        const targetTab = this.dataset.tab;
+        
+        // Update active states
+        tabs.forEach(t => t.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        
+        this.classList.add('active');
+        const targetPanel = productPage.querySelector(`#tab-${targetTab}`);
+        if (targetPanel) {
+          targetPanel.classList.add('active');
+        }
+      });
+    });
+
+    // Form submission
+    const productForm = productPage.querySelector('#ProductForm-{{ section.id }}');
+    const submitButton = productPage.querySelector('#AddToCart-{{ section.id }}');
+    
+    if (productForm && submitButton) {
+      productForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const submitText = submitButton.querySelector('.custom-product-form__submit-text');
+        const submitLoader = submitButton.querySelector('.custom-product-form__submit-loader');
+        
+        // Show loading state
+        submitButton.classList.add('loading');
+        submitButton.disabled = true;
+        
+        fetch('/cart/add.js', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Trigger cart drawer update (if using Shopify's cart drawer)
+          if (typeof window.theme !== 'undefined' && window.theme.cartDrawer) {
+            window.theme.cartDrawer.open();
+          } else {
+            // Fallback: redirect to cart
+            window.location.href = '/cart';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('There was an error adding the product to your cart. Please try again.');
+        })
+        .finally(() => {
+          submitButton.classList.remove('loading');
+          submitButton.disabled = false;
+        });
+      });
+    }
+  })();
+</script>
