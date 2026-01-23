@@ -109,6 +109,36 @@
     </div>
   </div>
 
+  {%- comment -%} Moringa Featured Section {%- endcomment -%}
+  <div class="homepage-moringa">
+    <div class="homepage-moringa__container">
+      <div class="homepage-moringa__grid">
+        {% if section.settings.moringa_image != blank %}
+          <div class="homepage-moringa__image-wrapper">
+            <img
+              src="{{ section.settings.moringa_image | image_url: width: 1200 }}"
+              alt="{{ section.settings.moringa_image.alt | escape }}"
+              width="1200"
+              height="1500"
+              loading="lazy"
+              class="homepage-moringa__image"
+            >
+          </div>
+        {% else %}
+          <div class="homepage-moringa__image-placeholder"></div>
+        {% endif %}
+        <div class="homepage-moringa__content">
+          <div class="homepage-moringa__label">Natural Goodness</div>
+          <h2 class="homepage-moringa__title">{{ section.settings.moringa_heading | default: 'Pure Moringa. Naturally Powerful.' }}</h2>
+          <p class="homepage-moringa__description">{{ section.settings.moringa_description | default: 'Our moringa is grown naturally, carefully dried, and minimally processed to retain its nutrients. Clean, plant-based nutrition you can trust, every day.' }}</p>
+          {% if section.settings.moringa_cta_link != blank %}
+            <a href="{{ section.settings.moringa_cta_link }}" class="homepage-moringa__link">{{ section.settings.moringa_cta_text | default: 'Learn More' }} →</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
   {%- comment -%} Why Just Pure Section {%- endcomment -%}
   <div class="homepage-why">
     <div class="homepage-why__container">
@@ -482,6 +512,112 @@
     transition: color 0.3s ease;
   }
   #homepage-{{ section.id }} .homepage-category-card__link:hover {
+    color: #3d6b1a;
+  }
+
+  /* ——— Moringa Featured Section ——— */
+  #homepage-{{ section.id }} .homepage-moringa {
+    padding: 140px 0;
+    background: #faf8f5;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-moringa {
+      padding: 100px 0;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-moringa__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-moringa__container {
+      padding: 0 24px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-moringa__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  @media (max-width: 1024px) {
+    #homepage-{{ section.id }} .homepage-moringa__grid {
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-moringa__image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 125%;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #f5f2ed;
+    order: 2;
+  }
+  @media (max-width: 1024px) {
+    #homepage-{{ section.id }} .homepage-moringa__image-wrapper {
+      order: 1;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-moringa__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  #homepage-{{ section.id }} .homepage-moringa__image-placeholder {
+    width: 100%;
+    padding-top: 125%;
+    background: #f5f2ed;
+    border-radius: 12px;
+  }
+  #homepage-{{ section.id }} .homepage-moringa__content {
+    max-width: 600px;
+    order: 1;
+  }
+  @media (max-width: 1024px) {
+    #homepage-{{ section.id }} .homepage-moringa__content {
+      order: 2;
+      text-align: center;
+      margin: 0 auto;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-moringa__label {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2d5016;
+    margin-bottom: 16px;
+  }
+  #homepage-{{ section.id }} .homepage-moringa__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 24px;
+    color: #1a1a1a;
+  }
+  #homepage-{{ section.id }} .homepage-moringa__description {
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: #4a4a4a;
+    margin: 0 0 32px;
+  }
+  #homepage-{{ section.id }} .homepage-moringa__link {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2d5016;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  #homepage-{{ section.id }} .homepage-moringa__link:hover {
     color: #3d6b1a;
   }
 
@@ -1039,6 +1175,38 @@
       "type": "url",
       "id": "spices_link",
       "label": "Spices Link"
+    },
+    {
+      "type": "header",
+      "content": "Moringa Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "moringa_image",
+      "label": "Moringa Image"
+    },
+    {
+      "type": "text",
+      "id": "moringa_heading",
+      "label": "Moringa Heading",
+      "default": "Pure Moringa. Naturally Powerful."
+    },
+    {
+      "type": "textarea",
+      "id": "moringa_description",
+      "label": "Moringa Description",
+      "default": "Our moringa is grown naturally, carefully dried, and minimally processed to retain its nutrients. Clean, plant-based nutrition you can trust, every day."
+    },
+    {
+      "type": "text",
+      "id": "moringa_cta_text",
+      "label": "Moringa CTA Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "moringa_cta_link",
+      "label": "Moringa CTA Link"
     },
     {
       "type": "header",
