@@ -9,11 +9,11 @@
 {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
 
 <div class="custom-product-page" id="product-{{ product.id }}">
-  
+
   {%- comment -%} Product Main Section {%- endcomment -%}
   <div class="custom-product-main">
     <div class="custom-product-main__container">
-      
+
       {%- comment -%} Product Images {%- endcomment -%}
       <div class="custom-product-images">
         <div class="custom-product-images__main">
@@ -41,7 +41,7 @@
             </button>
           </div>
         </div>
-        
+
         {% if product.images.size > 1 %}
           <div class="custom-product-images__thumbnails">
             {% for image in product.images limit: 5 %}
@@ -67,7 +67,7 @@
       {%- comment -%} Product Info {%- endcomment -%}
       <div class="custom-product-info">
         <div class="custom-product-info__inner">
-          
+
           {%- comment -%} Product Title & Price {%- endcomment -%}
           <div class="custom-product-info__header">
             <h1 class="custom-product-info__title">{{ product.title }}</h1>
@@ -93,7 +93,7 @@
 
           {%- comment -%} Product Form {%- endcomment -%}
           <form action="/cart/add" method="post" enctype="multipart/form-data" id="ProductForm-{{ section.id }}" class="custom-product-form">
-            
+
             {%- comment -%} Variant Selector {%- endcomment -%}
             {% unless product.has_only_default_variant %}
               <div class="custom-product-form__variant">
@@ -405,7 +405,7 @@
   /* ============================================
      CUSTOM PRODUCT PAGE STYLES
      ============================================ */
-  
+
   .custom-product-page {
     padding: 0;
     background: #ffffff;
@@ -1071,16 +1071,16 @@
     const thumbnails = productPage.querySelectorAll('.custom-product-images__thumbnail');
     const mainImage = productPage.querySelector('.custom-product-images__main-img');
     const mainImageWrapper = productPage.querySelector('.custom-product-images__main-wrapper');
-    
+
     thumbnails.forEach(thumbnail => {
       thumbnail.addEventListener('click', function() {
         const imageId = this.dataset.imageId;
         const thumbnailImg = this.querySelector('img');
-        
+
         // Update active state
         thumbnails.forEach(t => t.classList.remove('active'));
         this.classList.add('active');
-        
+
         // Update main image
         if (mainImage) {
           mainImage.src = thumbnailImg.src.replace('width=200', 'width=1200');
@@ -1094,28 +1094,28 @@
     const variantSelect = productPage.querySelector('#ProductSelect-{{ section.id }}');
     const priceElement = productPage.querySelector('#ProductPrice-{{ section.id }}');
     const comparePriceElement = productPage.querySelector('#ComparePrice-{{ section.id }}');
-    
+
     variantOptions.forEach(option => {
       option.addEventListener('click', function() {
         const variantId = this.dataset.variantId;
         const variantPrice = this.dataset.variantPrice;
         const variantComparePrice = this.dataset.variantComparePrice;
         const variantImageId = this.dataset.variantImageId;
-        
+
         // Update active state
         variantOptions.forEach(o => o.classList.remove('active'));
         this.classList.add('active');
-        
+
         // Update select
         if (variantSelect) {
           variantSelect.value = variantId;
         }
-        
+
         // Update price
         if (priceElement) {
           priceElement.textContent = variantPrice;
         }
-        
+
         // Update compare price
         if (comparePriceElement && variantComparePrice) {
           comparePriceElement.textContent = variantComparePrice;
@@ -1123,7 +1123,7 @@
         } else if (comparePriceElement) {
           comparePriceElement.parentElement.style.display = 'none';
         }
-        
+
         // Update image if variant has different image
         if (variantImageId && mainImage) {
           const variantImage = Array.from(productPage.querySelectorAll('.custom-product-images__thumbnail-img')).find(img => {
@@ -1147,7 +1147,7 @@
     const quantityInput = productPage.querySelector('.custom-product-form__quantity-input');
     const quantityDecrease = productPage.querySelector('[data-action="decrease"]');
     const quantityIncrease = productPage.querySelector('[data-action="increase"]');
-    
+
     if (quantityDecrease) {
       quantityDecrease.addEventListener('click', function() {
         if (quantityInput && parseInt(quantityInput.value) > 1) {
@@ -1155,7 +1155,7 @@
         }
       });
     }
-    
+
     if (quantityIncrease) {
       quantityIncrease.addEventListener('click', function() {
         if (quantityInput) {
@@ -1169,7 +1169,7 @@
     const zoomModal = document.getElementById('product-zoom-modal');
     const zoomImage = document.getElementById('zoom-image');
     const zoomClose = zoomModal?.querySelector('.custom-product-zoom__close');
-    
+
     if (zoomButton && zoomModal && zoomImage) {
       zoomButton.addEventListener('click', function() {
         if (mainImage) {
@@ -1180,7 +1180,7 @@
         }
       });
     }
-    
+
     if (mainImageWrapper) {
       mainImageWrapper.addEventListener('click', function(e) {
         if (e.target === mainImage && zoomModal) {
@@ -1191,14 +1191,14 @@
         }
       });
     }
-    
+
     if (zoomClose) {
       zoomClose.addEventListener('click', function() {
         zoomModal.style.display = 'none';
         document.body.style.overflow = '';
       });
     }
-    
+
     if (zoomModal) {
       zoomModal.addEventListener('click', function(e) {
         if (e.target === zoomModal) {
@@ -1211,15 +1211,15 @@
     // Tab switching
     const tabs = productPage.querySelectorAll('.custom-product-details__tab');
     const panels = productPage.querySelectorAll('.custom-product-details__panel');
-    
+
     tabs.forEach(tab => {
       tab.addEventListener('click', function() {
         const targetTab = this.dataset.tab;
-        
+
         // Update active states
         tabs.forEach(t => t.classList.remove('active'));
         panels.forEach(p => p.classList.remove('active'));
-        
+
         this.classList.add('active');
         const targetPanel = productPage.querySelector(`#tab-${targetTab}`);
         if (targetPanel) {
@@ -1231,19 +1231,19 @@
     // Form submission
     const productForm = productPage.querySelector('#ProductForm-{{ section.id }}');
     const submitButton = productPage.querySelector('#AddToCart-{{ section.id }}');
-    
+
     if (productForm && submitButton) {
       productForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         const formData = new FormData(this);
         const submitText = submitButton.querySelector('.custom-product-form__submit-text');
         const submitLoader = submitButton.querySelector('.custom-product-form__submit-loader');
-        
+
         // Show loading state
         submitButton.classList.add('loading');
         submitButton.disabled = true;
-        
+
         fetch('/cart/add.js', {
           method: 'POST',
           body: formData

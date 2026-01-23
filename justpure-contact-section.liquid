@@ -270,9 +270,12 @@
         <p class="contact-form-section__subtitle">{{ section.settings.form_subtitle | default: "We look forward to hearing from you" }}</p>
       </div>
       <div class="contact-form-section__wrapper">
-        <form class="contact-form" id="contact-form-{{ section.id }}" action="{{ routes.contact_url }}" method="post" accept-charset="UTF-8">
+        <form class="contact-form" id="contact-form-{{ section.id }}" action="/contact" method="post" accept-charset="UTF-8">
           <input type="hidden" name="form_type" value="contact">
           <input type="hidden" name="utf8" value="✓">
+          {% if request.page_type == 'page' %}
+            <input type="hidden" name="return_to" value="{{ request.path }}">
+          {% endif %}
 
           <div class="contact-form__row">
             <div class="contact-form__field">
