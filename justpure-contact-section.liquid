@@ -79,8 +79,9 @@
           </div>
           <div class="contact-method-card__content">
             <div class="contact-method-card__label">{{ section.settings.whatsapp_label | default: "Chat with us on WhatsApp!" }}</div>
-            {% if section.settings.whatsapp_link != blank %}
-              <a href="{{ section.settings.whatsapp_link }}" target="_blank" rel="noopener" class="contact-method-card__link">
+            {% assign whatsapp_url = section.settings.whatsapp_link | default: "https://wa.me/918569849499" %}
+            {% if whatsapp_url != blank %}
+              <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="contact-method-card__link">
                 {{ section.settings.whatsapp_button_text | default: "Chat Now" }}
               </a>
             {% endif %}
@@ -197,8 +198,9 @@
       <div class="contact-social__container">
         <h3 class="contact-social__title">{{ section.settings.social_heading | default: "Connect With Us" }}</h3>
         <div class="contact-social__grid">
-          {% if section.settings.instagram_url != blank %}
-            <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener" class="contact-social__link">
+          {% assign instagram_url = section.settings.instagram_url | default: "https://www.instagram.com/justpureofficial/" %}
+          {% if instagram_url != blank %}
+            <a href="{{ instagram_url }}" target="_blank" rel="noopener" class="contact-social__link">
               {% if section.settings.instagram_icon != blank %}
                 <img
                   src="{{ section.settings.instagram_icon | image_url: width: 48 }}"
@@ -216,8 +218,9 @@
             </a>
           {% endif %}
 
-          {% if section.settings.facebook_url != blank %}
-            <a href="{{ section.settings.facebook_url }}" target="_blank" rel="noopener" class="contact-social__link">
+          {% assign facebook_url = section.settings.facebook_url | default: "https://www.facebook.com/justpureofficial/" %}
+          {% if facebook_url != blank %}
+            <a href="{{ facebook_url }}" target="_blank" rel="noopener" class="contact-social__link">
               {% if section.settings.facebook_icon != blank %}
                 <img
                   src="{{ section.settings.facebook_icon | image_url: width: 48 }}"
@@ -235,8 +238,9 @@
             </a>
           {% endif %}
 
-          {% if section.settings.whatsapp_social_url != blank %}
-            <a href="{{ section.settings.whatsapp_social_url }}" target="_blank" rel="noopener" class="contact-social__link">
+          {% assign whatsapp_social_url = section.settings.whatsapp_social_url | default: "https://wa.me/918569849499" %}
+          {% if whatsapp_social_url != blank %}
+            <a href="{{ whatsapp_social_url }}" target="_blank" rel="noopener" class="contact-social__link">
               {% if section.settings.whatsapp_social_icon != blank %}
                 <img
                   src="{{ section.settings.whatsapp_social_icon | image_url: width: 48 }}"
@@ -269,7 +273,7 @@
         <form class="contact-form" id="contact-form-{{ section.id }}" action="{{ routes.contact_url }}" method="post" accept-charset="UTF-8">
           <input type="hidden" name="form_type" value="contact">
           <input type="hidden" name="utf8" value="✓">
-          
+
           <div class="contact-form__row">
             <div class="contact-form__field">
               <label for="contact-name-{{ section.id }}" class="contact-form__label">Name</label>
@@ -1053,8 +1057,7 @@
     {
       "type": "url",
       "id": "whatsapp_link",
-      "label": "WhatsApp Link",
-      "default": "https://wa.me/918569849499"
+      "label": "WhatsApp Link"
     },
     {
       "type": "text",
@@ -1239,8 +1242,7 @@
     {
       "type": "url",
       "id": "instagram_url",
-      "label": "Instagram URL",
-      "default": "https://www.instagram.com/justpureofficial/"
+      "label": "Instagram URL"
     },
     {
       "type": "image_picker",
@@ -1250,8 +1252,7 @@
     {
       "type": "url",
       "id": "facebook_url",
-      "label": "Facebook URL",
-      "default": "https://www.facebook.com/justpureofficial/"
+      "label": "Facebook URL"
     },
     {
       "type": "image_picker",
@@ -1261,8 +1262,7 @@
     {
       "type": "url",
       "id": "whatsapp_social_url",
-      "label": "WhatsApp Social URL",
-      "default": "https://wa.me/918569849499"
+      "label": "WhatsApp Social URL"
     },
     {
       "type": "image_picker",
