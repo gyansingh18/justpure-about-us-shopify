@@ -8,6 +8,18 @@
 <section class="about-us-section" id="about-us-{{ section.id }}">
   {%- comment -%} Hero Section {%- endcomment -%}
   <div class="about-us-hero">
+    {% if section.settings.hero_image != blank %}
+      <div class="about-us-hero__bg-image">
+        <img
+          src="{{ section.settings.hero_image | image_url: width: 2000 }}"
+          alt="{{ section.settings.hero_image.alt | escape }}"
+          width="2000"
+          height="1200"
+          loading="eager"
+          class="about-us-hero__bg-img"
+        >
+      </div>
+    {% endif %}
     <div class="about-us-hero__bg"></div>
     <div class="about-us-hero__inner">
       <div class="about-us-hero__badge">Since 2016</div>
@@ -82,29 +94,68 @@
       </div>
       <div class="about-us-values__grid">
         <div class="about-us-value-card">
-          <div class="about-us-value-card__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
-          </div>
+          {% if section.settings.value1_image != blank %}
+            <div class="about-us-value-card__image-wrapper">
+              <img
+                src="{{ section.settings.value1_image | image_url: width: 500 }}"
+                alt="{{ section.settings.value1_image.alt | escape }}"
+                width="500"
+                height="400"
+                loading="lazy"
+                class="about-us-value-card__image"
+              >
+            </div>
+          {% else %}
+            <div class="about-us-value-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+          {% endif %}
           <h3 class="about-us-value-card__title">{{ section.settings.value1_title | default: 'Authentic' }}</h3>
           <p class="about-us-value-card__desc">{{ section.settings.value1_desc | default: 'Fresh, natural and totally safe products' }}</p>
         </div>
         <div class="about-us-value-card">
-          <div class="about-us-value-card__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
-            </svg>
-          </div>
+          {% if section.settings.value2_image != blank %}
+            <div class="about-us-value-card__image-wrapper">
+              <img
+                src="{{ section.settings.value2_image | image_url: width: 500 }}"
+                alt="{{ section.settings.value2_image.alt | escape }}"
+                width="500"
+                height="400"
+                loading="lazy"
+                class="about-us-value-card__image"
+              >
+            </div>
+          {% else %}
+            <div class="about-us-value-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+              </svg>
+            </div>
+          {% endif %}
           <h3 class="about-us-value-card__title">{{ section.settings.value2_title | default: '100% Quality' }}</h3>
           <p class="about-us-value-card__desc">{{ section.settings.value2_desc | default: 'Top-grade natural and hygienic products' }}</p>
         </div>
         <div class="about-us-value-card">
-          <div class="about-us-value-card__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-            </svg>
-          </div>
+          {% if section.settings.value3_image != blank %}
+            <div class="about-us-value-card__image-wrapper">
+              <img
+                src="{{ section.settings.value3_image | image_url: width: 500 }}"
+                alt="{{ section.settings.value3_image.alt | escape }}"
+                width="500"
+                height="400"
+                loading="lazy"
+                class="about-us-value-card__image"
+              >
+            </div>
+          {% else %}
+            <div class="about-us-value-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+              </svg>
+            </div>
+          {% endif %}
           <h3 class="about-us-value-card__title">{{ section.settings.value3_title | default: 'Pocket Friendly' }}</h3>
           <p class="about-us-value-card__desc">{{ section.settings.value3_desc | default: 'Extensive range at economical prices selling.' }}</p>
         </div>
@@ -121,19 +172,61 @@
       </div>
       <div class="about-us-business__grid">
         <div class="about-us-business-card">
-          <div class="about-us-business-card__number">01</div>
-          <h3 class="about-us-business-card__title">{{ section.settings.bm1_title | default: 'Production Side' }}</h3>
-          <p class="about-us-business-card__text">{{ section.settings.bm1_text | default: "Our FPO has developed a robust 'Package of Practices' for management of cattle breeds that are mainly reared in the local region in partnership with the State Animal Husbandry Department. Our prime focus is on delivering the necessary information on animal health, nutrition, and hygiene management practices to our farmers in the most understandable language." }}</p>
+          {% if section.settings.bm1_image != blank %}
+            <div class="about-us-business-card__image-wrapper">
+              <img
+                src="{{ section.settings.bm1_image | image_url: width: 600 }}"
+                alt="{{ section.settings.bm1_image.alt | escape }}"
+                width="600"
+                height="400"
+                loading="lazy"
+                class="about-us-business-card__image"
+              >
+            </div>
+          {% endif %}
+          <div class="about-us-business-card__content">
+            <div class="about-us-business-card__number">01</div>
+            <h3 class="about-us-business-card__title">{{ section.settings.bm1_title | default: 'Production Side' }}</h3>
+            <p class="about-us-business-card__text">{{ section.settings.bm1_text | default: "Our FPO has developed a robust 'Package of Practices' for management of cattle breeds that are mainly reared in the local region in partnership with the State Animal Husbandry Department. Our prime focus is on delivering the necessary information on animal health, nutrition, and hygiene management practices to our farmers in the most understandable language." }}</p>
+          </div>
         </div>
         <div class="about-us-business-card">
-          <div class="about-us-business-card__number">02</div>
-          <h3 class="about-us-business-card__title">{{ section.settings.bm2_title | default: 'Milk Collections' }}</h3>
-          <p class="about-us-business-card__text">{{ section.settings.bm2_text | default: "We follow an aggregator-based collection model, in which milk is collected from farmer's doorstep by the aggregator and payment is made in exchange of milk. The collected milk is then brought to our collection centre where its quality is thoroughly ensured for the further processes." }}</p>
+          {% if section.settings.bm2_image != blank %}
+            <div class="about-us-business-card__image-wrapper">
+              <img
+                src="{{ section.settings.bm2_image | image_url: width: 600 }}"
+                alt="{{ section.settings.bm2_image.alt | escape }}"
+                width="600"
+                height="400"
+                loading="lazy"
+                class="about-us-business-card__image"
+              >
+            </div>
+          {% endif %}
+          <div class="about-us-business-card__content">
+            <div class="about-us-business-card__number">02</div>
+            <h3 class="about-us-business-card__title">{{ section.settings.bm2_title | default: 'Milk Collections' }}</h3>
+            <p class="about-us-business-card__text">{{ section.settings.bm2_text | default: "We follow an aggregator-based collection model, in which milk is collected from farmer's doorstep by the aggregator and payment is made in exchange of milk. The collected milk is then brought to our collection centre where its quality is thoroughly ensured for the further processes." }}</p>
+          </div>
         </div>
         <div class="about-us-business-card">
-          <div class="about-us-business-card__number">03</div>
-          <h3 class="about-us-business-card__title">{{ section.settings.bm3_title | default: 'Processing Side' }}</h3>
-          <p class="about-us-business-card__text">{{ section.settings.bm3_text | default: "This area of our business model deals with the processing of the milk and milk products. The collected milk comes to our company's plant where it is pasteurized and packaged under our brand 'Shakti Vardhak'. We have our own plant which handles up to 20,000 litres of milk everyday for processing milk and milk products such as paneer, curd and ghee." }}</p>
+          {% if section.settings.bm3_image != blank %}
+            <div class="about-us-business-card__image-wrapper">
+              <img
+                src="{{ section.settings.bm3_image | image_url: width: 600 }}"
+                alt="{{ section.settings.bm3_image.alt | escape }}"
+                width="600"
+                height="400"
+                loading="lazy"
+                class="about-us-business-card__image"
+              >
+            </div>
+          {% endif %}
+          <div class="about-us-business-card__content">
+            <div class="about-us-business-card__number">03</div>
+            <h3 class="about-us-business-card__title">{{ section.settings.bm3_title | default: 'Processing Side' }}</h3>
+            <p class="about-us-business-card__text">{{ section.settings.bm3_text | default: "This area of our business model deals with the processing of the milk and milk products. The collected milk comes to our company's plant where it is pasteurized and packaged under our brand 'Shakti Vardhak'. We have our own plant which handles up to 20,000 litres of milk everyday for processing milk and milk products such as paneer, curd and ghee." }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -142,11 +235,25 @@
   {%- comment -%} Additional Info {%- endcomment -%}
   <div class="about-us-additional">
     <div class="about-us-additional__container">
-      <div class="about-us-additional__content">
-        <p>JUST PURE a brand name of Shakti Vardhak Milk Producer Co. Ltd is a Farmer Producer Organization set up in 2016 duly promoted by NABARD. Our FPO has been awarded as "The BEST FPO" in Haryana for three times within the short period of time. Our organization associates with more than 1500 farmer members who have their own cattle.</p>
-        <p>We collect fresh milk from Kankrej cows and buffaloes through our aggregator system, partnering with farmers for door-to-door pickup. Each batch undergoes a rigorous quality check by our team to ensure purity and freshness before processing. This ensures that only the best-quality milk is used for making our desi ghee and other dairy products.</p>
-        <p>Our farmer members actively participate and support each other as a family, and all farmers are within our reach. Our farmers give a great deal of care while producing fresh, healthy, hygienic as well as good quality of A2 Cow Milk and responsibly supplying it to the FPO.</p>
-        <p>In order to serve utmost satisfaction to our customers, we keep up with hygienic processing, safe packaging, global standards and reasonable cost.</p>
+      <div class="about-us-additional__grid">
+        <div class="about-us-additional__content">
+          <p>JUST PURE a brand name of Shakti Vardhak Milk Producer Co. Ltd is a Farmer Producer Organization set up in 2016 duly promoted by NABARD. Our FPO has been awarded as "The BEST FPO" in Haryana for three times within the short period of time. Our organization associates with more than 1500 farmer members who have their own cattle.</p>
+          <p>We collect fresh milk from Kankrej cows and buffaloes through our aggregator system, partnering with farmers for door-to-door pickup. Each batch undergoes a rigorous quality check by our team to ensure purity and freshness before processing. This ensures that only the best-quality milk is used for making our desi ghee and other dairy products.</p>
+          <p>Our farmer members actively participate and support each other as a family, and all farmers are within our reach. Our farmers give a great deal of care while producing fresh, healthy, hygienic as well as good quality of A2 Cow Milk and responsibly supplying it to the FPO.</p>
+          <p>In order to serve utmost satisfaction to our customers, we keep up with hygienic processing, safe packaging, global standards and reasonable cost.</p>
+        </div>
+        {% if section.settings.additional_image != blank %}
+          <div class="about-us-additional__image-wrapper">
+            <img
+              src="{{ section.settings.additional_image | image_url: width: 800 }}"
+              alt="{{ section.settings.additional_image.alt | escape }}"
+              width="800"
+              height="1000"
+              loading="lazy"
+              class="about-us-additional__image"
+            >
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -271,6 +378,20 @@
       padding: 80px 24px;
     }
   }
+  #about-us-{{ section.id }} .about-us-hero__bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+  }
+  #about-us-{{ section.id }} .about-us-hero__bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.25;
+  }
   #about-us-{{ section.id }} .about-us-hero__bg {
     position: absolute;
     top: 0;
@@ -280,6 +401,7 @@
     background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
                 radial-gradient(circle at 70% 80%, rgba(255,255,255,0.03) 0%, transparent 50%);
     animation: pulse 8s ease-in-out infinite;
+    z-index: 1;
   }
   @keyframes pulse {
     0%, 100% { opacity: 1; }
@@ -287,7 +409,7 @@
   }
   #about-us-{{ section.id }} .about-us-hero__inner {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     max-width: 1000px;
     margin: 0 auto;
     text-align: center;
@@ -553,13 +675,32 @@
   }
   #about-us-{{ section.id }} .about-us-value-card {
     text-align: center;
-    padding: 56px 40px;
+    padding: 0;
     background: linear-gradient(135deg, #ffffff 0%, #faf9f6 100%);
     border-radius: 24px;
     border: 2px solid transparent;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+  }
+  #about-us-{{ section.id }} .about-us-value-card__image-wrapper {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 32px;
+  }
+  #about-us-{{ section.id }} .about-us-value-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #about-us-{{ section.id }} .about-us-value-card:hover .about-us-value-card__image {
+    transform: scale(1.1);
+  }
+  #about-us-{{ section.id }} .about-us-value-card__content-wrapper {
+    padding: 0 40px 56px;
   }
   #about-us-{{ section.id }} .about-us-value-card::before {
     content: '';
@@ -583,7 +724,7 @@
   #about-us-{{ section.id }} .about-us-value-card__icon {
     width: 64px;
     height: 64px;
-    margin: 0 auto 24px;
+    margin: 56px auto 24px;
     color: #2d5016;
     display: flex;
     align-items: center;
@@ -607,12 +748,14 @@
     font-weight: 600;
     margin: 0 0 16px;
     color: #1a1a1a;
+    padding: 0 40px;
   }
   #about-us-{{ section.id }} .about-us-value-card__desc {
     font-size: 1.1rem;
     line-height: 1.7;
-    margin: 0;
+    margin: 0 0 56px;
     color: #555;
+    padding: 0 40px;
   }
   #about-us-{{ section.id }} .about-us-values__additional {
     max-width: 1000px;
@@ -686,18 +829,40 @@
     }
   }
   #about-us-{{ section.id }} .about-us-business-card {
-    padding: 48px 40px;
+    padding: 0;
     background: #ffffff;
     border-radius: 24px;
     border: 1px solid rgba(45, 80, 22, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    overflow: hidden;
   }
   #about-us-{{ section.id }} .about-us-business-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.12);
     border-color: rgba(45, 80, 22, 0.2);
+  }
+  #about-us-{{ section.id }} .about-us-business-card__image-wrapper {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    position: relative;
+  }
+  #about-us-{{ section.id }} .about-us-business-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #about-us-{{ section.id }} .about-us-business-card:hover .about-us-business-card__image {
+    transform: scale(1.1);
+  }
+  #about-us-{{ section.id }} .about-us-business-card__content {
+    padding: 48px 40px;
+  }
+  #about-us-{{ section.id }} .about-us-business-card__content {
+    padding: 48px 40px;
   }
   #about-us-{{ section.id }} .about-us-business-card__number {
     font-family: 'Cormorant Garamond', Georgia, serif;
@@ -732,13 +897,33 @@
     }
   }
   #about-us-{{ section.id }} .about-us-additional__container {
-    max-width: 1000px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 48px;
   }
   @media (max-width: 768px) {
     #about-us-{{ section.id }} .about-us-additional__container {
       padding: 0 24px;
+    }
+  }
+  #about-us-{{ section.id }} .about-us-additional__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  @media (max-width: 1024px) {
+    #about-us-{{ section.id }} .about-us-additional__grid {
+      gap: 60px;
+    }
+  }
+  @media (max-width: 768px) {
+    #about-us-{{ section.id }} .about-us-additional__grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    #about-us-{{ section.id }} .about-us-additional__image-wrapper {
+      order: -1;
     }
   }
   #about-us-{{ section.id }} .about-us-additional__content {
@@ -751,6 +936,20 @@
   }
   #about-us-{{ section.id }} .about-us-additional__content p:last-child {
     margin-bottom: 0;
+  }
+  #about-us-{{ section.id }} .about-us-additional__image-wrapper {
+    position: relative;
+  }
+  #about-us-{{ section.id }} .about-us-additional__image {
+    width: 100%;
+    height: auto;
+    border-radius: 24px;
+    object-fit: cover;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #about-us-{{ section.id }} .about-us-additional__image-wrapper:hover .about-us-additional__image {
+    transform: scale(1.02);
   }
 
   /* ——— Vision & Promise ——— */
@@ -1018,6 +1217,11 @@
     { "type": "textarea", "id": "hero_description", "label": "Hero description" },
     {
       "type": "header",
+      "content": "Hero"
+    },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero background image" },
+    {
+      "type": "header",
       "content": "Story"
     },
     { "type": "image_picker", "id": "story_image", "label": "Story image" },
@@ -1026,10 +1230,13 @@
       "content": "Why Just Pure"
     },
     { "type": "text", "id": "values_heading", "label": "Values heading", "default": "Why Just Pure?" },
+    { "type": "image_picker", "id": "value1_image", "label": "Value 1 image (Authentic)" },
     { "type": "text", "id": "value1_title", "label": "Value 1 title", "default": "Authentic" },
     { "type": "text", "id": "value1_desc", "label": "Value 1 description", "default": "Fresh, natural and totally safe products" },
+    { "type": "image_picker", "id": "value2_image", "label": "Value 2 image (100% Quality)" },
     { "type": "text", "id": "value2_title", "label": "Value 2 title", "default": "100% Quality" },
     { "type": "text", "id": "value2_desc", "label": "Value 2 description", "default": "Top-grade natural and hygienic products" },
+    { "type": "image_picker", "id": "value3_image", "label": "Value 3 image (Pocket Friendly)" },
     { "type": "text", "id": "value3_title", "label": "Value 3 title", "default": "Pocket Friendly" },
     { "type": "text", "id": "value3_desc", "label": "Value 3 description", "default": "Extensive range at economical prices selling." },
     {
@@ -1037,12 +1244,20 @@
       "content": "Business Model"
     },
     { "type": "text", "id": "business_heading", "label": "Business heading", "default": "Our Business Model" },
+    { "type": "image_picker", "id": "bm1_image", "label": "Production Side image" },
     { "type": "text", "id": "bm1_title", "label": "BM 1 title", "default": "Production Side" },
     { "type": "textarea", "id": "bm1_text", "label": "BM 1 text" },
+    { "type": "image_picker", "id": "bm2_image", "label": "Milk Collections image" },
     { "type": "text", "id": "bm2_title", "label": "BM 2 title", "default": "Milk Collections" },
     { "type": "textarea", "id": "bm2_text", "label": "BM 2 text" },
+    { "type": "image_picker", "id": "bm3_image", "label": "Processing Side image" },
     { "type": "text", "id": "bm3_title", "label": "BM 3 title", "default": "Processing Side" },
     { "type": "textarea", "id": "bm3_text", "label": "BM 3 text" },
+    {
+      "type": "header",
+      "content": "Additional Info"
+    },
+    { "type": "image_picker", "id": "additional_image", "label": "Additional info image" },
     {
       "type": "header",
       "content": "Vision & Promise"

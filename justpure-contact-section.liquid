@@ -1,0 +1,1323 @@
+{% comment %}
+  JustPure Contact Section - World-Class Premium Design
+  Paste this in: Shopify Admin → Online Store → Themes → Edit code → Sections
+  Create new section: contact-section.liquid
+  All CSS is inside this file—no extra stylesheets.
+{% endcomment %}
+
+<section class="contact-section" id="contact-{{ section.id }}">
+  {%- comment -%} Hero Section {%- endcomment -%}
+  <div class="contact-hero">
+    {% if section.settings.hero_image != blank %}
+      <div class="contact-hero__bg-image">
+        <img
+          src="{{ section.settings.hero_image | image_url: width: 2000 }}"
+          alt="{{ section.settings.hero_image.alt | escape }}"
+          width="2000"
+          height="1200"
+          loading="eager"
+          class="contact-hero__bg-img"
+        >
+      </div>
+    {% endif %}
+    <div class="contact-hero__bg"></div>
+    <div class="contact-hero__inner">
+      <div class="contact-hero__badge">Get In Touch</div>
+      <h1 class="contact-hero__title">{{ section.settings.hero_title | default: "We're here for you" }}</h1>
+      <p class="contact-hero__subtitle">{{ section.settings.hero_subtitle | default: "Our friendly team is always here to chat." }}</p>
+    </div>
+  </div>
+
+  {%- comment -%} Contact Methods {%- endcomment -%}
+  <div class="contact-methods">
+    <div class="contact-methods__container">
+      <div class="contact-methods__grid">
+        <div class="contact-method-card">
+          <div class="contact-method-card__icon-wrapper">
+            {% if section.settings.call_icon != blank %}
+              <img
+                src="{{ section.settings.call_icon | image_url: width: 80 }}"
+                alt="Call icon"
+                width="80"
+                height="80"
+                loading="lazy"
+                class="contact-method-card__icon-img"
+              >
+            {% else %}
+              <svg class="contact-method-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            {% endif %}
+          </div>
+          <div class="contact-method-card__content">
+            <div class="contact-method-card__label">{{ section.settings.call_label | default: "Customer Service" }}</div>
+            {% if section.settings.call_number != blank %}
+              <a href="tel:{{ section.settings.call_number | replace: ' ', '' | replace: '-', '' }}" class="contact-method-card__link">
+                {{ section.settings.call_number }}
+              </a>
+            {% endif %}
+          </div>
+          <p class="contact-method-card__hours">{{ section.settings.call_hours | default: "Call us from 10 am to 7 pm IST." }}</p>
+        </div>
+
+        <div class="contact-method-card">
+          <div class="contact-method-card__icon-wrapper">
+            {% if section.settings.whatsapp_icon != blank %}
+              <img
+                src="{{ section.settings.whatsapp_icon | image_url: width: 80 }}"
+                alt="WhatsApp icon"
+                width="80"
+                height="80"
+                loading="lazy"
+                class="contact-method-card__icon-img"
+              >
+            {% else %}
+              <svg class="contact-method-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+              </svg>
+            {% endif %}
+          </div>
+          <div class="contact-method-card__content">
+            <div class="contact-method-card__label">{{ section.settings.whatsapp_label | default: "Chat with us on WhatsApp!" }}</div>
+            {% if section.settings.whatsapp_link != blank %}
+              <a href="{{ section.settings.whatsapp_link }}" target="_blank" rel="noopener" class="contact-method-card__link">
+                {{ section.settings.whatsapp_button_text | default: "Chat Now" }}
+              </a>
+            {% endif %}
+          </div>
+          <p class="contact-method-card__hours">{{ section.settings.whatsapp_hours | default: "Daily: 9 am to 9 pm IST" }}</p>
+        </div>
+
+        <div class="contact-method-card">
+          <div class="contact-method-card__icon-wrapper">
+            {% if section.settings.email_icon != blank %}
+              <img
+                src="{{ section.settings.email_icon | image_url: width: 80 }}"
+                alt="Email icon"
+                width="80"
+                height="80"
+                loading="lazy"
+                class="contact-method-card__icon-img"
+              >
+            {% else %}
+              <svg class="contact-method-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            {% endif %}
+          </div>
+          <div class="contact-method-card__content">
+            <div class="contact-method-card__label">{{ section.settings.email_label | default: "Mail us your queries" }}</div>
+            {% if section.settings.email_address != blank %}
+              <a href="mailto:{{ section.settings.email_address }}" class="contact-method-card__link">
+                {{ section.settings.email_button_text | default: "Mail Now" }}
+              </a>
+            {% endif %}
+          </div>
+          <p class="contact-method-card__hours">{{ section.settings.email_hours | default: "We'll respond within 24 hours" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Office Locations {%- endcomment -%}
+  <div class="contact-offices">
+    <div class="contact-offices__container">
+      <div class="contact-offices__header">
+        <div class="contact-offices__label">Our Locations</div>
+        <h2 class="contact-offices__title">{{ section.settings.offices_heading | default: "Find Us" }}</h2>
+      </div>
+      <div class="contact-offices__grid">
+        {%- comment -%} Office 1 {%- endcomment -%}
+        {% if section.settings.office1_name != blank %}
+          <div class="contact-office-card">
+            <h3 class="contact-office-card__title">{{ section.settings.office1_name | default: "Plant 1" }}</h3>
+            <div class="contact-office-card__content">
+              <p class="contact-office-card__company">{{ section.settings.office1_company }}</p>
+              <p class="contact-office-card__address">{{ section.settings.office1_address }}</p>
+              {% if section.settings.office1_cin != blank %}
+                <p class="contact-office-card__detail">CIN: {{ section.settings.office1_cin }}</p>
+              {% endif %}
+              {% if section.settings.office1_fssai != blank %}
+                <p class="contact-office-card__detail">FSSAI: {{ section.settings.office1_fssai }}</p>
+              {% endif %}
+              {% if section.settings.office1_email != blank %}
+                <a href="mailto:{{ section.settings.office1_email }}" class="contact-office-card__email">{{ section.settings.office1_email }}</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        {%- comment -%} Office 2 {%- endcomment -%}
+        {% if section.settings.office2_name != blank %}
+          <div class="contact-office-card">
+            <h3 class="contact-office-card__title">{{ section.settings.office2_name | default: "Plant 2" }}</h3>
+            <div class="contact-office-card__content">
+              <p class="contact-office-card__company">{{ section.settings.office2_company }}</p>
+              <p class="contact-office-card__address">{{ section.settings.office2_address }}</p>
+              {% if section.settings.office2_cin != blank %}
+                <p class="contact-office-card__detail">CIN: {{ section.settings.office2_cin }}</p>
+              {% endif %}
+              {% if section.settings.office2_fssai != blank %}
+                <p class="contact-office-card__detail">FSSAI: {{ section.settings.office2_fssai }}</p>
+              {% endif %}
+              {% if section.settings.office2_email != blank %}
+                <a href="mailto:{{ section.settings.office2_email }}" class="contact-office-card__email">{{ section.settings.office2_email }}</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        {%- comment -%} Corporate Office {%- endcomment -%}
+        {% if section.settings.corporate_name != blank %}
+          <div class="contact-office-card">
+            <h3 class="contact-office-card__title">{{ section.settings.corporate_name | default: "Corporate Office" }}</h3>
+            <div class="contact-office-card__content">
+              <p class="contact-office-card__company">{{ section.settings.corporate_company }}</p>
+              <p class="contact-office-card__address">{{ section.settings.corporate_address }}</p>
+              {% if section.settings.corporate_phone1 != blank %}
+                <p class="contact-office-card__phone">{{ section.settings.corporate_phone1 }}</p>
+              {% endif %}
+              {% if section.settings.corporate_phone2 != blank %}
+                <p class="contact-office-card__phone">{{ section.settings.corporate_phone2 }}</p>
+              {% endif %}
+              {% if section.settings.corporate_email != blank %}
+                <a href="mailto:{{ section.settings.corporate_email }}" class="contact-office-card__email">{{ section.settings.corporate_email }}</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Social Media {%- endcomment -%}
+  {% if section.settings.show_social_media %}
+    <div class="contact-social">
+      <div class="contact-social__container">
+        <h3 class="contact-social__title">{{ section.settings.social_heading | default: "Connect With Us" }}</h3>
+        <div class="contact-social__grid">
+          {% if section.settings.instagram_url != blank %}
+            <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener" class="contact-social__link">
+              {% if section.settings.instagram_icon != blank %}
+                <img
+                  src="{{ section.settings.instagram_icon | image_url: width: 48 }}"
+                  alt="Instagram"
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                >
+              {% else %}
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              {% endif %}
+              <span>Instagram</span>
+            </a>
+          {% endif %}
+
+          {% if section.settings.facebook_url != blank %}
+            <a href="{{ section.settings.facebook_url }}" target="_blank" rel="noopener" class="contact-social__link">
+              {% if section.settings.facebook_icon != blank %}
+                <img
+                  src="{{ section.settings.facebook_icon | image_url: width: 48 }}"
+                  alt="Facebook"
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                >
+              {% else %}
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              {% endif %}
+              <span>Facebook</span>
+            </a>
+          {% endif %}
+
+          {% if section.settings.whatsapp_social_url != blank %}
+            <a href="{{ section.settings.whatsapp_social_url }}" target="_blank" rel="noopener" class="contact-social__link">
+              {% if section.settings.whatsapp_social_icon != blank %}
+                <img
+                  src="{{ section.settings.whatsapp_social_icon | image_url: width: 48 }}"
+                  alt="WhatsApp"
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                >
+              {% else %}
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+              {% endif %}
+              <span>WhatsApp</span>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {%- comment -%} Contact Form {%- endcomment -%}
+  <div class="contact-form-section">
+    <div class="contact-form-section__container">
+      <div class="contact-form-section__header">
+        <h2 class="contact-form-section__title">{{ section.settings.form_heading | default: "Get In Touch" }}</h2>
+        <p class="contact-form-section__subtitle">{{ section.settings.form_subtitle | default: "We look forward to hearing from you" }}</p>
+      </div>
+      <div class="contact-form-section__wrapper">
+        <form class="contact-form" id="contact-form-{{ section.id }}" action="{{ routes.contact_url }}" method="post" accept-charset="UTF-8">
+          <input type="hidden" name="form_type" value="contact">
+          <input type="hidden" name="utf8" value="✓">
+          
+          <div class="contact-form__row">
+            <div class="contact-form__field">
+              <label for="contact-name-{{ section.id }}" class="contact-form__label">Name</label>
+              <input
+                type="text"
+                id="contact-name-{{ section.id }}"
+                name="contact[name]"
+                class="contact-form__input"
+                placeholder="What's Your Name?"
+                required
+              >
+            </div>
+            <div class="contact-form__field">
+              <label for="contact-email-{{ section.id }}" class="contact-form__label">Email</label>
+              <input
+                type="email"
+                id="contact-email-{{ section.id }}"
+                name="contact[email]"
+                class="contact-form__input"
+                placeholder="What's Your E-mail?"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="contact-form__field">
+            <label for="contact-phone-{{ section.id }}" class="contact-form__label">Phone Number</label>
+            <input
+              type="tel"
+              id="contact-phone-{{ section.id }}"
+              name="contact[phone]"
+              class="contact-form__input"
+              placeholder="Enter your phone number"
+            >
+          </div>
+
+          <div class="contact-form__field">
+            <label for="contact-subject-{{ section.id }}" class="contact-form__label">Subject</label>
+            <select
+              id="contact-subject-{{ section.id }}"
+              name="contact[subject]"
+              class="contact-form__select"
+              required
+            >
+              <option value="">Select a topic</option>
+              <option value="Collaborations">Collaborations</option>
+              <option value="Bulk Order Queries">Bulk Order Queries</option>
+              <option value="Investment Opportunities">Investment Opportunities</option>
+              <option value="General Inquiry">General Inquiry</option>
+              <option value="Customer Support">Customer Support</option>
+            </select>
+          </div>
+
+          <div class="contact-form__field">
+            <label for="contact-message-{{ section.id }}" class="contact-form__label">Message</label>
+            <textarea
+              id="contact-message-{{ section.id }}"
+              name="contact[body]"
+              class="contact-form__textarea"
+              rows="6"
+              placeholder="Can You Provide Some More Details?"
+              required
+            ></textarea>
+          </div>
+
+          <div class="contact-form__field contact-form__field--checkbox">
+            <label class="contact-form__checkbox-label">
+              <input
+                type="checkbox"
+                name="contact[privacy]"
+                class="contact-form__checkbox"
+                required
+              >
+              <span>You agree to our friendly privacy policy.</span>
+            </label>
+          </div>
+
+          <div class="contact-form__submit-wrapper">
+            <button type="submit" class="contact-form__submit">
+              <span>{{ section.settings.form_button_text | default: "Get in Touch" }}</span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Map Section {%- endcomment -%}
+  {% if section.settings.show_map and section.settings.map_embed_code != blank %}
+    <div class="contact-map">
+      <div class="contact-map__container">
+        <h3 class="contact-map__title">{{ section.settings.map_heading | default: "Reach Us" }}</h3>
+        <div class="contact-map__wrapper">
+          {{ section.settings.map_embed_code }}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+  #contact-{{ section.id }} {
+    font-family: 'DM Sans', var(--font-body-family), system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #1a1a1a;
+    overflow-x: hidden;
+  }
+
+  /* ——— Hero Section ——— */
+  #contact-{{ section.id }} .contact-hero {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f2410 0%, #1a3a1c 25%, #2d5016 50%, #3d6b1a 75%, #4a7c23 100%);
+    color: #ffffff;
+    padding: 120px 48px;
+    overflow: hidden;
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-hero {
+      min-height: 60vh;
+      padding: 80px 24px;
+    }
+  }
+  #contact-{{ section.id }} .contact-hero__bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+  }
+  #contact-{{ section.id }} .contact-hero__bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+  }
+  #contact-{{ section.id }} .contact-hero__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255,255,255,0.03) 0%, transparent 50%);
+    animation: pulse 8s ease-in-out infinite;
+    z-index: 1;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  #contact-{{ section.id }} .contact-hero__inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  #contact-{{ section.id }} .contact-hero__badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    animation: fadeInUp 0.8s ease-out;
+  }
+  #contact-{{ section.id }} .contact-hero__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    margin: 0 0 20px;
+    color: #ffffff;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+  #contact-{{ section.id }} .contact-hero__subtitle {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ——— Contact Methods ——— */
+  #contact-{{ section.id }} .contact-methods {
+    padding: 100px 0;
+    background: #ffffff;
+    margin-top: -60px;
+    position: relative;
+    z-index: 2;
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-methods {
+      padding: 80px 0;
+      margin-top: -40px;
+    }
+  }
+  #contact-{{ section.id }} .contact-methods__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-methods__container {
+      padding: 0 24px;
+    }
+  }
+  #contact-{{ section.id }} .contact-methods__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  @media (max-width: 992px) {
+    #contact-{{ section.id }} .contact-methods__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+  #contact-{{ section.id }} .contact-method-card {
+    text-align: center;
+    padding: 56px 40px;
+    background: linear-gradient(135deg, #f8f9f5 0%, #ffffff 100%);
+    border-radius: 24px;
+    border: 2px solid transparent;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  #contact-{{ section.id }} .contact-method-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2d5016, #4a7c23);
+    transform: scaleX(0);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #contact-{{ section.id }} .contact-method-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.12);
+    border-color: rgba(45, 80, 22, 0.2);
+  }
+  #contact-{{ section.id }} .contact-method-card:hover::before {
+    transform: scaleX(1);
+  }
+  #contact-{{ section.id }} .contact-method-card__icon-wrapper {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(45, 80, 22, 0.1);
+    border-radius: 20px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #contact-{{ section.id }} .contact-method-card:hover .contact-method-card__icon-wrapper {
+    background: #2d5016;
+    transform: scale(1.1) rotate(5deg);
+  }
+  #contact-{{ section.id }} .contact-method-card__icon {
+    width: 40px;
+    height: 40px;
+    color: #2d5016;
+    transition: color 0.4s;
+  }
+  #contact-{{ section.id }} .contact-method-card:hover .contact-method-card__icon {
+    color: #ffffff;
+  }
+  #contact-{{ section.id }} .contact-method-card__icon-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(24%) sepia(50%) saturate(2000%) hue-rotate(60deg) brightness(0.4) contrast(1.2);
+    transition: filter 0.4s;
+  }
+  #contact-{{ section.id }} .contact-method-card:hover .contact-method-card__icon-img {
+    filter: brightness(0) invert(1);
+  }
+  #contact-{{ section.id }} .contact-method-card__content {
+    margin-bottom: 16px;
+  }
+  #contact-{{ section.id }} .contact-method-card__label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+  #contact-{{ section.id }} .contact-method-card__link {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2d5016;
+    text-decoration: none;
+    transition: color 0.3s;
+    display: inline-block;
+  }
+  #contact-{{ section.id }} .contact-method-card__link:hover {
+    color: #4a7c23;
+    text-decoration: underline;
+  }
+  #contact-{{ section.id }} .contact-method-card__hours {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ——— Office Locations ——— */
+  #contact-{{ section.id }} .contact-offices {
+    padding: 120px 0;
+    background: #faf9f6;
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-offices {
+      padding: 80px 0;
+    }
+  }
+  #contact-{{ section.id }} .contact-offices__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-offices__container {
+      padding: 0 24px;
+    }
+  }
+  #contact-{{ section.id }} .contact-offices__header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  #contact-{{ section.id }} .contact-offices__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #2d5016;
+    margin-bottom: 16px;
+  }
+  #contact-{{ section.id }} .contact-offices__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0;
+    color: #1a1a1a;
+  }
+  #contact-{{ section.id }} .contact-offices__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  @media (max-width: 1024px) {
+    #contact-{{ section.id }} .contact-offices__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-offices__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+  #contact-{{ section.id }} .contact-office-card {
+    padding: 48px 40px;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid rgba(45, 80, 22, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #contact-{{ section.id }} .contact-office-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    border-color: rgba(45, 80, 22, 0.2);
+  }
+  #contact-{{ section.id }} .contact-office-card__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #2d5016;
+    margin: 0 0 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid rgba(45, 80, 22, 0.1);
+  }
+  #contact-{{ section.id }} .contact-office-card__content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #3a3a3a;
+  }
+  #contact-{{ section.id }} .contact-office-card__company {
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 12px;
+  }
+  #contact-{{ section.id }} .contact-office-card__address {
+    margin: 0 0 16px;
+  }
+  #contact-{{ section.id }} .contact-office-card__detail {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 8px 0;
+  }
+  #contact-{{ section.id }} .contact-office-card__phone {
+    font-weight: 500;
+    color: #2d5016;
+    margin: 12px 0;
+  }
+  #contact-{{ section.id }} .contact-office-card__email {
+    display: inline-block;
+    color: #2d5016;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 12px;
+    transition: color 0.3s;
+  }
+  #contact-{{ section.id }} .contact-office-card__email:hover {
+    color: #4a7c23;
+    text-decoration: underline;
+  }
+
+  /* ——— Social Media ——— */
+  #contact-{{ section.id }} .contact-social {
+    padding: 80px 0;
+    background: #ffffff;
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-social {
+      padding: 60px 0;
+    }
+  }
+  #contact-{{ section.id }} .contact-social__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+    text-align: center;
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-social__container {
+      padding: 0 24px;
+    }
+  }
+  #contact-{{ section.id }} .contact-social__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 40px;
+  }
+  #contact-{{ section.id }} .contact-social__grid {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  #contact-{{ section.id }} .contact-social__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 24px 32px;
+    background: linear-gradient(135deg, #f8f9f5 0%, #ffffff 100%);
+    border-radius: 16px;
+    border: 2px solid transparent;
+    text-decoration: none;
+    color: #2d5016;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 140px;
+  }
+  #contact-{{ section.id }} .contact-social__link:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+    border-color: rgba(45, 80, 22, 0.2);
+    background: #ffffff;
+  }
+  #contact-{{ section.id }} .contact-social__link svg,
+  #contact-{{ section.id }} .contact-social__link img {
+    width: 32px;
+    height: 32px;
+    color: #2d5016;
+  }
+  #contact-{{ section.id }} .contact-social__link span {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  /* ——— Contact Form ——— */
+  #contact-{{ section.id }} .contact-form-section {
+    padding: 120px 0;
+    background: linear-gradient(180deg, #ffffff 0%, #faf9f6 100%);
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-form-section {
+      padding: 80px 0;
+    }
+  }
+  #contact-{{ section.id }} .contact-form-section__container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-form-section__container {
+      padding: 0 24px;
+    }
+  }
+  #contact-{{ section.id }} .contact-form-section__header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  #contact-{{ section.id }} .contact-form-section__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0 0 16px;
+    color: #1a1a1a;
+  }
+  #contact-{{ section.id }} .contact-form-section__subtitle {
+    font-size: 1.25rem;
+    color: #666;
+    margin: 0;
+  }
+  #contact-{{ section.id }} .contact-form-section__wrapper {
+    background: #ffffff;
+    padding: 64px;
+    border-radius: 24px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(45, 80, 22, 0.1);
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-form-section__wrapper {
+      padding: 40px 24px;
+    }
+  }
+  #contact-{{ section.id }} .contact-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-form__row {
+      grid-template-columns: 1fr;
+    }
+  }
+  #contact-{{ section.id }} .contact-form__field {
+    margin-bottom: 32px;
+  }
+  #contact-{{ section.id }} .contact-form__label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+  }
+  #contact-{{ section.id }} .contact-form__input,
+  #contact-{{ section.id }} .contact-form__select,
+  #contact-{{ section.id }} .contact-form__textarea {
+    width: 100%;
+    padding: 16px 20px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 1rem;
+    color: #1a1a1a;
+    background: #faf9f6;
+    border: 2px solid rgba(45, 80, 22, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s;
+    box-sizing: border-box;
+  }
+  #contact-{{ section.id }} .contact-form__input:focus,
+  #contact-{{ section.id }} .contact-form__select:focus,
+  #contact-{{ section.id }} .contact-form__textarea:focus {
+    outline: none;
+    border-color: #2d5016;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(45, 80, 22, 0.1);
+  }
+  #contact-{{ section.id }} .contact-form__textarea {
+    resize: vertical;
+    min-height: 150px;
+  }
+  #contact-{{ section.id }} .contact-form__field--checkbox {
+    margin-bottom: 40px;
+  }
+  #contact-{{ section.id }} .contact-form__checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: #555;
+    cursor: pointer;
+  }
+  #contact-{{ section.id }} .contact-form__checkbox {
+    margin-top: 4px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #2d5016;
+  }
+  #contact-{{ section.id }} .contact-form__submit-wrapper {
+    text-align: center;
+  }
+  #contact-{{ section.id }} .contact-form__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 48px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: linear-gradient(135deg, #2d5016 0%, #4a7c23 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(45, 80, 22, 0.3);
+  }
+  #contact-{{ section.id }} .contact-form__submit:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(45, 80, 22, 0.4);
+    background: linear-gradient(135deg, #4a7c23 0%, #2d5016 100%);
+  }
+  #contact-{{ section.id }} .contact-form__submit:active {
+    transform: translateY(-2px);
+  }
+  #contact-{{ section.id }} .contact-form__submit svg {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #contact-{{ section.id }} .contact-form__submit:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* ——— Map Section ——— */
+  #contact-{{ section.id }} .contact-map {
+    padding: 80px 0;
+    background: #ffffff;
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-map {
+      padding: 60px 0;
+    }
+  }
+  #contact-{{ section.id }} .contact-map__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-map__container {
+      padding: 0 24px;
+    }
+  }
+  #contact-{{ section.id }} .contact-map__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 40px;
+    text-align: center;
+  }
+  #contact-{{ section.id }} .contact-map__wrapper {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(45, 80, 22, 0.1);
+    height: 500px;
+  }
+  @media (max-width: 768px) {
+    #contact-{{ section.id }} .contact-map__wrapper {
+      height: 400px;
+    }
+  }
+  #contact-{{ section.id }} .contact-map__wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Contact Section",
+  "tag": "section",
+  "class": "section-contact",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "We're here for you"
+    },
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": "Hero Subtitle",
+      "default": "Our friendly team is always here to chat."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image",
+      "info": "Suggested: A warm, welcoming image of your team or office (2000x1200px)"
+    },
+    {
+      "type": "header",
+      "content": "Contact Methods"
+    },
+    {
+      "type": "text",
+      "id": "call_label",
+      "label": "Call Label",
+      "default": "Customer Service"
+    },
+    {
+      "type": "text",
+      "id": "call_number",
+      "label": "Phone Number",
+      "default": "+91 97794 91304"
+    },
+    {
+      "type": "text",
+      "id": "call_hours",
+      "label": "Call Hours",
+      "default": "Call us from 10 am to 7 pm IST."
+    },
+    {
+      "type": "image_picker",
+      "id": "call_icon",
+      "label": "Call Icon (Optional)",
+      "info": "Leave empty to use default SVG icon"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_label",
+      "label": "WhatsApp Label",
+      "default": "Chat with us on WhatsApp!"
+    },
+    {
+      "type": "url",
+      "id": "whatsapp_link",
+      "label": "WhatsApp Link",
+      "default": "https://wa.me/918569849499"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_button_text",
+      "label": "WhatsApp Button Text",
+      "default": "Chat Now"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_hours",
+      "label": "WhatsApp Hours",
+      "default": "Daily: 9 am to 9 pm IST"
+    },
+    {
+      "type": "image_picker",
+      "id": "whatsapp_icon",
+      "label": "WhatsApp Icon (Optional)"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email Label",
+      "default": "Mail us your queries"
+    },
+    {
+      "type": "text",
+      "id": "email_address",
+      "label": "Email Address",
+      "default": "sales@justpureindia.com"
+    },
+    {
+      "type": "text",
+      "id": "email_button_text",
+      "label": "Email Button Text",
+      "default": "Mail Now"
+    },
+    {
+      "type": "text",
+      "id": "email_hours",
+      "label": "Email Hours",
+      "default": "We'll respond within 24 hours"
+    },
+    {
+      "type": "image_picker",
+      "id": "email_icon",
+      "label": "Email Icon (Optional)"
+    },
+    {
+      "type": "header",
+      "content": "Office Locations"
+    },
+    {
+      "type": "text",
+      "id": "offices_heading",
+      "label": "Offices Heading",
+      "default": "Find Us"
+    },
+    {
+      "type": "text",
+      "id": "office1_name",
+      "label": "Office 1 Name",
+      "default": "Plant 1"
+    },
+    {
+      "type": "text",
+      "id": "office1_company",
+      "label": "Office 1 Company",
+      "default": "Krishak Support Pvt. Ltd."
+    },
+    {
+      "type": "textarea",
+      "id": "office1_address",
+      "label": "Office 1 Address",
+      "default": "#1, Talwand-Bure road, Vpo Saharwa District Hisar, Haryana, 125001"
+    },
+    {
+      "type": "text",
+      "id": "office1_cin",
+      "label": "Office 1 CIN",
+      "default": "U51909HR2020PTC088885"
+    },
+    {
+      "type": "text",
+      "id": "office1_fssai",
+      "label": "Office 1 FSSAI",
+      "default": "10017011004526"
+    },
+    {
+      "type": "text",
+      "id": "office1_email",
+      "label": "Office 1 Email",
+      "default": "info@justpureindia.com"
+    },
+    {
+      "type": "text",
+      "id": "office2_name",
+      "label": "Office 2 Name",
+      "default": "Plant 2"
+    },
+    {
+      "type": "text",
+      "id": "office2_company",
+      "label": "Office 2 Company",
+      "default": "Shakti Vardhak Milk Producer Co. Ltd."
+    },
+    {
+      "type": "textarea",
+      "id": "office2_address",
+      "label": "Office 2 Address",
+      "default": "KHEWAT NO. 159 KHASRA NO. 4//19 EAST (5-0) TALWANDI BURE ROAD VPO SAHARWA, Hisar, Hisar, Haryana-125001"
+    },
+    {
+      "type": "text",
+      "id": "office2_cin",
+      "label": "Office 2 CIN",
+      "default": "U01400HR2016PTC058139"
+    },
+    {
+      "type": "text",
+      "id": "office2_fssai",
+      "label": "Office 2 FSSAI",
+      "default": "10823006000064"
+    },
+    {
+      "type": "text",
+      "id": "office2_email",
+      "label": "Office 2 Email",
+      "default": "info@justpureindia.com"
+    },
+    {
+      "type": "text",
+      "id": "corporate_name",
+      "label": "Corporate Office Name",
+      "default": "Corporate Office"
+    },
+    {
+      "type": "text",
+      "id": "corporate_company",
+      "label": "Corporate Company",
+      "default": "Just Pure"
+    },
+    {
+      "type": "textarea",
+      "id": "corporate_address",
+      "label": "Corporate Address",
+      "default": "254 FIRST FLOOR GREEN SQUARE MARKET HISAR 125001"
+    },
+    {
+      "type": "text",
+      "id": "corporate_phone1",
+      "label": "Corporate Phone 1",
+      "default": "+91 98703 65012"
+    },
+    {
+      "type": "text",
+      "id": "corporate_phone2",
+      "label": "Corporate Phone 2",
+      "default": "+91 97794 91304"
+    },
+    {
+      "type": "text",
+      "id": "corporate_email",
+      "label": "Corporate Email",
+      "default": "info@justpureindia.com"
+    },
+    {
+      "type": "header",
+      "content": "Social Media"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_media",
+      "label": "Show Social Media",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "social_heading",
+      "label": "Social Media Heading",
+      "default": "Connect With Us"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL",
+      "default": "https://www.instagram.com/justpureofficial/"
+    },
+    {
+      "type": "image_picker",
+      "id": "instagram_icon",
+      "label": "Instagram Icon (Optional)"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook URL",
+      "default": "https://www.facebook.com/justpureofficial/"
+    },
+    {
+      "type": "image_picker",
+      "id": "facebook_icon",
+      "label": "Facebook Icon (Optional)"
+    },
+    {
+      "type": "url",
+      "id": "whatsapp_social_url",
+      "label": "WhatsApp Social URL",
+      "default": "https://wa.me/918569849499"
+    },
+    {
+      "type": "image_picker",
+      "id": "whatsapp_social_icon",
+      "label": "WhatsApp Social Icon (Optional)"
+    },
+    {
+      "type": "header",
+      "content": "Contact Form"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form Heading",
+      "default": "Get In Touch"
+    },
+    {
+      "type": "text",
+      "id": "form_subtitle",
+      "label": "Form Subtitle",
+      "default": "We look forward to hearing from you"
+    },
+    {
+      "type": "text",
+      "id": "form_button_text",
+      "label": "Form Button Text",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "header",
+      "content": "Map"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_map",
+      "label": "Show Map",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "map_heading",
+      "label": "Map Heading",
+      "default": "Reach Us"
+    },
+    {
+      "type": "html",
+      "id": "map_embed_code",
+      "label": "Map Embed Code",
+      "info": "Paste your Google Maps iframe embed code here"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Section"
+    }
+  ]
+}
+{% endschema %}
