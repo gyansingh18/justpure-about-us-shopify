@@ -90,6 +90,8 @@
               {{ product.description | truncatewords: 50 }}
             </div>
           {% endif %}
+          {%- comment -%} Internal link to About page {%- endcomment -%}
+          <p class="custom-product-info__about-link">Learn more about <a href="/pages/our-story">our traditional bilona process</a> and how we source from trusted Indian farms.</p>
 
           {%- comment -%} Product Form {%- endcomment -%}
           <form action="/cart/add" method="post" enctype="multipart/form-data" id="ProductForm-{{ section.id }}" class="custom-product-form">
@@ -603,6 +605,20 @@
     line-height: 1.8;
     color: #4a4a4a;
     margin-bottom: 32px;
+  }
+  .custom-product-info__about-link {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4a4a4a;
+    margin-bottom: 32px;
+  }
+  .custom-product-info__about-link a {
+    color: #2d5016;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+  .custom-product-info__about-link a:hover {
+    color: #3d6b1a;
   }
 
   /* ——— Product Form ——— */

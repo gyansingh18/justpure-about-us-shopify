@@ -30,7 +30,7 @@ All other pages use Shopify’s default `page_title` and `page_description`.
    {% render 'seo-meta' %}
    ```
 4. If your theme uses a **social meta** or **Open Graph** snippet (e.g. `snippets/social-meta-tags.liquid`) that outputs `og:title` and `og:description`, either:
-   - **Remove** that snippet from the layout, or  
+   - **Remove** that snippet from the layout, or
    - **Edit** it so it does not output `og:title` / `og:description` (our snippet provides these).
 5. Save.
 

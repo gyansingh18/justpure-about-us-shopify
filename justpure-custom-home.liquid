@@ -189,7 +189,7 @@
           <h2 class="homepage-process__title">{{ section.settings.process_heading | default: 'A quick look at how we craft our products' }}</h2>
           <p class="homepage-process__subtitle">{{ section.settings.process_subtitle | default: 'From desi cow milk to traditionally prepared A2 Bilona ghee' }}</p>
           <div class="homepage-process__text">
-            {{ section.settings.process_content | default: '<p>Our ghee is made using the traditional bilona method, where curd is hand-churned and slow-heated to preserve natural nutrition and aroma. We use milk from desi cows sourced from trusted Indian farms.</p><p>Every step of our process respects traditional methods while ensuring the highest standards of purity and quality.</p>' }}
+            {{ section.settings.process_content | default: '<p>Our <a href="/products/a2-desi-cow-bilona-ghee">A2 Bilona Ghee</a> is made using the traditional bilona method, where curd is hand-churned and slow-heated to preserve natural nutrition and aroma. We use milk from desi cows sourced from trusted Indian farms.</p><p>Every step of our process respects traditional methods while ensuring the highest standards of purity and quality.</p>' }}
           </div>
           {% if section.settings.process_cta_link != blank %}
             <a href="{{ section.settings.process_cta_link }}" class="homepage-process__link">{{ section.settings.process_cta_text | default: 'Learn More' }} →</a>
