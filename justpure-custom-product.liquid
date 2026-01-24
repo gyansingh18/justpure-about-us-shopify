@@ -403,6 +403,41 @@
   </div>
 </div>
 
+{%- comment -%} Product Structured Data (JSON-LD) {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "image": [
+    {%- if product.featured_image != blank -%}
+      "{{ product.featured_image | image_url: width: 1200 }}"
+      {%- for image in product.images limit: 4 -%}
+        {%- unless image == product.featured_image -%}
+          ,"{{ image | image_url: width: 1200 }}"
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for image in product.images limit: 5 -%}
+        "{{ image | image_url: width: 1200 }}"{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    {%- endif -%}
+  ],
+  "description": {{ product.description | strip_html | strip_newlines | truncate: 500 | json }},
+  "brand": {
+    "@type": "Brand",
+    "name": "Just Pure"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ shop.url }}{{ product.url }}",
+    "priceCurrency": "{{ cart.currency.iso_code }}",
+    "price": "{{ current_variant.price | divided_by: 100.0 }}",
+    "availability": "https://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}"
+  }
+}
+</script>
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700&display=swap');
   /* ============================================
