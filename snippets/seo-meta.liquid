@@ -14,7 +14,7 @@
 {% if template.name == 'index' %}
   {% comment %} Home: JustPure India, A2 Bilona Ghee, Pure Indian Foods. Title ≤60 chars. {% endcomment %}
   {% assign seo_title = 'JustPure India | A2 Bilona Ghee & Pure Indian Foods' %}
-  {% assign seo_desc = 'Authentic A2 Bilona Ghee from desi cow milk, traditional bilona method. Purity you can trust. Delivered fresh to your door. JustPure India – Healthy Choice, Wealthy Life.' %}
+  {% assign seo_desc = 'Authentic A2 Bilona Ghee from desi cow milk, traditional bilona method. Purity you can trust. Delivered fresh. JustPure India – Healthy Choice, Wealthy Life.' %}
 {% elsif template.name == 'product' %}
   {% comment %} Product: Product Name | Just Pure India. Description: benefits + traditional + purity. {% endcomment %}
   {% assign product_title = product.title | append: ' | Just Pure India' %}
@@ -37,7 +37,7 @@
 {% elsif template.name == 'page' and (page.handle == 'our-story' or page.handle == 'about-us') %}
   {% comment %} About: About Just Pure India | Healthy Choice Wealthy Life {% endcomment %}
   {% assign seo_title = 'About Just Pure India | Healthy Choice Wealthy Life' %}
-  {% assign seo_desc = 'Since 2016, Just Pure India has been farmer-backed, using traditional dairy practices. NABARD-backed FPO. A2 Bilona Ghee, pure spices, cold-pressed oils. Healthy Choice, Wealthy Life.' %}
+  {% assign seo_desc = 'Since 2016, Just Pure India has been farmer-backed, using traditional dairy practices. NABARD-backed FPO. A2 Bilona Ghee, pure spices, cold-pressed oils.' %}
   {% if page_image != blank %}
     {% assign seo_og_image = page_image | image_url: width: 1200 %}
   {% endif %}
