@@ -23,7 +23,6 @@
     {% endif %}
     <div class="homepage-hero__bg"></div>
     <div class="homepage-hero__inner">
-      <div class="homepage-hero__badge">{{ section.settings.hero_badge | default: 'Authentic A2 Bilona Ghee & Pure Indian Foods' }}</div>
       <p class="homepage-hero__title">{{ section.settings.hero_title | default: 'Traditionally prepared from desi cow milk' }}</p>
       <p class="homepage-hero__subtitle">{{ section.settings.hero_subtitle | default: 'Sourced directly from Indian farms, and delivered fresh to your home.' }}</p>
       <div class="homepage-hero__cta">
@@ -357,7 +356,7 @@
   }
   #homepage-{{ section.id }} .homepage-hero__title {
     font-family: "Playfair Display", serif;
-    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.1;
