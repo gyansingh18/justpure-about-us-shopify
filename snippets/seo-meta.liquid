@@ -1,0 +1,58 @@
+{% comment %}
+  JustPure SEO Meta – Title, Meta Description, Open Graph
+  Include in layout/theme.liquid <head>. Replace default <title> and meta description with:
+  {% render 'seo-meta' %}
+{% endcomment %}
+
+{% liquid
+  assign seo_title = page_title
+  assign seo_desc = page_description
+  assign seo_og_image = page_image | image_url: width: 1200
+  assign canonical = canonical_url
+%}
+
+{% if template.name == 'index' %}
+  {% comment %} Home: JustPure India, A2 Bilona Ghee, Pure Indian Foods. Title ≤60 chars. {% endcomment %}
+  {% assign seo_title = 'JustPure India | A2 Bilona Ghee & Pure Indian Foods' %}
+  {% assign seo_desc = 'Authentic A2 Bilona Ghee from desi cow milk, traditional bilona method. Purity you can trust. Delivered fresh to your door. JustPure India – Healthy Choice, Wealthy Life.' %}
+{% elsif template.name == 'product' %}
+  {% comment %} Product: Product Name | Just Pure India. Description: benefits + traditional + purity. {% endcomment %}
+  {% assign product_title = product.title | append: ' | Just Pure India' %}
+  {% if product_title.size > 60 %}
+    {% assign product_title = product.title | truncate: 40 | append: ' | Just Pure India' %}
+  {% endif %}
+  {% assign seo_title = product_title %}
+  {% if product.metafields.descriptors.short_description != blank %}
+    {% assign seo_desc = product.metafields.descriptors.short_description | strip_html | truncate: 160 %}
+  {% else %}
+    {% assign seo_desc = product.title | append: '. Traditionally prepared, 100% pure. Delivered fresh. Just Pure India – Healthy Choice, Wealthy Life.' %}
+    {% if seo_desc.size > 160 %}
+      {% assign seo_desc = product.title | append: '. Traditionally prepared, 100% pure. Delivered fresh. Just Pure India.' %}
+      {% assign seo_desc = seo_desc | truncate: 160 %}
+    {% endif %}
+  {% endif %}
+  {% if product.featured_image != blank %}
+    {% assign seo_og_image = product.featured_image | image_url: width: 1200 %}
+  {% endif %}
+{% elsif template.name == 'page' and (page.handle == 'our-story' or page.handle == 'about-us') %}
+  {% comment %} About: About Just Pure India | Healthy Choice Wealthy Life {% endcomment %}
+  {% assign seo_title = 'About Just Pure India | Healthy Choice Wealthy Life' %}
+  {% assign seo_desc = 'Since 2016, Just Pure India has been farmer-backed, using traditional dairy practices. NABARD-backed FPO. A2 Bilona Ghee, pure spices, cold-pressed oils. Healthy Choice, Wealthy Life.' %}
+  {% if page_image != blank %}
+    {% assign seo_og_image = page_image | image_url: width: 1200 %}
+  {% endif %}
+{% endif %}
+
+{% comment %} Ensure meta description 150–160 chars where we set it {% endcomment %}
+{% if seo_desc != blank and seo_desc.size > 160 %}
+  {% assign seo_desc = seo_desc | truncate: 160 %}
+{% endif %}
+
+<title>{{ seo_title | escape }}</title>
+<meta name="description" content="{{ seo_desc | strip_html | strip_newlines | escape }}">
+
+<meta property="og:title" content="{{ seo_title | escape }}">
+<meta property="og:description" content="{{ seo_desc | strip_html | strip_newlines | escape }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:image" content="{{ seo_og_image }}">
+<meta property="og:type" content="{% if template.name == 'product' %}product{% else %}website{% endif %}">
