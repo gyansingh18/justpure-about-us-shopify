@@ -196,7 +196,7 @@
   {% if section.settings.show_social_media %}
     <div class="contact-social">
       <div class="contact-social__container">
-        <h3 class="contact-social__title">{{ section.settings.social_heading | default: "Connect With Us" }}</h3>
+        <h2 class="contact-social__title">{{ section.settings.social_heading | default: "Connect With Us" }}</h2>
         <div class="contact-social__grid">
           {% assign instagram_url = section.settings.instagram_url | default: "https://www.instagram.com/justpureofficial/" %}
           {% if instagram_url != blank %}
@@ -371,7 +371,7 @@
   {% if section.settings.show_map and section.settings.map_embed_code != blank %}
     <div class="contact-map">
       <div class="contact-map__container">
-        <h3 class="contact-map__title">{{ section.settings.map_heading | default: "Reach Us" }}</h3>
+        <h2 class="contact-map__title">{{ section.settings.map_heading | default: "Reach Us" }}</h2>
         <div class="contact-map__wrapper">
           {{ section.settings.map_embed_code }}
         </div>

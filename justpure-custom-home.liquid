@@ -23,7 +23,7 @@
     {% endif %}
     <div class="homepage-hero__bg"></div>
     <div class="homepage-hero__inner">
-      <p class="homepage-hero__title">{{ section.settings.hero_title | default: 'Traditionally prepared from desi cow milk' }}</p>
+      <h1 class="homepage-hero__title">{{ section.settings.hero_title | default: 'Traditionally prepared from desi cow milk' }}</h1>
       <p class="homepage-hero__subtitle">{{ section.settings.hero_subtitle | default: 'Sourced directly from Indian farms, and delivered fresh to your home.' }}</p>
       <div class="homepage-hero__cta">
         <a href="{{ section.settings.hero_cta_link | default: routes.collections_url }}" class="homepage-hero__button">
