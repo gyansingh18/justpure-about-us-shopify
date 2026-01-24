@@ -24,7 +24,7 @@
     <div class="homepage-hero__bg"></div>
     <div class="homepage-hero__inner">
       <div class="homepage-hero__badge">{{ section.settings.hero_badge | default: 'Authentic A2 Bilona Ghee & Pure Indian Foods' }}</div>
-      <h1 class="homepage-hero__title">{{ section.settings.hero_title | default: 'Traditionally prepared from desi cow milk' }}</h1>
+      <p class="homepage-hero__title">{{ section.settings.hero_title | default: 'Traditionally prepared from desi cow milk' }}</p>
       <p class="homepage-hero__subtitle">{{ section.settings.hero_subtitle | default: 'Sourced directly from Indian farms, and delivered fresh to your home.' }}</p>
       <div class="homepage-hero__cta">
         <a href="{{ section.settings.hero_cta_link | default: routes.collections_url }}" class="homepage-hero__button">
@@ -283,7 +283,7 @@
 </section>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700&display=swap');
 
   #homepage-{{ section.id }} {
     font-family: 'DM Sans', var(--font-body-family), system-ui, -apple-system, sans-serif;
@@ -356,7 +356,7 @@
     color: rgba(255, 255, 255, 0.95);
   }
   #homepage-{{ section.id }} .homepage-hero__title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: "Playfair Display", serif;
     font-size: clamp(2.5rem, 7vw, 5rem);
     font-weight: 600;
     letter-spacing: -0.02em;
@@ -433,10 +433,11 @@
     margin-bottom: 16px;
   }
   #homepage-{{ section.id }} .homepage-categories__title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: "Playfair Display", serif;
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 600;
-    line-height: 1.2;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
     margin: 0 0 20px;
     color: #1a1a1a;
   }
