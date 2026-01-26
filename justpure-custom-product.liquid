@@ -8,6 +8,73 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
 
+{%- comment -%} Parse product description into sections {%- endcomment -%}
+{%- liquid
+  assign full_description = product.description
+  assign main_description = full_description
+  assign key_benefits_content = ''
+  assign nutritional_info_content = ''
+  
+  comment
+    Extract Key Benefits section - look for heading variations
+  endcomment
+  if full_description contains 'Key Benefits' or full_description contains 'key benefits' or full_description contains 'KEY BENEFITS'
+    assign benefits_start = full_description | split: 'Key Benefits' | last
+    if benefits_start contains 'Nutritional Info' or benefits_start contains 'nutritional info'
+      assign key_benefits_content = benefits_start | split: 'Nutritional Info' | first | split: 'nutritional info' | first
+    elsif benefits_start contains '<h2>'
+      assign key_benefits_content = benefits_start | split: '<h2>' | first
+    elsif benefits_start contains '<h3>'
+      assign key_benefits_content = benefits_start | split: '<h3>' | first
+    else
+      assign key_benefits_content = benefits_start | split: '</h2>' | last | split: '<h2>' | first
+    endif
+    comment Remove the heading text from benefits content
+    endcomment
+    if key_benefits_content contains 'Key Benefits' or key_benefits_content contains 'key benefits'
+      assign key_benefits_content = key_benefits_content | split: 'Key Benefits' | last | split: 'key benefits' | last
+    endif
+    if key_benefits_content contains '</h2>'
+      assign key_benefits_content = key_benefits_content | split: '</h2>' | last
+    endif
+    if key_benefits_content contains '</h3>'
+      assign key_benefits_content = key_benefits_content | split: '</h3>' | last
+    endif
+    assign main_description = full_description | split: 'Key Benefits' | first | split: 'key benefits' | first | split: 'KEY BENEFITS' | first
+  endif
+  
+  comment
+    Extract Nutritional Info section
+  endcomment
+  if full_description contains 'Nutritional Info' or full_description contains 'nutritional info' or full_description contains 'NUTRITIONAL INFO' or full_description contains 'Nutrition Facts'
+    assign nutrition_start = full_description | split: 'Nutritional Info' | last
+    if nutrition_start == ''
+      assign nutrition_start = full_description | split: 'nutritional info' | last
+    endif
+    if nutrition_start == ''
+      assign nutrition_start = full_description | split: 'Nutrition Facts' | last
+    endif
+    if nutrition_start contains '<h2>'
+      assign nutritional_info_content = nutrition_start | split: '<h2>' | first
+    elsif nutrition_start contains '<h3>'
+      assign nutritional_info_content = nutrition_start | split: '<h3>' | first
+    else
+      assign nutritional_info_content = nutrition_start | split: '</h2>' | last | split: '<h2>' | first
+    endif
+    comment Remove the heading text from nutrition content
+    endcomment
+    if nutritional_info_content contains 'Nutritional Info' or nutritional_info_content contains 'nutritional info' or nutritional_info_content contains 'Nutrition Facts'
+      assign nutritional_info_content = nutritional_info_content | split: 'Nutritional Info' | last | split: 'nutritional info' | last | split: 'Nutrition Facts' | last
+    endif
+    if nutritional_info_content contains '</h2>'
+      assign nutritional_info_content = nutritional_info_content | split: '</h2>' | last
+    endif
+    if nutritional_info_content contains '</h3>'
+      assign nutritional_info_content = nutritional_info_content | split: '</h3>' | last
+    endif
+  endif
+-%}
+
 <div class="custom-product-page" id="product-{{ product.id }}">
 
   {%- comment -%} Product Main Section {%- endcomment -%}
@@ -229,114 +296,116 @@
       </div>
 
       <div class="custom-product-details__content">
-        {%- comment -%} Description Tab {%- endcomment -%}
+        {%- comment -%} Description Tab - Show main description (before Key Benefits) {%- endcomment -%}
         <div class="custom-product-details__panel active" id="tab-description">
           <div class="custom-product-details__panel-content">
-            {{ product.description }}
+            {%- if main_description != blank -%}
+              {{ main_description }}
+            {%- else -%}
+              {{ product.description }}
+            {%- endif -%}
           </div>
         </div>
 
-        {%- comment -%} Benefits Tab {%- endcomment -%}
+        {%- comment -%} Benefits Tab - Extract from product description {%- endcomment -%}
         <div class="custom-product-details__panel" id="tab-benefits">
           <div class="custom-product-details__panel-content">
-            <div class="custom-product-benefits">
-              <div class="custom-product-benefits__grid">
-                <div class="custom-product-benefits__item">
-                  <div class="custom-product-benefits__icon">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+            {%- if key_benefits_content != blank -%}
+              {%- comment -%} Parse benefits from description - look for list items {%- endcomment -%}
+              {%- assign benefits_list = key_benefits_content | split: '<li>' -%}
+              {%- if benefits_list.size > 1 -%}
+                <div class="custom-product-benefits">
+                  <div class="custom-product-benefits__grid">
+                    {%- for benefit_item in benefits_list -%}
+                      {%- if forloop.first == false -%}
+                        {%- assign benefit_text = benefit_item | split: '</li>' | first | strip_html | strip -%}
+                        {%- if benefit_text != blank -%}
+                          <div class="custom-product-benefits__item">
+                            <div class="custom-product-benefits__icon">
+                              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                            </div>
+                            <h3 class="custom-product-benefits__title">{{ benefit_text }}</h3>
+                          </div>
+                        {%- endif -%}
+                      {%- endif -%}
+                    {%- endfor -%}
                   </div>
-                  <h3 class="custom-product-benefits__title">Rich in A2 Protein</h3>
-                  <p class="custom-product-benefits__description">Supports digestion and enhances metabolism naturally.</p>
                 </div>
-                <div class="custom-product-benefits__item">
-                  <div class="custom-product-benefits__icon">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+              {%- else -%}
+                {%- comment -%} Fallback: Display the benefits section as-is (preserves HTML formatting) {%- endcomment -%}
+                <div class="custom-product-benefits">
+                  <div class="custom-product-benefits__grid">
+                    {{ key_benefits_content }}
                   </div>
-                  <h3 class="custom-product-benefits__title">Omega-3 & Omega-6</h3>
-                  <p class="custom-product-benefits__description">Improves heart health and brain function.</p>
                 </div>
-                <div class="custom-product-benefits__item">
-                  <div class="custom-product-benefits__icon">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+              {%- endif -%}
+            {%- else -%}
+              {%- comment -%} Fallback: Show static benefits if not found in description {%- endcomment -%}
+              <div class="custom-product-benefits">
+                <div class="custom-product-benefits__grid">
+                  <div class="custom-product-benefits__item">
+                    <div class="custom-product-benefits__icon">
+                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    <h3 class="custom-product-benefits__title">Rich in A2 Protein</h3>
+                    <p class="custom-product-benefits__description">Supports digestion and enhances metabolism naturally.</p>
                   </div>
-                  <h3 class="custom-product-benefits__title">Essential Vitamins</h3>
-                  <p class="custom-product-benefits__description">High in Vitamins A, D, E, K for overall wellness.</p>
-                </div>
-                <div class="custom-product-benefits__item">
-                  <div class="custom-product-benefits__icon">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </div>
-                  <h3 class="custom-product-benefits__title">Gut Health</h3>
-                  <p class="custom-product-benefits__description">Acts as a natural probiotic, aiding digestion.</p>
-                </div>
-                <div class="custom-product-benefits__item">
-                  <div class="custom-product-benefits__icon">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </div>
-                  <h3 class="custom-product-benefits__title">Skin & Hair</h3>
-                  <p class="custom-product-benefits__description">Nourishes skin and promotes healthy hair growth.</p>
-                </div>
-                <div class="custom-product-benefits__item">
-                  <div class="custom-product-benefits__icon">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </div>
-                  <h3 class="custom-product-benefits__title">Boosts Immunity</h3>
-                  <p class="custom-product-benefits__description">Helps in detoxification and provides sustained energy.</p>
                 </div>
               </div>
-            </div>
+            {%- endif -%}
           </div>
         </div>
 
-        {%- comment -%} Nutrition Tab {%- endcomment -%}
+        {%- comment -%} Nutrition Tab - Extract from product description {%- endcomment -%}
         <div class="custom-product-details__panel" id="tab-nutrition">
           <div class="custom-product-details__panel-content">
-            <div class="custom-product-nutrition">
-              <div class="custom-product-nutrition__table">
-                <div class="custom-product-nutrition__row">
-                  <div class="custom-product-nutrition__label">Milk Fat</div>
-                  <div class="custom-product-nutrition__value">99.5%</div>
+            {%- if nutritional_info_content != blank -%}
+              {%- comment -%} Try to parse as table format {%- endcomment -%}
+              {%- assign nutrition_items = nutritional_info_content | split: '<li>' -%}
+              {%- if nutrition_items.size > 1 -%}
+                <div class="custom-product-nutrition">
+                  <div class="custom-product-nutrition__table">
+                    {%- for item in nutrition_items -%}
+                      {%- if forloop.first == false -%}
+                        {%- assign item_text = item | split: '</li>' | first | strip_html | strip -%}
+                        {%- if item_text contains ':' -%}
+                          {%- assign label_value = item_text | split: ':' -%}
+                          <div class="custom-product-nutrition__row">
+                            <div class="custom-product-nutrition__label">{{ label_value[0] | strip }}</div>
+                            <div class="custom-product-nutrition__value">{{ label_value[1] | strip }}</div>
+                          </div>
+                        {%- endif -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
                 </div>
-                <div class="custom-product-nutrition__row">
-                  <div class="custom-product-nutrition__label">A2 Beta-Casein</div>
-                  <div class="custom-product-nutrition__value">Present</div>
+              {%- else -%}
+                {%- comment -%} Fallback: Display nutrition section as-is {%- endcomment -%}
+                <div class="custom-product-nutrition">
+                  {{ nutritional_info_content }}
                 </div>
-                <div class="custom-product-nutrition__row">
-                  <div class="custom-product-nutrition__label">Omega-3</div>
-                  <div class="custom-product-nutrition__value">High</div>
-                </div>
-                <div class="custom-product-nutrition__row">
-                  <div class="custom-product-nutrition__label">Omega-6</div>
-                  <div class="custom-product-nutrition__value">High</div>
-                </div>
-                <div class="custom-product-nutrition__row">
-                  <div class="custom-product-nutrition__label">Vitamins</div>
-                  <div class="custom-product-nutrition__value">A, D, E, K</div>
-                </div>
-                <div class="custom-product-nutrition__row">
-                  <div class="custom-product-nutrition__label">Processing Method</div>
-                  <div class="custom-product-nutrition__value">Traditional Bilona</div>
+              {%- endif -%}
+            {%- else -%}
+              {%- comment -%} Fallback: Show static nutrition if not found in description {%- endcomment -%}
+              <div class="custom-product-nutrition">
+                <div class="custom-product-nutrition__table">
+                  <div class="custom-product-nutrition__row">
+                    <div class="custom-product-nutrition__label">Milk Fat</div>
+                    <div class="custom-product-nutrition__value">99.5%</div>
+                  </div>
+                  <div class="custom-product-nutrition__row">
+                    <div class="custom-product-nutrition__label">A2 Beta-Casein</div>
+                    <div class="custom-product-nutrition__value">Present</div>
+                  </div>
                 </div>
               </div>
-            </div>
+            {%- endif -%}
           </div>
         </div>
 
