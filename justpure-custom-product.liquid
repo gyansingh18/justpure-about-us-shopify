@@ -14,6 +14,8 @@
   assign main_description = full_description
   assign key_benefits_content = ''
   assign nutritional_info_content = ''
+  assign has_benefits = false
+  assign has_nutrition = false
   
   comment
     Extract Key Benefits section - look for heading variations
@@ -39,6 +41,12 @@
     endif
     if key_benefits_content contains '</h3>'
       assign key_benefits_content = key_benefits_content | split: '</h3>' | last
+    endif
+    comment Check if benefits content has actual content (not just whitespace)
+    endcomment
+    assign benefits_stripped = key_benefits_content | strip_html | strip
+    if benefits_stripped != blank
+      assign has_benefits = true
     endif
     assign main_description = full_description | split: 'Key Benefits' | first | split: 'key benefits' | first | split: 'KEY BENEFITS' | first
   endif
@@ -71,6 +79,12 @@
     endif
     if nutritional_info_content contains '</h3>'
       assign nutritional_info_content = nutritional_info_content | split: '</h3>' | last
+    endif
+    comment Check if nutrition content has actual content (not just whitespace)
+    endcomment
+    assign nutrition_stripped = nutritional_info_content | strip_html | strip
+    if nutrition_stripped != blank
+      assign has_nutrition = true
     endif
   endif
 -%}
@@ -290,8 +304,12 @@
     <div class="custom-product-details__container">
       <div class="custom-product-details__tabs">
         <button class="custom-product-details__tab active" data-tab="description">Product Description</button>
-        <button class="custom-product-details__tab" data-tab="benefits">Key Benefits</button>
-        <button class="custom-product-details__tab" data-tab="nutrition">Nutritional Info</button>
+        {%- if has_benefits -%}
+          <button class="custom-product-details__tab" data-tab="benefits">Key Benefits</button>
+        {%- endif -%}
+        {%- if has_nutrition -%}
+          <button class="custom-product-details__tab" data-tab="nutrition">Nutritional Info</button>
+        {%- endif -%}
         <button class="custom-product-details__tab" data-tab="reviews">Reviews</button>
       </div>
 
@@ -308,6 +326,7 @@
         </div>
 
         {%- comment -%} Benefits Tab - Extract from product description {%- endcomment -%}
+        {%- if has_benefits -%}
         <div class="custom-product-details__panel" id="tab-benefits">
           <div class="custom-product-details__panel-content">
             {%- if key_benefits_content != blank -%}
@@ -342,27 +361,13 @@
                   </div>
                 </div>
               {%- endif -%}
-            {%- else -%}
-              {%- comment -%} Fallback: Show static benefits if not found in description {%- endcomment -%}
-              <div class="custom-product-benefits">
-                <div class="custom-product-benefits__grid">
-                  <div class="custom-product-benefits__item">
-                    <div class="custom-product-benefits__icon">
-                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M11 16L14 19L21 12" stroke="#2d5016" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </div>
-                    <h3 class="custom-product-benefits__title">Rich in A2 Protein</h3>
-                    <p class="custom-product-benefits__description">Supports digestion and enhances metabolism naturally.</p>
-                  </div>
-                </div>
-              </div>
             {%- endif -%}
           </div>
         </div>
+        {%- endif -%}
 
         {%- comment -%} Nutrition Tab - Extract from product description {%- endcomment -%}
+        {%- if has_nutrition -%}
         <div class="custom-product-details__panel" id="tab-nutrition">
           <div class="custom-product-details__panel-content">
             {%- if nutritional_info_content != blank -%}
@@ -391,23 +396,10 @@
                   {{ nutritional_info_content }}
                 </div>
               {%- endif -%}
-            {%- else -%}
-              {%- comment -%} Fallback: Show static nutrition if not found in description {%- endcomment -%}
-              <div class="custom-product-nutrition">
-                <div class="custom-product-nutrition__table">
-                  <div class="custom-product-nutrition__row">
-                    <div class="custom-product-nutrition__label">Milk Fat</div>
-                    <div class="custom-product-nutrition__value">99.5%</div>
-                  </div>
-                  <div class="custom-product-nutrition__row">
-                    <div class="custom-product-nutrition__label">A2 Beta-Casein</div>
-                    <div class="custom-product-nutrition__value">Present</div>
-                  </div>
-                </div>
-              </div>
             {%- endif -%}
           </div>
         </div>
+        {%- endif -%}
 
         {%- comment -%} Reviews Tab {%- endcomment -%}
         <div class="custom-product-details__panel" id="tab-reviews">
