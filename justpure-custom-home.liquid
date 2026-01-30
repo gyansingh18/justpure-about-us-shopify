@@ -621,17 +621,57 @@
   #homepage-{{ section.id }} .homepage-bestsellers__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    gap: 1.75rem;
   }
   @media (max-width: 990px) {
     #homepage-{{ section.id }} .homepage-bestsellers__grid {
       grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
     }
   }
   @media (max-width: 480px) {
     #homepage-{{ section.id }} .homepage-bestsellers__grid {
       grid-template-columns: 1fr;
+      gap: 1.5rem;
     }
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding-bottom: 1rem;
+    transition: box-shadow 0.25s ease;
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product__actions {
+    padding: 0 0.75rem;
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product__button {
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background: #2d5016;
+    color: #fff;
+    border: none;
+    transition: background 0.2s ease;
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product__button:hover:not(:disabled) {
+    background: #3d6b1a;
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product__info {
+    padding: 0 0.75rem;
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product__title {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product__price {
+    font-weight: 600;
+    color: #1a1a1a;
   }
 
   /* ——— Moringa Featured Section ——— */

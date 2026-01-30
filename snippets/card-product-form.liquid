@@ -1,11 +1,13 @@
 {% comment %}
   Single add-to-cart form for card-product. Preserves variant selection and AJAX cart.
-  Accepts: product, current_variant, product_form_id, quick_add (optional).
+  Accepts: product, current_variant, product_form_id, quick_add, hide_variant_selector (optional).
+  When hide_variant_selector: true (e.g. bestsellers), no dropdown — uses first available variant only.
 {% endcomment %}
 {%- assign product_form_id = product_form_id | default: 'card-product-form' | append: product.id -%}
+{%- assign hide_variant_selector = hide_variant_selector | default: false -%}
 {%- form 'product', product, id: product_form_id, class: 'card-product__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
   <input type="hidden" name="quantity" value="1">
-  {%- if product.has_only_default_variant -%}
+  {%- if product.has_only_default_variant or hide_variant_selector -%}
     <input type="hidden" name="id" value="{{ current_variant.id }}">
   {%- else -%}
     <label for="{{ product_form_id }}-variant" class="visually-hidden">{{ 'products.product.variant' | t }}</label>
