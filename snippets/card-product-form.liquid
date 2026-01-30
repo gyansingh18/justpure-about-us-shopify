@@ -5,7 +5,11 @@
 {% endcomment %}
 {%- assign product_form_id = product_form_id | default: 'card-product-form' | append: product.id -%}
 {%- assign hide_variant_selector = hide_variant_selector | default: false -%}
-{%- form 'product', product, id: product_form_id, class: 'card-product__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+{%- assign form_class = 'card-product__form' -%}
+{%- if hide_variant_selector -%}
+  {%- assign form_class = form_class | append: ' card-product__form--bestsellers' -%}
+{%- endif -%}
+{%- form 'product', product, id: product_form_id, class: form_class, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
   <input type="hidden" name="quantity" value="1">
   {%- if product.has_only_default_variant or hide_variant_selector -%}
     <input type="hidden" name="id" value="{{ current_variant.id }}">
