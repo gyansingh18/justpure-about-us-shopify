@@ -1,0 +1,160 @@
+{% comment %}
+  Featured collection section. Optional "Use bestsellers layout" enables:
+  Image → Add to Cart → Title → Price, with above-the-fold images not lazy-loaded.
+  Use this section for "Our Bestselling Products" and enable the setting there only.
+{% endcomment %}
+{%- assign collection = section.settings.collection -%}
+{%- assign products_to_show = section.settings.products_to_show | default: 4 -%}
+{%- assign use_bestsellers = section.settings.use_bestsellers_layout | default: false -%}
+{%- assign columns_desktop = section.settings.columns_desktop | default: 4 -%}
+{%- assign columns_mobile = section.settings.columns_mobile | default: 2 -%}
+{%- assign max_columns_to_show = columns_mobile | plus: 0 -%}
+{%- if columns_desktop > max_columns_to_show -%}
+  {%- assign max_columns_to_show = columns_desktop -%}
+{%- endif -%}
+
+<section class="featured-collection section-{{ section.id }}-padding" aria-label="{{ section.settings.title | default: 'Featured collection' | escape }}">
+  {%- if section.settings.title != blank -%}
+    <h2 class="featured-collection__title">{{ section.settings.title }}</h2>
+  {%- endif -%}
+
+  <div class="featured-collection__grid" style="--columns-desktop: {{ columns_desktop }}; --columns-mobile: {{ columns_mobile }};">
+    {%- if collection != blank and collection.products.size > 0 -%}
+      {%- assign skip_card_styles = false -%}
+      {%- for product in collection.products limit: products_to_show -%}
+        {%- assign lazy_load = true -%}
+        {%- if forloop.index <= max_columns_to_show -%}
+          {%- assign lazy_load = false -%}
+        {%- endif -%}
+        {% render 'card-product',
+          card_product: product,
+          section_id: section.id,
+          lazy_load: lazy_load,
+          layout_bestsellers: use_bestsellers,
+          skip_styles: skip_card_styles,
+          media_aspect_ratio: section.settings.image_ratio | default: 'square',
+          show_vendor: section.settings.show_vendor
+        %}
+        {%- assign skip_card_styles = true -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..products_to_show) -%}
+        <div class="card-product card-product--placeholder">
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          <div class="card-product__info">
+            <h3 class="card-product__title">{{ 'onboarding.product_title' | t }}</h3>
+            <div class="card-product__price">{{ 1999 | money }}</div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.show_view_all and collection != blank and collection.all_products_count > products_to_show -%}
+    <a href="{{ collection.url }}" class="featured-collection__view-all button button--secondary">{{ 'sections.featured_collection.view_all' | t | default: 'View all' }}</a>
+  {%- endif -%}
+</section>
+
+<style>
+  .featured-collection { padding: 2rem 1.5rem; }
+  .featured-collection__title { margin: 0 0 1.5rem; text-align: center; font-size: 1.5rem; }
+  .featured-collection__grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(var(--columns-mobile, 2), 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  @media (min-width: 750px) {
+    .featured-collection__grid { grid-template-columns: repeat(var(--columns-desktop, 4), 1fr); }
+  }
+  .featured-collection__view-all { display: block; margin: 2rem auto 0; text-align: center; max-width: 12rem; }
+</style>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Our Bestselling Products"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 25,
+      "step": 1,
+      "default": 4,
+      "label": "Products to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_bestsellers_layout",
+      "label": "Use bestsellers layout (image, then Add to Cart, then title & price)",
+      "default": false,
+      "info": "Enable only for this section. Other sections stay unchanged."
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Columns (desktop)"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2",
+      "label": "Columns (mobile)"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        { "value": "adapt", "label": "Adapt" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "square", "label": "Square" }
+      ],
+      "default": "square",
+      "label": "Image ratio"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View all' link",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured collection",
+      "settings": {
+        "title": "Our Bestselling Products"
+      }
+    }
+  ]
+}
+{% endschema %}

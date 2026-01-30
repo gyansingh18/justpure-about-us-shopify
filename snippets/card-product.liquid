@@ -1,0 +1,136 @@
+{% comment %}
+  Product card with optional "bestsellers" layout.
+  - layout_bestsellers: true → image (top, eager) → Add to Cart → title → price. Use ONLY in Featured/Bestselling collection section.
+  - layout_bestsellers: false/blank → default order (image → title → price → Add to Cart). Everywhere else.
+  Accepts: card_product (or product), section_id, lazy_load (default true), layout_bestsellers (default false),
+           media_aspect_ratio, show_vendor, quick_add, skip_styles (optional).
+{% endcomment %}
+{%- assign product = card_product | default: product -%}
+{%- assign layout_bestsellers = layout_bestsellers | default: false -%}
+{%- assign lazy_load = lazy_load | default: true -%}
+{%- assign section_id = section_id | default: '' -%}
+{%- assign skip_styles = skip_styles | default: false -%}
+{%- if product == blank or product == empty -%}
+  {%- return -%}
+{%- endif -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign product_form_id = 'card-product-' | append: section_id | append: '-' | append: product.id -%}
+{%- liquid
+  assign ratio = 1
+  if product.featured_media and media_aspect_ratio == 'portrait'
+    assign ratio = 0.8
+  elsif product.featured_media and media_aspect_ratio == 'adapt'
+    assign ratio = product.featured_media.aspect_ratio
+  endif
+  if ratio == 0 or ratio == null
+    assign ratio = 1
+  endif
+  assign image_loading = 'lazy'
+  if layout_bestsellers
+    assign image_loading = 'eager'
+  elsif lazy_load == false
+    assign image_loading = 'eager'
+  endif
+-%}
+
+<div class="card-product{% if layout_bestsellers %} card-product--bestsellers{% endif %}" data-product-id="{{ product.id }}">
+  {%- comment -%} Block A: Image {%- endcomment -%}
+  <div class="card-product__media-wrapper" style="--ratio: {{ ratio }};">
+    <a href="{{ product.url }}" class="card-product__link card-product__link--media" aria-label="{{ product.title | escape }}">
+      {%- if product.featured_media -%}
+        <img
+          src="{{ product.featured_media | image_url: width: 600 }}"
+          alt="{{ product.featured_media.alt | default: product.title | escape }}"
+          width="600"
+          height="{{ 600 | divided_by: product.featured_media.aspect_ratio | round }}"
+          loading="{{ image_loading }}"
+          fetchpriority="{% if layout_bestsellers %}high{% else %}auto{% endif %}"
+          class="card-product__media"
+        >
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'card-product__media placeholder-svg' }}
+      {%- endif -%}
+    </a>
+  </div>
+
+  {%- if layout_bestsellers -%}
+    {%- comment -%} Bestsellers order: Image (above) → Add to Cart → Title → Price {%- endcomment -%}
+    <div class="card-product__actions">
+      {% render 'card-product-form', product: product, current_variant: current_variant, product_form_id: product_form_id, quick_add: quick_add %}
+    </div>
+    <div class="card-product__info">
+      <h3 class="card-product__title">
+        <a href="{{ product.url }}" class="card-product__link">{{ product.title | escape }}</a>
+      </h3>
+      {% render 'card-product-price', product: product, current_variant: current_variant %}
+    </div>
+  {%- else -%}
+    {%- comment -%} Default order: Image (above) → Title → Price → Add to Cart {%- endcomment -%}
+    <div class="card-product__info">
+      <h3 class="card-product__title">
+        <a href="{{ product.url }}" class="card-product__link">{{ product.title | escape }}</a>
+      </h3>
+      {% render 'card-product-price', product: product, current_variant: current_variant %}
+    </div>
+    <div class="card-product__actions">
+      {% render 'card-product-form', product: product, current_variant: current_variant, product_form_id: product_form_id, quick_add: quick_add %}
+    </div>
+  {%- endif -%}
+</div>
+
+{%- unless skip_styles -%}
+<style>
+  .card-product { display: flex; flex-direction: column; align-items: stretch; }
+  .card-product__media-wrapper { aspect-ratio: 1 / var(--ratio, 1); overflow: hidden; background: var(--color-base-background-2, #f5f5f5); }
+  .card-product__media { width: 100%; height: 100%; object-fit: cover; vertical-align: middle; display: block; }
+  .card-product__info { margin-top: 0.5rem; }
+  .card-product__title { margin: 0 0 0.25rem; font-size: 1rem; line-height: 1.3; }
+  .card-product__title a { text-decoration: none; color: inherit; }
+  .card-product__price { margin: 0; font-size: 0.9375rem; }
+  .card-product__actions { margin-top: 0.5rem; }
+  .card-product__form .visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
+  .card-product__variant-select { width: 100%; margin-bottom: 0.5rem; padding: 0.5rem; }
+  .card-product__button { cursor: pointer; width: 100%; }
+  .card-product__button:disabled { cursor: not-allowed; opacity: 0.7; }
+  .card-product__price--compare { text-decoration: line-through; margin-left: 0.25rem; opacity: 0.8; }
+</style>
+{%- endunless -%}
+{%- if layout_bestsellers and skip_styles == false -%}
+<style>
+  .card-product--bestsellers {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .card-product--bestsellers .card-product__media-wrapper {
+    aspect-ratio: 1 / var(--ratio, 1);
+    overflow: hidden;
+    background: var(--color-base-background-2, #f5f5f5);
+  }
+  .card-product--bestsellers .card-product__media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    vertical-align: middle;
+  }
+  .card-product--bestsellers .card-product__actions {
+    margin-top: 0.75rem;
+  }
+  .card-product--bestsellers .card-product__info {
+    margin-top: 0.5rem;
+  }
+  .card-product--bestsellers .card-product__title {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+  .card-product--bestsellers .card-product__title a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .card-product--bestsellers .card-product__price {
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+</style>
+{%- endif -%}

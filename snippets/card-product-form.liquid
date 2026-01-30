@@ -1,0 +1,32 @@
+{% comment %}
+  Single add-to-cart form for card-product. Preserves variant selection and AJAX cart.
+  Accepts: product, current_variant, product_form_id, quick_add (optional).
+{% endcomment %}
+{%- assign product_form_id = product_form_id | default: 'card-product-form' | append: product.id -%}
+{%- form 'product', product, id: product_form_id, class: 'card-product__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+  <input type="hidden" name="quantity" value="1">
+  {%- if product.has_only_default_variant -%}
+    <input type="hidden" name="id" value="{{ current_variant.id }}">
+  {%- else -%}
+    <label for="{{ product_form_id }}-variant" class="visually-hidden">{{ 'products.product.variant' | t }}</label>
+    <select id="{{ product_form_id }}-variant" name="id" class="card-product__variant-select">
+      {%- for variant in product.variants -%}
+        <option value="{{ variant.id }}"{% if variant == current_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>
+          {{ variant.title }}{% unless variant.available %} - {{ 'products.product.sold_out' | t }}{% endunless %}
+        </option>
+      {%- endfor -%}
+    </select>
+  {%- endif -%}
+  <button
+    type="submit"
+    name="add"
+    class="card-product__button button button--primary button--full-width"
+    {% unless current_variant.available %}disabled{% endunless %}
+  >
+    {%- if current_variant.available -%}
+      {{ 'products.product.add_to_cart' | t }}
+    {%- else -%}
+      {{ 'products.product.sold_out' | t }}
+    {%- endif -%}
+  </button>
+{%- endform -%}
