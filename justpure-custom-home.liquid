@@ -587,16 +587,19 @@
   #homepage-{{ section.id }} .homepage-bestsellers .card-product select[name="id"] {
     display: none !important;
   }
-  /* Keep only the form in .card-product__actions; hide any form in .card-product__info or sibling forms */
-  #homepage-{{ section.id }} .homepage-bestsellers .card-product__info form,
-  #homepage-{{ section.id }} .homepage-bestsellers .card-product [data-type="add-to-cart-form"] ~ [data-type="add-to-cart-form"],
-  #homepage-{{ section.id }} .homepage-bestsellers .card-product form ~ form {
+  /* Nuclear: hide every form in the card, then show only the one inside .card-product__actions */
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product form {
     display: none !important;
   }
-  /* Hide duplicate Add to cart buttons (sibling buttons) */
-  #homepage-{{ section.id }} .homepage-bestsellers .card-product button[type="submit"] ~ button[type="submit"],
-  #homepage-{{ section.id }} .homepage-bestsellers .card-product .card-product__form button[type="submit"] ~ button[type="submit"] {
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product .card-product__actions form {
+    display: block !important;
+  }
+  /* Nuclear: hide every Add to cart button, then show only the one in .card-product__actions */
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product button[type="submit"] {
     display: none !important;
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product .card-product__actions button[type="submit"] {
+    display: block !important;
   }
   /* If theme put a second form/button in .card-product__info, hide that whole block’s buttons */
   #homepage-{{ section.id }} .homepage-bestsellers .card-product__info button[type="submit"] {
