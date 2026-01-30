@@ -1,9 +1,9 @@
 {% comment %}
   Product card with optional "bestsellers" layout.
-  - layout_bestsellers: true → image (top, eager) → Add to Cart → title → price. Use ONLY in Featured/Bestselling collection section.
-  - layout_bestsellers: false/blank → default order (image → title → price → Add to Cart). Everywhere else.
-  Accepts: card_product (or product), section_id, lazy_load (default true), layout_bestsellers (default false),
-           media_aspect_ratio, show_vendor, quick_add, skip_styles (optional).
+  - layout_bestsellers: true = image then Add to Cart then title then price (Featured/Bestselling section only).
+  - layout_bestsellers: false = default order (image, title, price, Add to Cart).
+  Accepts: card_product (or product), section_id, lazy_load, layout_bestsellers, media_aspect_ratio, show_vendor, quick_add, skip_styles.
+  Note: Liquid has no "return" tag; empty product is handled by wrapping all output in "if product".
 {% endcomment %}
 {%- assign product = card_product | default: product -%}
 {%- assign layout_bestsellers = layout_bestsellers | default: false -%}
@@ -11,9 +11,9 @@
 {%- assign section_id = section_id | default: '' -%}
 {%- assign skip_styles = skip_styles | default: false -%}
 {%- if product != blank and product != empty -%}
-{%- assign current_variant = product.selected_or_first_available_variant -%}
-{%- assign product_form_id = 'card-product-' | append: section_id | append: '-' | append: product.id -%}
-{%- liquid
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign product_form_id = 'card-product-' | append: section_id | append: '-' | append: product.id -%}
+  {%- liquid
   assign ratio = 1
   if product.featured_media and media_aspect_ratio == 'portrait'
     assign ratio = 0.8
