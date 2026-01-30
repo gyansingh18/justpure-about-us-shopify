@@ -113,6 +113,41 @@
     </div>
   </div>
 
+  {%- comment -%} Bestsellers: uses card-product with layout_bestsellers (image → Add to Cart → title → price) {%- endcomment -%}
+  {%- assign bestsellers_collection = section.settings.bestsellers_collection -%}
+  {%- if bestsellers_collection != blank and bestsellers_collection.products.size > 0 -%}
+    <div class="homepage-bestsellers">
+      <div class="homepage-bestsellers__container">
+        <div class="homepage-bestsellers__header">
+          <h2 class="homepage-bestsellers__title">{{ section.settings.bestsellers_heading | default: 'Our Bestselling Products' }}</h2>
+        </div>
+        <div class="homepage-bestsellers__grid">
+          {%- assign bestsellers_limit = section.settings.bestsellers_count | default: 4 -%}
+          {%- assign bestsellers_first_row = 4 -%}
+          {%- for product in bestsellers_collection.products limit: bestsellers_limit -%}
+            {%- assign lazy_load = true -%}
+            {%- if forloop.index <= bestsellers_first_row -%}
+              {%- assign lazy_load = false -%}
+            {%- endif -%}
+            {%- assign skip_card_styles = false -%}
+            {%- if forloop.index > 1 -%}
+              {%- assign skip_card_styles = true -%}
+            {%- endif -%}
+            {% render 'card-product',
+              card_product: product,
+              section_id: section.id,
+              lazy_load: lazy_load,
+              layout_bestsellers: true,
+              skip_styles: skip_card_styles,
+              media_aspect_ratio: 'square',
+              show_vendor: false
+            %}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
   {%- comment -%} Moringa Featured Section {%- endcomment -%}
   <div class="homepage-moringa">
     <div class="homepage-moringa__container">
@@ -520,6 +555,53 @@
   }
   #homepage-{{ section.id }} .homepage-category-card__link:hover {
     color: #3d6b1a;
+  }
+
+  /* ——— Bestsellers (card-product layout_bestsellers) ——— */
+  #homepage-{{ section.id }} .homepage-bestsellers {
+    padding: 80px 0;
+    background: #fff;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-bestsellers {
+      padding: 60px 0;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 768px) {
+    #homepage-{{ section.id }} .homepage-bestsellers__container {
+      padding: 0 24px;
+    }
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers__header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers__title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 990px) {
+    #homepage-{{ section.id }} .homepage-bestsellers__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 480px) {
+    #homepage-{{ section.id }} .homepage-bestsellers__grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* ——— Moringa Featured Section ——— */
@@ -1193,6 +1275,31 @@
       "type": "url",
       "id": "spices_link",
       "label": "Spices Link"
+    },
+    {
+      "type": "header",
+      "content": "Bestsellers"
+    },
+    {
+      "type": "collection",
+      "id": "bestsellers_collection",
+      "label": "Bestsellers collection",
+      "info": "Products shown with image → Add to Cart → title → price. Leave empty to hide this block."
+    },
+    {
+      "type": "text",
+      "id": "bestsellers_heading",
+      "label": "Bestsellers heading",
+      "default": "Our Bestselling Products"
+    },
+    {
+      "type": "range",
+      "id": "bestsellers_count",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4,
+      "label": "Number of products to show"
     },
     {
       "type": "header",

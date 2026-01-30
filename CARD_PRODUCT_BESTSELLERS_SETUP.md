@@ -21,7 +21,10 @@ Upload to your theme:
 
 ### 2. Use the bestsellers layout only in the Featured/Bestsellers section
 
-**Option A – You already have a Featured collection section (e.g. Dawn `featured-collection.liquid`)**
+**Option A – JustPure custom home (recommended)**  
+The **custom home section** (`justpure-custom-home.liquid`) has a built-in **Bestsellers** block. In the theme editor, open the homepage → Custom Home section → under **Bestsellers** choose a collection and set the heading. Products will show with the bestsellers layout (image → Add to Cart → title → price). No other file needed.
+
+**Option B – You already have a Featured collection section (e.g. Dawn `featured-collection.liquid`)**
 
 1. Open **Sections → featured-collection.liquid** (or the section that powers “Our Bestselling Products”).
 2. Add a setting so you can turn the bestsellers layout on only for this section:
@@ -87,7 +90,7 @@ Change it so that when “Use bestsellers layout” is on, you pass `layout_best
    - Use this new `card-product` only in this section (as in the `render` above), and leave other sections using the old snippet, **or**
    - Merge the conditional layout (and the form/price sub-snippets) into your existing card snippet and keep calling that snippet everywhere; in the Featured/Bestsellers section, pass `layout_bestsellers: true` and `lazy_load: false` for the first row as above.
 
-**Option B – Use the provided featured-collection section**
+**Option C – Use the provided featured-collection section**
 
 - Add **`sections/featured-collection.liquid`** from this repo to your theme (or replace your existing one if you’re okay with that).
 - In the theme editor, open the **Featured collection** block that you use for “Our Bestselling Products”.
