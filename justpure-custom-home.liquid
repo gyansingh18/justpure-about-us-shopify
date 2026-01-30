@@ -113,40 +113,63 @@
     </div>
   </div>
 
-  {%- comment -%} Bestsellers: uses card-product with layout_bestsellers (image → Add to Cart → title → price) {%- endcomment -%}
-  {%- assign bestsellers_collection = section.settings.bestsellers_collection -%}
-  {%- if bestsellers_collection != blank and bestsellers_collection.products.size > 0 -%}
-    <div class="homepage-bestsellers">
-      <div class="homepage-bestsellers__container">
-        <div class="homepage-bestsellers__header">
-          <h2 class="homepage-bestsellers__title">{{ section.settings.bestsellers_heading | default: 'Our Bestselling Products' }}</h2>
-        </div>
+  {%- comment -%} Bestsellers: after Categories, before Moringa. Order: ghee first, moringa second, then others. Default collection: All. {%- endcomment -%}
+  {%- assign bestsellers_collection = section.settings.bestsellers_collection | default: collections.all -%}
+  <div class="homepage-bestsellers">
+    <div class="homepage-bestsellers__container">
+      <div class="homepage-bestsellers__header">
+        <h2 class="homepage-bestsellers__title">{{ section.settings.bestsellers_heading | default: 'Our Bestselling Products' }}</h2>
+      </div>
+      {%- if bestsellers_collection != blank and bestsellers_collection.products.size > 0 -%}
         <div class="homepage-bestsellers__grid">
           {%- assign bestsellers_limit = section.settings.bestsellers_count | default: 4 -%}
           {%- assign bestsellers_first_row = 4 -%}
-          {%- for product in bestsellers_collection.products limit: bestsellers_limit -%}
-            {%- assign lazy_load = true -%}
-            {%- if forloop.index <= bestsellers_first_row -%}
-              {%- assign lazy_load = false -%}
-            {%- endif -%}
-            {%- assign skip_card_styles = false -%}
-            {%- if forloop.index > 1 -%}
-              {%- assign skip_card_styles = true -%}
-            {%- endif -%}
-            {% render 'card-product',
-              card_product: product,
-              section_id: section.id,
-              lazy_load: lazy_load,
-              layout_bestsellers: true,
-              skip_styles: skip_card_styles,
-              media_aspect_ratio: 'square',
-              show_vendor: false
-            %}
+          {%- assign bestsellers_shown = '' -%}
+          {%- assign bestsellers_count = 0 -%}
+          {%- assign bestsellers_skip_styles = false -%}
+          {%- comment -%} 1. Ghee products first (collection handle contains "ghee") {%- endcomment -%}
+          {%- for product in bestsellers_collection.products -%}
+            {%- if bestsellers_count >= bestsellers_limit -%}{%- break -%}{%- endif -%}
+            {%- assign product_id_str = product.id | append: ',' -%}
+            {%- if bestsellers_shown contains product_id_str -%}{%- continue -%}{%- endif -%}
+            {%- assign coll_handles = product.collections | map: 'handle' | join: ',' | downcase -%}
+            {%- unless coll_handles contains 'ghee' -%}{%- continue -%}{%- endunless -%}
+            {%- assign lazy_load = true -%}{% if bestsellers_count < bestsellers_first_row %}{% assign lazy_load = false %}{% endif %}
+            {% render 'card-product', card_product: product, section_id: section.id, lazy_load: lazy_load, layout_bestsellers: true, skip_styles: bestsellers_skip_styles, media_aspect_ratio: 'square', show_vendor: false %}
+            {%- assign bestsellers_shown = bestsellers_shown | append: product_id_str -%}
+            {%- assign bestsellers_count = bestsellers_count | plus: 1 -%}
+            {%- assign bestsellers_skip_styles = true -%}
+          {%- endfor -%}
+          {%- comment -%} 2. Moringa products second (collection handle contains "moringa") {%- endcomment -%}
+          {%- for product in bestsellers_collection.products -%}
+            {%- if bestsellers_count >= bestsellers_limit -%}{%- break -%}{%- endif -%}
+            {%- assign product_id_str = product.id | append: ',' -%}
+            {%- if bestsellers_shown contains product_id_str -%}{%- continue -%}{%- endif -%}
+            {%- assign coll_handles = product.collections | map: 'handle' | join: ',' | downcase -%}
+            {%- unless coll_handles contains 'moringa' -%}{%- continue -%}{%- endunless -%}
+            {%- assign lazy_load = true -%}{% if bestsellers_count < bestsellers_first_row %}{% assign lazy_load = false %}{% endif %}
+            {% render 'card-product', card_product: product, section_id: section.id, lazy_load: lazy_load, layout_bestsellers: true, skip_styles: bestsellers_skip_styles, media_aspect_ratio: 'square', show_vendor: false %}
+            {%- assign bestsellers_shown = bestsellers_shown | append: product_id_str -%}
+            {%- assign bestsellers_count = bestsellers_count | plus: 1 -%}
+            {%- assign bestsellers_skip_styles = true -%}
+          {%- endfor -%}
+          {%- comment -%} 3. All other products {%- endcomment -%}
+          {%- for product in bestsellers_collection.products -%}
+            {%- if bestsellers_count >= bestsellers_limit -%}{%- break -%}{%- endif -%}
+            {%- assign product_id_str = product.id | append: ',' -%}
+            {%- if bestsellers_shown contains product_id_str -%}{%- continue -%}{%- endif -%}
+            {%- assign lazy_load = true -%}{% if bestsellers_count < bestsellers_first_row %}{% assign lazy_load = false %}{% endif %}
+            {% render 'card-product', card_product: product, section_id: section.id, lazy_load: lazy_load, layout_bestsellers: true, skip_styles: bestsellers_skip_styles, media_aspect_ratio: 'square', show_vendor: false %}
+            {%- assign bestsellers_shown = bestsellers_shown | append: product_id_str -%}
+            {%- assign bestsellers_count = bestsellers_count | plus: 1 -%}
+            {%- assign bestsellers_skip_styles = true -%}
           {%- endfor -%}
         </div>
-      </div>
+      {%- else -%}
+        <p class="homepage-bestsellers__empty">Select a collection in <strong>Custom Home → Bestsellers → Bestsellers collection</strong> to show products here.</p>
+      {%- endif -%}
     </div>
-  {%- endif -%}
+  </div>
 
   {%- comment -%} Moringa Featured Section {%- endcomment -%}
   <div class="homepage-moringa">
@@ -587,6 +610,13 @@
     font-weight: 600;
     color: #1a1a1a;
     margin: 0;
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers__empty {
+    text-align: center;
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
+    padding: 1rem;
   }
   #homepage-{{ section.id }} .homepage-bestsellers__grid {
     display: grid;
@@ -1284,7 +1314,7 @@
       "type": "collection",
       "id": "bestsellers_collection",
       "label": "Bestsellers collection",
-      "info": "Products shown with image → Add to Cart → title → price. Leave empty to hide this block."
+      "info": "Leave empty to use All products. Order: ghee first, moringa second, then others. Image → Add to Cart → title → price."
     },
     {
       "type": "text",
