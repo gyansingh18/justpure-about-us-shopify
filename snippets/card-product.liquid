@@ -10,9 +10,7 @@
 {%- assign lazy_load = lazy_load | default: true -%}
 {%- assign section_id = section_id | default: '' -%}
 {%- assign skip_styles = skip_styles | default: false -%}
-{%- if product == blank or product == empty -%}
-  {%- return -%}
-{%- endif -%}
+{%- if product != blank and product != empty -%}
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 {%- assign product_form_id = 'card-product-' | append: section_id | append: '-' | append: product.id -%}
 {%- liquid
@@ -133,4 +131,5 @@
     font-size: 0.9375rem;
   }
 </style>
+{%- endif -%}
 {%- endif -%}
