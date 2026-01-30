@@ -11,11 +11,12 @@
     {% if section.settings.hero_image != blank %}
       <div class="about-us-hero__bg-image">
         <img
-          src="{{ section.settings.hero_image | image_url: width: 2000 }}"
+          src="{{ section.settings.hero_image | image_url: width: 1600 }}"
           alt="{{ section.settings.hero_image.alt | escape }}"
-          width="2000"
-          height="1200"
+          width="1600"
+          height="960"
           loading="eager"
+          fetchpriority="high"
           class="about-us-hero__bg-img"
         >
       </div>

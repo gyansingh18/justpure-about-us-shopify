@@ -6,17 +6,22 @@
 {% endcomment %}
 
 <section class="homepage-section" id="homepage-{{ section.id }}">
+  {%- comment -%} Preload LCP hero image for faster paint {%- endcomment -%}
+  {% if section.settings.hero_image != blank %}
+    <link rel="preload" as="image" href="{{ section.settings.hero_image | image_url: width: 1600 }}">
+  {% endif %}
 
   {%- comment -%} Hero Section {%- endcomment -%}
   <div class="homepage-hero">
     {% if section.settings.hero_image != blank %}
       <div class="homepage-hero__bg-image">
         <img
-          src="{{ section.settings.hero_image | image_url: width: 2000 }}"
+          src="{{ section.settings.hero_image | image_url: width: 1600 }}"
           alt="{{ section.settings.hero_image.alt | escape }}"
-          width="2000"
-          height="1200"
+          width="1600"
+          height="960"
           loading="eager"
+          fetchpriority="high"
           class="homepage-hero__bg-img"
         >
       </div>
