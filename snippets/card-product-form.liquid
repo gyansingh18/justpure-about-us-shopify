@@ -26,13 +26,18 @@
   <button
     type="submit"
     name="add"
-    class="card-product__button button button--primary button--full-width"
+    class="card-product__button button button--full-width{% if hide_variant_selector %} card-product__button--bestsellers{% endif %}"
     {% unless current_variant.available %}disabled{% endunless %}
   >
-    {%- if current_variant.available -%}
-      {{ 'products.product.add_to_cart' | t }}
-    {%- else -%}
-      {{ 'products.product.sold_out' | t }}
+    {%- if hide_variant_selector -%}
+      <span class="card-product__button-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
     {%- endif -%}
+    <span class="card-product__button-text">
+      {%- if current_variant.available -%}
+        {{ 'products.product.add_to_cart' | t }}
+      {%- else -%}
+        {{ 'products.product.sold_out' | t }}
+      {%- endif -%}
+    </span>
   </button>
 {%- endform -%}

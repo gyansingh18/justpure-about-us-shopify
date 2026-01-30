@@ -599,7 +599,7 @@
     display: none !important;
   }
   #homepage-{{ section.id }} .homepage-bestsellers .card-product .card-product__actions button[type="submit"] {
-    display: block !important;
+    display: inline-flex !important;
   }
   /* If theme put a second form/button in .card-product__info, hide that whole block’s buttons */
   #homepage-{{ section.id }} .homepage-bestsellers .card-product__info button[type="submit"] {
@@ -674,17 +674,31 @@
     padding: 0 0.75rem;
   }
   #homepage-{{ section.id }} .homepage-bestsellers .card-product__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     padding: 0.65rem 1rem;
     font-size: 0.9rem;
     font-weight: 600;
     border-radius: 8px;
-    background: #2d5016;
-    color: #fff;
-    border: none;
-    transition: background 0.2s ease;
+    background: #fff;
+    color: #1a1a1a;
+    border: 1px solid #e0e0e0;
+    transition: background 0.2s ease, border-color 0.2s ease;
   }
   #homepage-{{ section.id }} .homepage-bestsellers .card-product__button:hover:not(:disabled) {
-    background: #3d6b1a;
+    background: #f5f5f5;
+    border-color: #ccc;
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product__button .card-product__button-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+  #homepage-{{ section.id }} .homepage-bestsellers .card-product__button .card-product__button-icon svg {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
   }
   #homepage-{{ section.id }} .homepage-bestsellers .card-product__info {
     padding: 0 0.75rem;
